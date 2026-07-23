@@ -43,7 +43,7 @@ def run_inference(model, tokenizer, prompt_text: str) -> str:
 def main():
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument("--base_model", type=str, default="Qwen/Qwen2.5-Coder-3B-Instruct")
+    parser.add_argument("--base_model", type=str, default="Qwen/Qwen3-4B-Instruct")
     parser.add_argument("--lora_path", type=str, default="./models/eli-tone-lora")
     parser.add_argument("--output_file", type=str, default=None)
     parser.add_argument("--batch_size", type=int, default=16)
@@ -71,7 +71,7 @@ def main():
         
         model, tokenizer = FastLanguageModel.from_pretrained(
             model_name=model_to_load,
-            max_seq_length=2048,
+            max_seq_length=49152,
             dtype=None,
             load_in_4bit=True,
         )

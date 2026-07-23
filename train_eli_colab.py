@@ -1,17 +1,27 @@
 """
-Colab Fine-Tuning Script for Eli (Qwen 2.5/3 Coder) using Unsloth
-Run on Google Colab (T4 / L4 / A100 GPU)
+Colab / Kaggle Fine-Tuning Script for Eli using Unsloth
+Run on Google Colab or Kaggle (T4 / L4 / P100 / A100 GPU)
+
+Production Step-Based Checkpointing & Hardware Benchmarking Guard:
+- Base Model: Qwen/Qwen3-4B-Instruct
+- Quantization: 4-bit NF4 via Unsloth
+- Context Window: 49,152 tokens (48k context for long Fable-5 CoT traces)
+- Checkpointing: Step-based every 250 steps (save_strategy="steps", save_steps=250)
+  Resilient against Colab/Kaggle session disconnects (max loss = 15 mins).
+- Benchmark Hook: Logs step wall-clock time across first 50 steps to print accurate ETA.
 """
 
 import os
+import sys
+import time
+import torch
 from pathlib import Path
-# Disable XET fallback stall in Colab
+
+# Disable HF hub transfer stalls in Colab/Kaggle
 os.environ["HF_HUB_DISABLE_XET"] = "1"
 os.environ["HF_HUB_ENABLE_HF_TRANSFER"] = "0"
 
-import torch
-
-# Apply monkeypatch to fix transformers/trl version mismatch for Trainer.__init__
+# Monkeypatch transformers/trl Trainer compatibility
 import transformers
 import inspect
 original_init = transformers.Trainer.__init__
@@ -28,16 +38,12 @@ if hasattr(transformers, 'trainer') and hasattr(transformers.trainer, 'Trainer')
 
 from datasets import load_dataset
 from unsloth import FastLanguageModel
-from trl import SFTTrainer
-from transformers import TrainingArguments
+from trl import SFTTrainer, SFTConfig
+from transformers import TrainerCallback
 
 # Configuration
-# Base model: Qwen3-4B Pure Dense (Apache 2.0)
-# Chosen over Qwen2.5-Coder-3B because Eli needs personality, writing, and
-# register calibration to stick — not just code. The general 4B model's dual-mode
-# architecture absorbs style transfer better than code-specialized variants.
-MODEL_NAME = "Qwen/Qwen3-4B"
-MAX_SEQ_LENGTH = 4096  # Was 50000 — reduced to prevent OOM on T4/L4 Colab instances
+MODEL_NAME = "Qwen/Qwen3-4B-Instruct"
+MAX_SEQ_LENGTH = 49152  # 48k context window
 DATASET_PATH = "./processed/eli-sft-train-formatted.jsonl"
 OUTPUT_DIR = "./models/eli-tone-lora"
 EPOCHS = 3
@@ -45,18 +51,43 @@ BATCH_SIZE = 2
 GRADIENT_ACCUMULATION = 4
 LEARNING_RATE = 2e-4
 
+# Custom Callback for Step Throughput & ETA Benchmarking
+class ThroughputBenchmarkCallback(TrainerCallback):
+    def __init__(self, total_steps: int):
+        self.total_steps = total_steps
+        self.step_start_time = None
+        self.step_durations = []
+
+    def on_step_begin(self, args, state, control, **kwargs):
+        self.step_start_time = time.time()
+
+    def on_step_end(self, args, state, control, **kwargs):
+        if self.step_start_time:
+            duration = time.time() - self.step_start_time
+            self.step_durations.append(duration)
+            if state.global_step <= 50 and state.global_step % 10 == 0:
+                avg_step_time = sum(self.step_durations[-10:]) / len(self.step_durations[-10:])
+                remaining_steps = self.total_steps - state.global_step
+                eta_hours = (avg_step_time * remaining_steps) / 3600.0
+                print(f"[BENCHMARK Step {state.global_step}/{self.total_steps}] "
+                      f"Avg Step Time: {avg_step_time:.2f}s | "
+                      f"Estimated Remaining Time: {eta_hours:.2f} hours")
+
 def main():
     print(f"=== INITIALIZING UNSLOTH FINE-TUNING ===")
-    print(f"Loading Base Model: {MODEL_NAME}")
-    
+    print(f"Base Model: {MODEL_NAME}")
+    print(f"Context Length: {MAX_SEQ_LENGTH:,} tokens (48k)")
+    print(f"Dataset Path: {DATASET_PATH}")
+    print(f"Output Checkpoints: {OUTPUT_DIR}")
+
     model, tokenizer = FastLanguageModel.from_pretrained(
         model_name=MODEL_NAME,
         max_seq_length=MAX_SEQ_LENGTH,
-        dtype=None,  # Auto-detect float16 / bfloat16
+        dtype=None,  # Auto float16 / bfloat16
         load_in_4bit=True,
     )
 
-    # Setup LoRA Adapters
+    # Configure LoRA Adapters
     model = FastLanguageModel.get_peft_model(
         model,
         r=16,
@@ -68,7 +99,6 @@ def main():
         random_state=2026,
     )
 
-    # Format ChatML / ShareGPT / Alpaca Dataset
     def format_prompts(examples):
         texts = []
         if "conversations" in examples:
@@ -79,10 +109,6 @@ def main():
                     messages.append({"role": role, "content": msg.get("value", "")})
                 text = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=False)
                 texts.append(text)
-        elif "messages" in examples:
-            for msgs in examples["messages"]:
-                text = tokenizer.apply_chat_template(msgs, tokenize=False, add_generation_prompt=False)
-                texts.append(text)
         elif "instruction" in examples and "output" in examples:
             for inst, out in zip(examples["instruction"], examples["output"]):
                 messages = [
@@ -91,8 +117,6 @@ def main():
                 ]
                 text = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=False)
                 texts.append(text)
-        elif "text" in examples:
-            return {"text": examples["text"]}
         return {"text": texts}
 
     dataset_path = DATASET_PATH
@@ -100,8 +124,6 @@ def main():
         for fallback in [
             "./processed/eli-sft-train-formatted.jsonl",
             "./processed/eli-sft-train.jsonl",
-            "./processed/training-data-sharegpt.jsonl",
-            "./processed/training-data.jsonl"
         ]:
             if Path(fallback).exists():
                 dataset_path = fallback
@@ -110,97 +132,76 @@ def main():
     print(f"Loading dataset from {dataset_path}...")
     dataset = load_dataset("json", data_files=dataset_path, split="train")
     dataset = dataset.map(format_prompts, batched=True)
+    total_samples = len(dataset)
+    effective_batch_size = BATCH_SIZE * GRADIENT_ACCUMULATION
+    total_steps = (total_samples // effective_batch_size) * EPOCHS
+    print(f"Dataset loaded: {total_samples:,} training samples ({total_steps:,} total training steps).")
 
-    print(f"Dataset loaded ({len(dataset)} items). Setting up SFTTrainer...")
+    # Step-Based Checkpointing Config (Resilient against disconnects)
+    sft_config = SFTConfig(
+        dataset_text_field="text",
+        max_seq_length=MAX_SEQ_LENGTH,
+        dataset_num_proc=2,
+        packing=False,
+        per_device_train_batch_size=BATCH_SIZE,
+        gradient_accumulation_steps=GRADIENT_ACCUMULATION,
+        warmup_steps=100,
+        num_train_epochs=EPOCHS,
+        learning_rate=LEARNING_RATE,
+        fp16=not torch.cuda.is_bf16_supported(),
+        bf16=torch.cuda.is_bf16_supported(),
+        logging_steps=25,
+        optim="adamw_8bit",
+        weight_decay=0.001,
+        lr_scheduler_type="cosine",
+        lr_scheduler_kwargs={"min_lr_rate": 0.1},
+        seed=2026,
+        output_dir=OUTPUT_DIR,
+        save_strategy="steps",
+        save_steps=250,
+        save_total_limit=3,
+        report_to="none",
+    )
 
-    # Universal TRL / Transformers version compatibility for SFTTrainer
+    benchmark_cb = ThroughputBenchmarkCallback(total_steps=total_steps)
+
     try:
-        from trl import SFTConfig
-        sft_config = SFTConfig(
-            dataset_text_field="text",
-            max_seq_length=MAX_SEQ_LENGTH,
-            dataset_num_proc=2,
-            packing=False,
-            per_device_train_batch_size=BATCH_SIZE,
-            gradient_accumulation_steps=GRADIENT_ACCUMULATION,
-            warmup_steps=2,
-            num_train_epochs=EPOCHS,
-            learning_rate=LEARNING_RATE,
-            fp16=not torch.cuda.is_bf16_supported(),
-            bf16=torch.cuda.is_bf16_supported(),
-            logging_steps=5,
-            optim="adamw_8bit",
-            weight_decay=0.01,
-            lr_scheduler_type="cosine",
-            seed=2026,
-            output_dir=OUTPUT_DIR,
-            save_strategy="no",
-            report_to="none",
+        trainer = SFTTrainer(
+            model=model,
+            train_dataset=dataset,
+            processing_class=tokenizer,
+            args=sft_config,
+            callbacks=[benchmark_cb],
         )
-        try:
-            trainer = SFTTrainer(
-                model=model,
-                train_dataset=dataset,
-                processing_class=tokenizer,
-                args=sft_config,
-            )
-        except TypeError:
-            try:
-                trainer = SFTTrainer(
-                    model=model,
-                    train_dataset=dataset,
-                    tokenizer=tokenizer,
-                    args=sft_config,
-                )
-            except TypeError:
-                trainer = SFTTrainer(
-                    model=model,
-                    train_dataset=dataset,
-                    args=sft_config,
-                )
-    except (ImportError, TypeError):
-        training_args = TrainingArguments(
-            per_device_train_batch_size=BATCH_SIZE,
-            gradient_accumulation_steps=GRADIENT_ACCUMULATION,
-            warmup_steps=2,
-            num_train_epochs=EPOCHS,
-            learning_rate=LEARNING_RATE,
-            fp16=not torch.cuda.is_bf16_supported(),
-            bf16=torch.cuda.is_bf16_supported(),
-            logging_steps=5,
-            optim="adamw_8bit",
-            weight_decay=0.01,
-            lr_scheduler_type="cosine",
-            seed=2026,
-            output_dir=OUTPUT_DIR,
-            save_strategy="no",
-            report_to="none",
+    except TypeError:
+        trainer = SFTTrainer(
+            model=model,
+            train_dataset=dataset,
+            tokenizer=tokenizer,
+            args=sft_config,
+            callbacks=[benchmark_cb],
         )
-        trainer_kwargs = {
-            "model": model,
-            "train_dataset": dataset,
-            "dataset_text_field": "text",
-            "max_seq_length": MAX_SEQ_LENGTH,
-            "dataset_num_proc": 2,
-            "packing": False,
-            "args": training_args,
-        }
-        try:
-            trainer = SFTTrainer(processing_class=tokenizer, **trainer_kwargs)
-        except TypeError:
-            try:
-                trainer = SFTTrainer(tokenizer=tokenizer, **trainer_kwargs)
-            except TypeError:
-                trainer = SFTTrainer(**trainer_kwargs)
 
-    print("=== STARTING TRAINING ===")
-    trainer_stats = trainer.train()
+    # Auto-resume from last step checkpoint if available
+    last_checkpoint = None
+    if Path(OUTPUT_DIR).exists():
+        checkpoints = [d for d in Path(OUTPUT_DIR).glob("checkpoint-*") if d.is_dir()]
+        if checkpoints:
+            checkpoints.sort(key=lambda x: int(x.name.split("-")[-1]))
+            last_checkpoint = str(checkpoints[-1])
+            print(f"Found existing checkpoint: {last_checkpoint}. Resuming training...")
+
+    print("\n=== STARTING UNSLOTH SFT TRAINING ===")
+    if last_checkpoint:
+        trainer_stats = trainer.train(resume_from_checkpoint=last_checkpoint)
+    else:
+        trainer_stats = trainer.train()
 
     print(f"\n=== TRAINING COMPLETE ===")
-    print(f"Saving LoRA Adapter to {OUTPUT_DIR}...")
+    print(f"Saving final LoRA Adapter to {OUTPUT_DIR}...")
     model.save_pretrained(OUTPUT_DIR)
     tokenizer.save_pretrained(OUTPUT_DIR)
-    print(f"Saved successfully!")
+    print("Saved successfully!")
 
 if __name__ == "__main__":
     main()

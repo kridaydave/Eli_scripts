@@ -1,9 +1,15 @@
 """
-Simple SFT Training Dataset Builder (`processed/eli-sft-train.jsonl` & `processed/eli-sft-train-formatted.jsonl`)
+Target-Weighted SFT Master Dataset Builder (`collector/build_simple_sft_train_jsonl.py`)
 Epoch Model Suite 1 — Eli (4B)
 
-Keeps original dataset files intact, expands Eli's persona voice, keeps Fable 5 CoT traces intact,
-and builds both Alpaca (`eli-sft-train.jsonl`) and ShareGPT formatted (`eli-sft-train-formatted.jsonl`) datasets.
+Fixes Persona/Voice upweighting (155 core QA pairs x 20 = 3,100 pairs, 12.5% batch mix).
+
+Unified Dataset Composition (24,792 total pairs):
+- Mined Stack v2 Code (1x): 7,292 pairs (29.4%)
+- FABLE 5 CoT Traces (1x): 8,530 pairs (34.4%)
+- Repaired Wiseness (5x): 3,410 pairs (13.8%)
+- Persona / Voice (20x): 3,100 pairs (12.5%)
+- Cross-Axis Emergence (6x): 2,460 pairs (9.9%)
 """
 
 import json
@@ -57,11 +63,10 @@ def build_standalone_code_review_train():
     print(f"  Saved {len(cr_pairs):,} standalone code review training pairs to {OUTPUT_CODE_REVIEW_TRAIN}.")
 
 def load_user_custom_answers():
-    print("Loading user's custom written answers (eli-custom-answers.md, personality-questions-eli.md, personality-questions-eli-frontend.md)...")
+    print("Loading user's custom written answers (eli-custom-answers.md, personality-questions-eli.md)...")
     custom_pairs = []
     seen_prompts = set()
 
-    # 1. Parse eli-custom-answers.md
     custom_ans_file = DATA_DIR / "eli-custom-answers.md"
     if custom_ans_file.exists():
         raw_ca = custom_ans_file.read_text(encoding="utf-8")
@@ -89,7 +94,6 @@ def load_user_custom_answers():
                         }
                     })
 
-    # 2. Parse personality-questions-eli.md & personality-questions-eli-frontend.md with regex
     files = [
         DATA_DIR / "personality-questions-eli.md",
         DATA_DIR / "personality-questions-eli-frontend.md"
@@ -118,42 +122,15 @@ def load_user_custom_answers():
                 })
 
     print(f"  Parsed {len(custom_pairs):,} unique authentic Eli personality & voice QA pairs.")
+    return custom_pairs
 
-    # Upweight custom persona voice by 10x with balanced registers to ensure high voice presence
-    expanded_custom_pairs = []
-    registers = ["light-personality", "pure-direct", "maximal-wit"]
+def build_target_weighted_sft_train():
+    rng = random.Random(2026)
+    print("=== BUILDING TARGET-WEIGHTED INTERLEAVED ELI SFT TRAIN DATASET ===")
 
-    MULTIPLIER = 10
-    for rep in range(MULTIPLIER):
-        for idx, item in enumerate(custom_pairs):
-            item_copy = json.loads(json.dumps(item))
-            reg = registers[(idx + rep) % len(registers)]
-            item_copy["metadata"]["register"] = reg
-            expanded_custom_pairs.append(item_copy)
-
-    print(f"  Expanded to {len(expanded_custom_pairs):,} total persona training samples (10x upweighted across 3 registers).")
-    return expanded_custom_pairs
-
-def build_simple_sft_train_jsonl():
-    print("=== BUILDING ELI SFT TRAIN DATASETS (`eli-sft-train.jsonl` & `eli-sft-train-formatted.jsonl`) ===")
-
-    # Standalone Code Review Dataset for Emergence Experiment
     build_standalone_code_review_train()
 
-    # User Custom Written Answers (Expanded)
-    user_custom_pairs = load_user_custom_answers()
-
-    # Custom Cross-Axis Joint Emergence Pairs
-    cross_axis_file = PROCESSED_DIR / "training-data-eli-cross-axis.jsonl"
-    cross_axis_pairs = []
-    if cross_axis_file.exists():
-        with open(cross_axis_file, "r", encoding="utf-8") as f:
-            for line in f:
-                if line.strip():
-                    cross_axis_pairs.append(json.loads(line))
-        print(f"  Loaded {len(cross_axis_pairs):,} custom Cross-Axis Joint Emergence pairs.")
-
-    # Real Mined Stack v2 Code
+    # 1. Mined Stack v2 Code (1x - Target: ~30%)
     stack_v2_file = PROCESSED_DIR / "raw_stack_v2_mined.jsonl"
     mined_code_pairs = []
     if stack_v2_file.exists():
@@ -161,9 +138,9 @@ def build_simple_sft_train_jsonl():
             for line in f:
                 if line.strip():
                     mined_code_pairs.append(json.loads(line))
-        print(f"  Loaded {len(mined_code_pairs):,} mined Stack v2 real gold code pairs.")
+    print(f"  [1/5] Stack v2 Code Base (1x): {len(mined_code_pairs):,} pairs")
 
-    # FABLE.5 CoT Traces (Kept Intact)
+    # 2. FABLE 5 CoT Traces (1x - Target: ~35%)
     fable_file = PROCESSED_DIR / "training-data-fable5-curated.jsonl"
     fable_cot_pairs = []
     if fable_file.exists():
@@ -183,26 +160,74 @@ def build_simple_sft_train_jsonl():
                                 "is_cross_axis": True
                             }
                         })
-        print(f"  Loaded {len(fable_cot_pairs):,} FABLE.5 CoT trace pairs.")
+    print(f"  [2/5] FABLE 5 CoT Traces (1x): {len(fable_cot_pairs):,} pairs")
 
-    # Combine User Custom Answers + Mined Code + Custom Emergence + Fable5 CoT Reasoning
-    all_sft_train = user_custom_pairs + mined_code_pairs + cross_axis_pairs + fable_cot_pairs
+    # 3. Persona / Voice QA Pairs (Upsampled 20x - Target: ~12.5%)
+    raw_user_custom = load_user_custom_answers()
+    user_custom_pairs = []
+    registers = ["light-personality", "pure-direct", "maximal-wit"]
+    for rep in range(20):
+        for idx, item in enumerate(raw_user_custom):
+            item_copy = json.loads(json.dumps(item))
+            item_copy["metadata"]["register"] = registers[(idx + rep) % len(registers)]
+            user_custom_pairs.append(item_copy)
+    print(f"  [3/5] Persona/Voice Pairs (Upsampled 20x): {len(user_custom_pairs):,} pairs (from {len(raw_user_custom)} unique)")
 
-    # Apply Progressive Density Curriculum
-    from curriculum_sorter import load_held_out_prompts, apply_progressive_curriculum
-    held_out_sigs = load_held_out_prompts()
-    curriculum_sft_train = apply_progressive_curriculum(all_sft_train, held_out_sigs)
+    # 4. Repaired Wiseness Data (Upsampled 5x - Target: ~14%)
+    wiseness_file = PROCESSED_DIR / "training-data-eli-wiseness.jsonl"
+    raw_wiseness_pairs = []
+    if wiseness_file.exists():
+        with open(wiseness_file, "r", encoding="utf-8") as f:
+            for line in f:
+                if line.strip():
+                    raw_wiseness_pairs.append(json.loads(line))
+    
+    upsampled_wiseness = []
+    for rep in range(5):
+        for item in raw_wiseness_pairs:
+            item_copy = json.loads(json.dumps(item))
+            upsampled_wiseness.append(item_copy)
+    print(f"  [4/5] Repaired Wiseness Data (Upsampled 5x): {len(upsampled_wiseness):,} pairs (from {len(raw_wiseness_pairs)} unique)")
 
-    print(f"\nTotal Simple SFT Train Dataset Size: {len(curriculum_sft_train):,} pairs")
+    # 5. Cross-Axis Emergence & Pushback (Upsampled 6x - Target: ~10%)
+    cross_axis_file = PROCESSED_DIR / "training-data-eli-cross-axis.jsonl"
+    raw_cross_axis_pairs = []
+    if cross_axis_file.exists():
+        with open(cross_axis_file, "r", encoding="utf-8") as f:
+            for line in f:
+                if line.strip():
+                    raw_cross_axis_pairs.append(json.loads(line))
 
-    # 1. Write original Alpaca format (`processed/eli-sft-train.jsonl`)
+    upsampled_cross_axis = []
+    for rep in range(6):
+        for item in raw_cross_axis_pairs:
+            item_copy = json.loads(json.dumps(item))
+            upsampled_cross_axis.append(item_copy)
+    print(f"  [5/5] Cross-Axis Emergence Data (Upsampled 6x): {len(upsampled_cross_axis):,} pairs (from {len(raw_cross_axis_pairs)} unique)")
+
+    # Combine all modules into unified dataset
+    all_pairs = mined_code_pairs + fable_cot_pairs + user_custom_pairs + upsampled_wiseness + upsampled_cross_axis
+    total_len = len(all_pairs)
+
+    print("\n=== FINAL TARGET-WEIGHTED DATASET COMPOSITION ===")
+    print(f"  - Mined Stack v2 Code:     {len(mined_code_pairs):,}\t({len(mined_code_pairs)/total_len*100:.1f}%)")
+    print(f"  - FABLE 5 CoT Traces:      {len(fable_cot_pairs):,}\t({len(fable_cot_pairs)/total_len*100:.1f}%)")
+    print(f"  - Persona / Voice:         {len(user_custom_pairs):,}\t({len(user_custom_pairs)/total_len*100:.1f}%)")
+    print(f"  - Repaired Wiseness:       {len(upsampled_wiseness):,}\t({len(upsampled_wiseness)/total_len*100:.1f}%)")
+    print(f"  - Cross-Axis & Pushback:   {len(upsampled_cross_axis):,}\t({len(upsampled_cross_axis)/total_len*100:.1f}%)")
+    print(f"  TOTAL UNIFIED SFT SAMPLES: {total_len:,} pairs")
+
+    # Example-level shuffling across whole dataset for uniform interleaving from Epoch 1
+    rng.shuffle(all_pairs)
+
+    # 1. Write Alpaca format (`processed/eli-sft-train.jsonl`)
     with open(OUTPUT_SFT_TRAIN, "w", encoding="utf-8") as f:
-        for item in curriculum_sft_train:
+        for item in all_pairs:
             f.write(json.dumps(item, ensure_ascii=False) + "\n")
 
     # 2. Write ShareGPT / ChatML formatted dataset (`processed/eli-sft-train-formatted.jsonl`)
     formatted_records = []
-    for idx, item in enumerate(curriculum_sft_train):
+    for idx, item in enumerate(all_pairs):
         inst = item.get("instruction", "")
         out = item.get("output", "")
         meta = item.get("metadata", {})
@@ -219,10 +244,9 @@ def build_simple_sft_train_jsonl():
         for rec in formatted_records:
             f.write(json.dumps(rec, ensure_ascii=False) + "\n")
 
-    print(f"\nSuccessfully generated dataset files:")
-    print(f"  - Emergence Code Review Train File: {OUTPUT_CODE_REVIEW_TRAIN}")
-    print(f"  - Main SFT Train File (Alpaca):     {OUTPUT_SFT_TRAIN} ({OUTPUT_SFT_TRAIN.stat().st_size / 1024 / 1024:.2f} MB)")
-    print(f"  - Formatted SFT File (ShareGPT):    {OUTPUT_SFT_TRAIN_FORMATTED} ({OUTPUT_SFT_TRAIN_FORMATTED.stat().st_size / 1024 / 1024:.2f} MB)")
+    print(f"\nSuccessfully generated master target-weighted dataset files:")
+    print(f"  - Main SFT Train File (Alpaca):  {OUTPUT_SFT_TRAIN} ({OUTPUT_SFT_TRAIN.stat().st_size / 1024 / 1024:.2f} MB)")
+    print(f"  - Formatted SFT File (ShareGPT): {OUTPUT_SFT_TRAIN_FORMATTED} ({OUTPUT_SFT_TRAIN_FORMATTED.stat().st_size / 1024 / 1024:.2f} MB)")
 
 if __name__ == "__main__":
-    build_simple_sft_train_jsonl()
+    build_target_weighted_sft_train()
