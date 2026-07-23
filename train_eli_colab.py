@@ -20,7 +20,7 @@ from pathlib import Path
 # Disable HF hub transfer stalls and configure CUDA memory allocator
 os.environ["HF_HUB_DISABLE_XET"] = "1"
 os.environ["HF_HUB_ENABLE_HF_TRANSFER"] = "0"
-os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True,max_split_size_mb:128"
 
 # Import Unsloth FIRST before transformers/trl for optimizations
 from unsloth import FastLanguageModel
@@ -46,7 +46,7 @@ from transformers import TrainerCallback
 
 # Configuration
 MODEL_NAME = "unsloth/Qwen3-4B-Instruct-2507"
-MAX_SEQ_LENGTH = 32768  # 32k context window (fits 32k CoT traces without T4 OOM)
+MAX_SEQ_LENGTH = 32768  # 32k context window
 DATASET_PATH = "./processed/eli-sft-train-formatted.jsonl"
 OUTPUT_DIR = "./models/eli-tone-lora"
 
@@ -76,8 +76,8 @@ def main():
     import argparse
     parser = argparse.ArgumentParser(description="Train Eli using Unsloth on Colab/Kaggle")
     parser.add_argument("--batch-size", type=int, default=8, help="Total effective batch size")
-    parser.add_argument("--micro-batch-size", type=int, default=1, help="Micro batch size per GPU (default: 1 for 48k packing on T4)")
-    parser.add_argument("--grad-accum", type=int, default=None, help="Gradient accumulation steps (auto-computed from batch-size if omitted)")
+    parser.add_argument("--micro-batch-size", type=int, default=1, help="Micro batch size per GPU")
+    parser.add_argument("--grad-accum", type=int, default=None, help="Gradient accumulation steps")
     parser.add_argument("--epochs", type=int, default=3, help="Number of training epochs")
     parser.add_argument("--learning-rate", type=float, default=2e-4, help="Initial learning rate")
     args = parser.parse_args()
@@ -92,7 +92,7 @@ def main():
 
     print(f"=== INITIALIZING UNSLOTH FINE-TUNING ===")
     print(f"Base Model: {MODEL_NAME}")
-    print(f"Context Length: {MAX_SEQ_LENGTH:,} tokens (48k)")
+    print(f"Context Length: {MAX_SEQ_LENGTH:,} tokens (32k)")
     print(f"Dataset Path: {DATASET_PATH}")
     print(f"Output Checkpoints: {OUTPUT_DIR}")
     print(f"Total Batch Size: {total_batch_size} (Micro-batch: {micro_batch_size}, Grad Accumulation: {gradient_accumulation})")
@@ -104,11 +104,11 @@ def main():
         load_in_4bit=True,
     )
 
-    # Configure LoRA Adapters
+    # Configure LoRA Adapters (Attention projections only to trim activation memory)
     model = FastLanguageModel.get_peft_model(
         model,
         r=16,
-        target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
+        target_modules=["q_proj", "k_proj", "v_proj", "o_proj"],
         lora_alpha=32,
         lora_dropout=0.05,
         bias="none",
@@ -159,7 +159,7 @@ def main():
         dataset_text_field="text",
         max_seq_length=MAX_SEQ_LENGTH,
         dataset_num_proc=2,
-        packing=True,
+        packing=False,
         per_device_train_batch_size=micro_batch_size,
         gradient_accumulation_steps=gradient_accumulation,
         warmup_steps=100,
