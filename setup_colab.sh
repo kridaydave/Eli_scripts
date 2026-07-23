@@ -2,6 +2,9 @@
 # One-click Google Colab Setup Script for Eli Fine-Tuning
 set -e
 
+export HF_HUB_DISABLE_XET=1
+export HF_HUB_ENABLE_HF_TRANSFER=0
+
 echo "=== 1. INSTALLING UNSLOTH & DEPENDENCIES ==="
 pip install --quiet "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git"
 pip install --quiet --no-deps xformers "trl<0.9.0" peft accelerate bitsandbytes datasets

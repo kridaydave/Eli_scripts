@@ -8,6 +8,10 @@ Requirements:
 """
 
 import os
+# Disable XET fallback stall in Colab
+os.environ["HF_HUB_DISABLE_XET"] = "1"
+os.environ["HF_HUB_ENABLE_HF_TRANSFER"] = "0"
+
 import torch
 from datasets import load_dataset
 from unsloth import FastLanguageModel
@@ -15,7 +19,7 @@ from trl import SFTTrainer
 from transformers import TrainingArguments
 
 # Configuration
-MODEL_NAME = "unsloth/Qwen2.5-Coder-3B-Instruct-bnb-4bit" # Or 7B if using A100/L4
+MODEL_NAME = "Qwen/Qwen2.5-Coder-3B-Instruct" # Direct HF repo to prevent XET download stalls
 MAX_SEQ_LENGTH = 2048
 DATASET_PATH = "./processed/eli-sft-train.jsonl"
 OUTPUT_DIR = "./models/eli-tone-lora"
