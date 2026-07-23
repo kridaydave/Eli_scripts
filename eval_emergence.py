@@ -46,6 +46,7 @@ def main():
     parser.add_argument("--base_model", type=str, default="Qwen/Qwen2.5-Coder-3B-Instruct")
     parser.add_argument("--lora_path", type=str, default="./models/eli-tone-lora")
     parser.add_argument("--output_file", type=str, default=None)
+    parser.add_argument("--batch_size", type=int, default=16)
     args = parser.parse_args()
 
     print("=== STARTING STEP 0 HELD-OUT EMERGENCE EVALUATION ===")
@@ -90,37 +91,78 @@ def main():
         else:
             print(f"Notice: LoRA path {args.lora_path} not found. Running UNTUNED BASE MODEL evaluation.")
 
+    # Configure padding for batch generation
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+    tokenizer.padding_side = "left"
+    if hasattr(model, 'config'):
+        model.config.pad_token_id = tokenizer.pad_token_id
+
     eval_items = []
     with open(HELD_OUT_FILE, "r", encoding="utf-8") as f:
         for line in f:
             if line.strip():
                 eval_items.append(json.loads(line))
 
-    results = []
-    print(f"\n=== EVALUATING {len(eval_items)} HELD-OUT EXAMPLES ===")
-    
-    for i, item in enumerate(eval_items):
+    # Construct batched inputs
+    formatted_prompts = []
+    for item in eval_items:
         prompt_text = f"Context: {item['context']}\n\nArtifact: {item['artifact']}"
-        print(f"[{i+1}/{len(eval_items)}] ID: {item['id']} | Domain: {item['domain']} | Cell: {item['cell']}")
+        messages = [
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": prompt_text}
+        ]
+        input_text = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+        formatted_prompts.append(input_text)
+
+    results = []
+    print(f"\n=== EVALUATING {len(eval_items)} HELD-OUT EXAMPLES IN BATCHES (Size: {args.batch_size}) ===")
+    
+    for i in range(0, len(formatted_prompts), args.batch_size):
+        batch_prompts = formatted_prompts[i : i + args.batch_size]
+        batch_items = eval_items[i : i + args.batch_size]
+        print(f"Processing batch {i // args.batch_size + 1}/{(len(formatted_prompts) - 1) // args.batch_size + 1}...")
         
-        response = run_inference(model, tokenizer, prompt_text)
+        inputs = tokenizer(
+            batch_prompts,
+            return_tensors="pt",
+            padding=True,
+            truncation=True,
+            max_length=2048
+        ).to(model.device)
         
-        result_entry = {
-            "id": item["id"],
-            "domain": item["domain"],
-            "cell": item["cell"],
-            "context": item["context"],
-            "artifact": item["artifact"],
-            "ground_truth_target_response": item["response"],
-            "model_generated_response": response,
-            "checklist_rubric": {
-                "score_directness_matches_stakes": None,
-                "score_hedging_matches_certainty": None,
-                "score_no_register_bleed": None,
-                "score_distinguishes_grid_cell": None
+        with torch.no_grad():
+            outputs = model.generate(
+                **inputs,
+                max_new_tokens=256,
+                temperature=0.3,
+                top_p=0.9,
+                do_sample=True,
+                pad_token_id=tokenizer.pad_token_id,
+                eos_token_id=tokenizer.eos_token_id,
+            )
+            
+        for j, out in enumerate(outputs):
+            gen_tokens = out[inputs.input_ids.shape[1]:]
+            response = tokenizer.decode(gen_tokens, skip_special_tokens=True).strip()
+            item = batch_items[j]
+            
+            result_entry = {
+                "id": item["id"],
+                "domain": item["domain"],
+                "cell": item["cell"],
+                "context": item["context"],
+                "artifact": item["artifact"],
+                "ground_truth_target_response": item["response"],
+                "model_generated_response": response,
+                "checklist_rubric": {
+                    "score_directness_matches_stakes": None,
+                    "score_hedging_matches_certainty": None,
+                    "score_no_register_bleed": None,
+                    "score_distinguishes_grid_cell": None
+                }
             }
-        }
-        results.append(result_entry)
+            results.append(result_entry)
 
     if args.output_file:
         output_path = Path(args.output_file)
