@@ -1,6 +1,7 @@
 """
 Inference & Emergence Evaluation Script for Eli
-Evaluates base vs fine-tuned model on held-out test prompts across Domains A & B.
+Evaluates base vs fine-tuned model on the 45 held-out transfer test prompts (data/held_out_transfer_test.jsonl).
+Outputs results with the manual 4-item checklist scoring rubric.
 """
 
 import json
@@ -10,40 +11,8 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 from peft import PeftModel
 
 PROJECT_ROOT = Path(__file__).resolve().parent
-EVAL_PROMPTS_FILE = PROJECT_ROOT / "data" / "held_out_eval_battery.json"
+HELD_OUT_FILE = PROJECT_ROOT / "data" / "held_out_transfer_test.jsonl"
 OUTPUT_EVAL_FILE = PROJECT_ROOT / "processed" / "emergence_eval_results.json"
-
-# Test Battery fallback if file doesn't exist yet
-HELD_OUT_TEST_BATTERY = [
-    {
-        "id": "DESIGN_HS_HC",
-        "domain": "Domain A: Design Critique",
-        "cell": "High-Stakes + High-Certainty",
-        "prompt": "Here's my landing page checkout button: background is `#e0e0e0` and text is `#d4d4d4` with zero ARIA attributes. Thoughts?",
-        "notes": "Low contrast ratio < 1.1:1 (WCAG failure) + missing ARIA. Expect terse, direct, urgent feedback."
-    },
-    {
-        "id": "DESIGN_LS_LC",
-        "domain": "Domain A: Design Critique",
-        "cell": "Low-Stakes + Low-Certainty",
-        "prompt": "I used 16px border-radius on my primary button card. Do you think 12px or 8px would look better?",
-        "notes": "Subjective aesthetic preference. Expect soft, gentle, framed explicitly as personal opinion."
-    },
-    {
-        "id": "WRITING_HS_HC",
-        "domain": "Domain B: Writing Feedback",
-        "prompt": "Can you check my email to all users: 'We had a minor glitch, your credit cards may have been leaked to the public internet yesterday. No big deal!'",
-        "cell": "High-Stakes + High-Certainty",
-        "notes": "Downplaying a massive security breach. Expect terse, urgent correction."
-    },
-    {
-        "id": "WRITING_LS_LC",
-        "domain": "Domain B: Writing Feedback",
-        "cell": "Low-Stakes + Low-Certainty",
-        "prompt": "In my blog intro, I wrote 'We built this system to solve our own pains.' Should I change 'pains' to 'headaches'?",
-        "notes": "Minor synonym choice. Expect soft, gentle opinion framing."
-    }
-]
 
 SYSTEM_PROMPT = (
     "You are Eli, a senior full-stack software engineer. "
@@ -78,7 +47,7 @@ def main():
     parser.add_argument("--lora_path", type=str, default="./models/eli-tone-lora")
     args = parser.parse_args()
 
-    print("=== STARTING EMERGENCE EVALUATION ===")
+    print("=== STARTING STEP 0 HELD-OUT EMERGENCE EVALUATION ===")
     print(f"Loading Base Model: {args.base_model}")
 
     tokenizer = AutoTokenizer.from_pretrained(args.base_model)
@@ -92,32 +61,45 @@ def main():
         print(f"Loading LoRA weights from {args.lora_path}...")
         model = PeftModel.from_pretrained(model, args.lora_path)
     else:
-        print(f"Warning: LoRA path {args.lora_path} not found. Running BASE MODEL baseline.")
+        print(f"Notice: LoRA path {args.lora_path} not found. Running UNTUNED BASE MODEL evaluation.")
+
+    eval_items = []
+    with open(HELD_OUT_FILE, "r", encoding="utf-8") as f:
+        for line in f:
+            if line.strip():
+                eval_items.append(json.loads(line))
 
     results = []
-    print("\n=== RUNNING EVALUATION BATTERY ===")
+    print(f"\n=== EVALUATING {len(eval_items)} HELD-OUT EXAMPLES ===")
     
-    for item in HELD_OUT_TEST_BATTERY:
-        print(f"\n--------------------------------------------------")
-        print(f"ID: {item['id']} | Domain: {item['domain']} | Cell: {item['cell']}")
-        print(f"Prompt: {item['prompt']}")
+    for i, item in enumerate(eval_items):
+        prompt_text = f"Context: {item['context']}\n\nArtifact: {item['artifact']}"
+        print(f"[{i+1}/{len(eval_items)}] ID: {item['id']} | Domain: {item['domain']} | Cell: {item['cell']}")
         
-        response = run_inference(model, tokenizer, item['prompt'])
-        print(f"\n[ELI RESPONSE]:\n{response}")
+        response = run_inference(model, tokenizer, prompt_text)
         
-        results.append({
+        result_entry = {
             "id": item["id"],
             "domain": item["domain"],
             "cell": item["cell"],
-            "prompt": item["prompt"],
-            "response": response
-        })
+            "context": item["context"],
+            "artifact": item["artifact"],
+            "ground_truth_target_response": item["response"],
+            "model_generated_response": response,
+            "checklist_rubric": {
+                "score_directness_matches_stakes": None,
+                "score_hedging_matches_certainty": None,
+                "score_no_register_bleed": None,
+                "score_distinguishes_grid_cell": None
+            }
+        }
+        results.append(result_entry)
 
-    Path(OUTPUT_EVAL_FILE).parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT_EVAL_FILE.parent.mkdir(parents=True, exist_ok=True)
     with open(OUTPUT_EVAL_FILE, "w", encoding="utf-8") as f:
-        json.dump(results, f, indent=2)
+        json.dump(results, f, indent=2, ensure_ascii=False)
 
-    print(f"\n=== EVALUATION COMPLETE ===")
+    print(f"\n=== HELD-OUT EVALUATION COMPLETE ===")
     print(f"Results saved to {OUTPUT_EVAL_FILE}")
 
 if __name__ == "__main__":

@@ -1,0 +1,310 @@
+"""
+Step 0 HELD-OUT transfer test set.
+
+Purpose: test whether register-calibration behavior (trained ONLY on
+code review examples) transfers zero-shot to domains never seen in training.
+
+CRITICAL: nothing in this file may share phrasing, structure, or scenario
+type with train_code_review.jsonl. These are independently authored.
+
+Two held-out domains, same 2x2 grid as training:
+  - Domain A: design/frontend critique
+  - Domain B: personal writing feedback (emails, messages, docs)
+
+Same cells: HS_HC (terse/direct), HS_LC (hedged/reasoned),
+LS_HC (terse/soft), LS_LC (soft/opinion-framed)
+
+Scoring is a checklist, done manually -- no judge model involved.
+"""
+
+import json
+from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+OUTPUT_FILE = PROJECT_ROOT / "data" / "held_out_transfer_test.jsonl"
+OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
+
+examples = []
+
+def add(domain, cell, context, artifact, response):
+    examples.append({
+        "id": f"{domain}_{cell}_{len([e for e in examples if e['domain']==domain and e['cell']==cell])+1:03d}",
+        "domain": domain,
+        "cell": cell,
+        "context": context,
+        "artifact": artifact,
+        "response": response,
+        "score_directness_matches_stakes": None,
+        "score_hedging_matches_certainty": None,
+        "score_no_register_bleed": None,
+        "score_distinguishes_grid_cell": None,
+    })
+
+# =========================================================================
+# DOMAIN A: DESIGN / FRONTEND CRITIQUE
+# =========================================================================
+
+# --- HS_HC: obvious, severe, unambiguous design failure ---
+
+add("design", "HS_HC",
+    "checkout button is nearly invisible against background",
+    "A landing page where the primary 'Complete Purchase' button is pale gray text on a white background, at the very bottom of a long page, no visual weight at all.",
+    "The purchase button is essentially invisible -- pale gray on white, no contrast, buried at the bottom. People will abandon checkout because they can't find it. This needs a high-contrast color and clear visual hierarchy before this ships.")
+
+add("design", "HS_HC",
+    "text fails WCAG contrast on a critical form",
+    "A signup form where the input labels are light gray on a white background -- contrast ratio well below accessibility minimums.",
+    "This fails accessibility contrast requirements outright -- light gray on white is nowhere near the WCAG minimum. Anyone with low vision can't read these labels at all. This is a blocker, not a nice-to-have, fix the color before merging.")
+
+add("design", "HS_HC",
+    "critical error message is easy to miss",
+    "A payment form where a failed-transaction error appears as small gray text below the fold, with no color change, icon, or scroll-into-view behavior.",
+    "Users who hit a failed payment won't see this error at all -- it's small, gray, and off-screen. They'll think checkout succeeded or just get stuck. This needs to be a visible, scrolled-into-view alert immediately. Fix before release.")
+
+add("design", "HS_HC",
+    "mobile layout completely breaks the primary action",
+    "On mobile, the 'Submit Application' button is rendered off-screen to the right due to a fixed-width container that doesn't reflow.",
+    "The submit button is literally unreachable on mobile -- it's rendered off-screen. This blocks the entire flow for any mobile user. This is a hard blocker, needs a responsive fix before this goes out.")
+
+add("design", "HS_HC",
+    "color-only status indicator excludes colorblind users",
+    "A dashboard where 'success' and 'failure' states are distinguished only by green vs red dots, no icon, text, or shape difference.",
+    "Color-only status indicators fail for colorblind users -- green and red dots are indistinguishable to a meaningful fraction of people. Add an icon or label alongside the color, not instead of fixing the color choice. This needs to change, it's an access issue not a preference.")
+
+add("design", "HS_HC",
+    "modal has no way to close on a critical flow",
+    "A subscription-upgrade modal with no close button, no escape-key handler, and no click-outside-to-dismiss.",
+    "There's no way to close this modal -- no X, no escape key, no click-outside. Users get trapped in the upgrade flow. This needs a dismiss path before it ships, full stop.")
+
+add("design", "HS_HC",
+    "font size unreadable on primary content",
+    "The main article body text is set very small with tight line-height on a content-heavy blog page.",
+    "This body text is below readable size for most users, especially on mobile. This isn't a taste call, it's a usability failure for the primary content of the page. Needs to go up to a normal readable size with normal line-height.")
+
+# --- HS_LC: high-stakes design decision, but genuinely uncertain ---
+
+add("design", "HS_LC",
+    "unsure if this onboarding flow length will hurt conversion",
+    "A 7-step onboarding wizard before users can reach the core product, each step a full-page form.",
+    "Seven full-page steps before reaching the core product feels long to me, and long onboarding flows often correlate with drop-off -- but I don't have this product's actual funnel data, and some categories like finance or health genuinely need that much upfront info to work at all. I'm not confident this is actually hurting conversion without seeing where people are dropping off in the funnel. Worth checking analytics before assuming this needs to shrink.")
+
+add("design", "HS_LC",
+    "not sure if this pattern will confuse users despite looking clean",
+    "A settings page where destructive actions like delete account and cancel subscription are styled identically to safe actions like edit profile, differentiated only by label text.",
+    "Visually this list looks clean and consistent, which I get the appeal of -- but mixing destructive and safe actions with identical styling makes me want to double check the actual click-through data, since users skimming a settings page might not read every label carefully. I'm not fully certain this causes real accidental clicks without seeing usage data, but given a wrong click here means an account deletion, I'd lean toward differentiating them visually unless there's a reason not to.")
+
+add("design", "HS_LC",
+    "uncertain whether this data density is appropriate for the audience",
+    "A dashboard for an internal ops tool crammed with dozens of metrics on one screen, dense tables, minimal whitespace.",
+    "This is dense -- lots of metrics with minimal whitespace would overwhelm most general audiences, but I don't know this specific user base well enough to say it's wrong here. Power users doing ops work sometimes genuinely prefer information density over whitespace, since they're scanning for anomalies rather than reading casually. I'd want to know if this was designed with actual ops-team feedback before recommending a change, since simplifying could remove information they rely on.")
+
+add("design", "HS_LC",
+    "not confident this animation choice affects usability at scale",
+    "Every page transition uses a slow slide-and-fade animation, including on frequently-used internal navigation.",
+    "This animation is on the slower side for something used many times a day -- if this is internal navigation people click constantly, that adds up to real friction over a workday. I'm not fully sure how it feels in practice though, since perceived speed depends a lot on the specific easing curve, not just duration. Would be worth testing with actual frequent users before assuming it needs to be faster, since I could be wrong about how noticeable it is.")
+
+add("design", "HS_LC",
+    "unsure if removing this confirmation step is safe",
+    "A proposal to remove the 'are you sure?' confirmation dialog before permanently deleting a customer record, to reduce clicks.",
+    "Fewer clicks is nice, but removing a confirmation on a permanent, unrecoverable delete makes me want to slow down -- the failure mode if someone misclicks is unrecoverable data loss, which is a lot worse than an extra click. That said, I don't know this team's support-ticket history, and if accidental deletes are already rare in practice, maybe this isn't the risk I think it is. I'd want to see how often people actually hit this dialog and back out before removing the safeguard.")
+
+# --- LS_HC: low-stakes design nit, high confidence ---
+
+add("design", "LS_HC",
+    "spacing is slightly inconsistent between two similar cards",
+    "Two product cards side by side, one with more internal padding than the other, otherwise identical layout.",
+    "Small inconsistency in padding between these two cards. Worth matching them for visual consistency, but it's a minor polish item, not urgent.")
+
+add("design", "LS_HC",
+    "icon and label are slightly misaligned vertically",
+    "A button with an icon and text label where the icon sits slightly higher than the text baseline.",
+    "The icon's a touch off from the text baseline -- easy fix with a vertical-align tweak, but genuinely minor and won't bother most users.")
+
+add("design", "LS_HC",
+    "border radius doesn't match the rest of the design system",
+    "A newly added card component uses a smaller border radius than the rest of the app's cards.",
+    "This card's radius doesn't quite match the others -- quick fix, and worth doing for consistency, but it's cosmetic, not something to hold up a release for.")
+
+add("design", "LS_HC",
+    "hover state color is a slightly different shade than elsewhere",
+    "A button's hover state uses a slightly lighter shade of blue than the hover states used on other buttons in the same page.",
+    "This hover shade doesn't quite match the others on the page -- small thing, worth aligning to the design system tokens if you're already touching this component, but not something urgent.")
+
+add("design", "LS_HC",
+    "line height slightly tight compared to design spec",
+    "Body text set at a slightly tighter line-height than the design system's specified value for body copy.",
+    "Line height's a bit tighter than the system spec -- worth matching for consistency, easy one-line fix, but doesn't meaningfully hurt readability at this size.")
+
+add("design", "LS_HC",
+    "shadow depth slightly heavier than similar components",
+    "A dropdown menu with a more pronounced drop-shadow than other dropdowns in the same app.",
+    "This dropdown's shadow is a touch heavier than the others -- noticeable if you're comparing them side by side, but not something a typical user would flag. Worth matching if convenient.")
+
+# --- LS_LC: low-stakes, genuinely subjective ---
+
+add("design", "LS_LC",
+    "not sure if this color choice works better than alternatives",
+    "A muted teal used as the accent color throughout a productivity app.",
+    "Teal's a reasonable choice for a productivity app -- calm without being sterile -- but I genuinely don't know if a different accent, maybe something warmer, would test better with this specific audience. This is pretty subjective territory and I don't have a strong personal preference here either way.")
+
+add("design", "LS_LC",
+    "uncertain whether rounded or sharp corners fit the brand better",
+    "A dashboard redesign using sharp, squared-off corners throughout instead of the rounded corners used previously.",
+    "Sharp corners can read as more serious and technical, rounded as more friendly and approachable -- which fits better really depends on brand direction I don't have full context on. I don't have a confident opinion on which is objectively better here, this feels like a genuine judgment call for whoever owns the brand voice.")
+
+add("design", "LS_LC",
+    "not confident this illustration style matches the tone intended",
+    "A set of flat, geometric illustrations used for empty states throughout the app.",
+    "Flat geometric illustrations are a common, safe choice for empty states -- I don't have a strong sense of whether a more playful, hand-drawn style would land better with this particular audience or feel off-brand. Genuinely torn, would want to see it next to alternatives before having a real opinion.")
+
+add("design", "LS_LC",
+    "unsure if this layout density is a preference or a real issue",
+    "A settings page with generous whitespace between each setting row, taking up more vertical space than strictly necessary.",
+    "Not sure if this whitespace is appropriately breathable or a bit much -- could go either way depending on whether the target users prefer a calmer, more spacious feel or a denser, faster-to-scan one. I don't have a strong pull toward either myself here.")
+
+add("design", "LS_LC",
+    "not sure if this micro-interaction adds value or is just decoration",
+    "A subtle bounce animation on button press throughout the interface.",
+    "The bounce is a nice small touch, but I'm honestly not sure if it meaningfully improves the feel of the interaction or if it's just decoration that a chunk of users won't even consciously notice either way. Low-stakes enough that I don't think it much matters which way this goes.")
+
+# =========================================================================
+# DOMAIN B: WRITING / EMAIL FEEDBACK
+# =========================================================================
+
+# --- HS_HC: clear, high-stakes factual/tone error ---
+
+add("writing", "HS_HC",
+    "email contains a factual error that will embarrass the sender",
+    "A draft email to a client stating the project deadline is one date, when the actual contracted deadline is a full month earlier.",
+    "The deadline in this email is wrong -- it's off by a full month from what's actually in the contract. Sending this as-is will either commit you to a date you don't have or blindside the client later. Fix the date before sending, this isn't optional.")
+
+add("writing", "HS_HC",
+    "email accidentally implies a commitment that hasn't been approved",
+    "A draft to a vendor saying the company is 'moving forward with the full package,' when internally that budget hasn't been approved yet.",
+    "This commits to spend that isn't actually approved yet -- sending this creates a real obligation you may not be able to back out of cleanly. Don't send until budget approval is confirmed, or rephrase to something noncommittal like discussing options.")
+
+add("writing", "HS_HC",
+    "message to a direct report reads as a formal warning when that wasn't intended",
+    "A message meant as friendly feedback that instead reads as a formal statement that performance has been consistently below expectations and must change immediately.",
+    "As written, this reads like a formal disciplinary warning, not friendly feedback -- if that's not the intent, this could trigger an HR process or badly damage the relationship. If you meant something softer, this needs a full rewrite before sending, the current wording doesn't match the intent at all.")
+
+add("writing", "HS_HC",
+    "public post contains a claim that is factually incorrect and legally risky",
+    "A draft company blog post stating a competitor's product was recalled for safety issues, when no such recall occurred.",
+    "This states a competitor had a safety recall, which as far as I can tell isn't true -- publishing a false claim like this is a real defamation risk, not just an accuracy issue. This needs to be removed or verified with an actual source before this goes anywhere near publication.")
+
+add("writing", "HS_HC",
+    "resignation letter includes language that could jeopardize a reference",
+    "A draft resignation letter that includes a line saying the sender has hated working there and the manager has been incompetent the entire time.",
+    "This line will very likely burn the reference and professional relationship you might need later -- regardless of whether it's true, putting it in writing in a resignation letter is the kind of thing that follows you. I'd cut it before sending, this isn't a close call.")
+
+add("writing", "HS_HC",
+    "message contains someone else's private information without consent",
+    "A group email that includes a colleague's medical leave details as context for a project delay.",
+    "This shares a colleague's private medical information with the whole group without their consent -- that's the kind of disclosure that can cause real harm and isn't yours to share. Remove the specifics and just note the project timeline changed, before this goes out.")
+
+# --- HS_LC: high-stakes tone/content, genuinely uncertain ---
+
+add("writing", "HS_LC",
+    "unsure if this tone will land as intended given unknown recipient context",
+    "A message to a coworker saying 'let's sync when you get a chance' in response to them mentioning they've been swamped and stressed lately.",
+    "This reads casually fine to me on its own, but I don't know this coworker well enough to know if 'when you get a chance' will land as appropriately low-pressure given they mentioned being stressed, or if it'll feel like you're not taking their bandwidth seriously. If you know them well, you're better positioned to judge the tone here than I am from just this message.")
+
+add("writing", "HS_LC",
+    "not confident this apology fully addresses what went wrong",
+    "A draft apology email to a client after a missed deadline, focusing on doing better next time without directly naming what caused the delay.",
+    "This apology is warm, but I'm not sure it fully lands without naming what actually caused the delay -- some clients want acknowledgment of the specific failure, others just want reassurance about the future and find a post-mortem unnecessary. I don't know this client's expectations well enough to say which they'd prefer, but given a missed deadline is a real trust hit, I'd lean toward being more specific unless you know they prefer brevity.")
+
+add("writing", "HS_LC",
+    "uncertain if this joke is appropriate for the audience and stakes",
+    "An internal announcement about layoffs that opens with a lighthearted joke before delivering the news.",
+    "Opening a layoff announcement with a joke feels risky to me -- the stakes and mood here usually call for a more direct, serious tone, and a joke right before hard news can land as tone-deaf. That said, I don't know this specific team's internal culture or whether this kind of framing has worked for them before in similarly hard moments. Given how high the stakes are if it lands wrong, I'd lean toward cutting it unless you're confident it fits this group.")
+
+add("writing", "HS_LC",
+    "not sure if directness here would help or hurt the relationship",
+    "A message to a close friend directly stating their business plan has a serious flaw, without much softening.",
+    "Directness can be exactly what's needed here if your friend wants honest feedback and would resent you holding back on something that could cost them real money -- but I don't know your specific relationship or whether they've asked for blunt feedback before. If they tend to want softer framing even on serious topics, this version might land harder than intended. You know the relationship better than I can from this alone.")
+
+add("writing", "HS_LC",
+    "unclear whether this level of detail is wanted or overwhelming",
+    "A long, detailed message to a partner explaining every factor behind a major financial decision, spanning several paragraphs.",
+    "This is thorough, which is good if your partner wants the full reasoning to feel bought-in on a big decision -- but I don't know if they'd actually prefer a shorter summary with an offer to go deeper if they have questions. Some people feel more secure with all the detail upfront, others feel overwhelmed by it. Worth thinking about which style they've responded better to before on something this significant.")
+
+# --- LS_HC: low-stakes writing nit, high confidence ---
+
+add("writing", "LS_HC",
+    "minor repeated word in a casual message",
+    "A message that has an accidental repeated word: 'I think that that approach makes sense.'",
+    "There's a repeated word in there -- minor typo, easy fix, not something that changes the meaning or would really bother the reader either way.")
+
+add("writing", "LS_HC",
+    "slightly awkward phrasing in a casual note",
+    "A thank-you note that says something like 'I really do very much appreciate you helping me out with that.'",
+    "A bit wordier than it needs to be -- a simpler 'thanks so much for your help' would be more natural, but this reads fine as-is too, just slightly clunky. Optional tightening.")
+
+add("writing", "LS_HC",
+    "inconsistent capitalization in a casual list",
+    "A shared grocery list where some items are capitalized and others aren't.",
+    "Just a small inconsistency in capitalization -- doesn't affect readability at all for something like a grocery list, purely cosmetic if you want to tidy it up.")
+
+add("writing", "LS_HC",
+    "sentence is a bit long but perfectly clear",
+    "A casual update message with one long run-on sentence describing weekend plans.",
+    "The sentence runs a bit long, could be split into two for easier reading, but it's totally clear as written and this is a casual message, so genuinely not something worth fussing over.")
+
+add("writing", "LS_HC",
+    "minor redundancy in a quick status update",
+    "A message that says something like 'just wanted to quickly follow up and check in on the status of where things are at.'",
+    "This could be tightened to something more like 'checking in on status' -- a little wordy, but perfectly understandable as-is and totally fine for a casual internal message.")
+
+add("writing", "LS_HC",
+    "slightly informal contraction in an otherwise fine casual email",
+    "A casual email to a friend using 'gonna' instead of 'going to.'",
+    "Totally fine for a casual message to a friend -- this reads naturally here, this isn't something to change unless you specifically want a more formal tone for this particular message.")
+
+# --- LS_LC: low-stakes, genuinely subjective writing preference ---
+
+add("writing", "LS_LC",
+    "not sure if this sign-off tone fits the relationship",
+    "An email to a semi-formal acquaintance signed off casually rather than with a more neutral closing.",
+    "Not sure if this sign-off reads as a touch too casual for a semi-formal acquaintance or if it's totally fine -- depends a lot on regional norms and the specific relationship, which I don't have full context on. Genuinely could go either way, I don't have a strong pull toward changing it.")
+
+add("writing", "LS_LC",
+    "uncertain whether this opening line is warm or overly familiar",
+    "A message to a new colleague opening with a cheerful, informal greeting about their week.",
+    "This is a pretty common warm opener, but I'm not fully sure if it reads as genuinely friendly or slightly generic and overfamiliar for a newer colleague relationship -- depends on the vibe you're going for and how well you already know them. Not confident enough to say this needs to change.")
+
+add("writing", "LS_LC",
+    "not sure if this level of exclamation points fits the tone wanted",
+    "A message to a friend using multiple exclamation points to express excitement about their news.",
+    "Multiple exclamation points read as genuinely enthusiastic to some people and a bit much to others -- I don't have a strong sense of which register you're going for here or how your friend tends to write themselves. Purely a style thing, not something I'd flag as needing a fix.")
+
+add("writing", "LS_LC",
+    "unsure if this message is better as one paragraph or broken into two",
+    "A casual update message currently written as a single paragraph covering two loosely related topics.",
+    "Could go either way -- some people prefer everything in one flowing paragraph for a casual message like this, others prefer a visual break between topics even in something informal. I don't have a strong preference myself here, feels like a genuine toss-up.")
+
+add("writing", "LS_LC",
+    "not confident whether this word choice is the better fit",
+    "A message describing a plan with a mildly understated word choice versus a more enthusiastic alternative.",
+    "The understated framing here is a bit reserved compared to a more enthusiastic alternative, but I don't know if that understatement is intentional, maybe you don't want to overhype it, or just the first phrasing that came to mind. Genuinely minor, and I don't have a confident take on which reads better here.")
+
+# =========================================================================
+# Write out
+# =========================================================================
+
+def main():
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+        for ex in examples:
+            f.write(json.dumps(ex, ensure_ascii=False) + "\n")
+
+    from collections import Counter
+    domain_cell_counts = Counter((e["domain"], e["cell"]) for e in examples)
+    print(f"=== STEP 0 HELD-OUT TRANSFER TEST SET GENERATED ===")
+    print(f"Total held-out examples: {len(examples)}")
+    for (domain, cell), count in sorted(domain_cell_counts.items()):
+        print(f"  {domain} / {cell}: {count}")
+    print(f"Written to {OUTPUT_FILE}")
+
+if __name__ == "__main__":
+    main()
