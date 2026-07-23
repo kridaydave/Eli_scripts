@@ -212,6 +212,27 @@ def main():
 
     sampling_cb = ThroughputAndSamplingCallback(total_steps=total_steps, model=model, tokenizer=tokenizer)
 
+    # Code execution eval callback — tracks pass@1 alongside loss
+    callbacks = [sampling_cb]
+    eval_set_path = Path(__file__).resolve().parent / "eval" / "code_exec_eval_set.jsonl"
+    if eval_set_path.exists():
+        try:
+            from eval.eval_callback import CodeEvalCallback
+            code_eval_cb = CodeEvalCallback(
+                model=model,
+                tokenizer=tokenizer,
+                eval_set_path=str(eval_set_path),
+                eval_every_steps=500,
+                num_problems=10,
+                log_dir=str(Path(OUTPUT_DIR) / "eval_logs"),
+            )
+            callbacks.append(code_eval_cb)
+            print(f"[CodeEval] Loaded — will run pass@1 on 10 problems every 500 steps")
+        except Exception as e:
+            print(f"[CodeEval] Skipped (import error): {e}")
+    else:
+        print(f"[CodeEval] Skipped — eval set not found at {eval_set_path}")
+
     try:
         trainer = SFTTrainer(
             model=model,
@@ -219,7 +240,7 @@ def main():
             eval_dataset=eval_dataset,
             processing_class=tokenizer,
             args=sft_config,
-            callbacks=[sampling_cb],
+            callbacks=callbacks,
         )
     except TypeError:
         trainer = SFTTrainer(
@@ -228,7 +249,7 @@ def main():
             eval_dataset=eval_dataset,
             tokenizer=tokenizer,
             args=sft_config,
-            callbacks=[sampling_cb],
+            callbacks=callbacks,
         )
 
     # Auto-resume from last step checkpoint if available
