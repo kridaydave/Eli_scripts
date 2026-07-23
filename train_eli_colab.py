@@ -74,18 +74,20 @@ class ThroughputBenchmarkCallback(TrainerCallback):
 def main():
     import argparse
     parser = argparse.ArgumentParser(description="Train Eli using Unsloth on Colab/Kaggle")
-    parser.add_argument("--batch-size", type=int, default=8, help="Total effective batch size (micro_batch * grad_accum * gpus)")
+    parser.add_argument("--batch-size", type=int, default=8, help="Total effective batch size")
+    parser.add_argument("--micro-batch-size", type=int, default=1, help="Micro batch size per GPU (default: 1 for 48k packing on T4)")
+    parser.add_argument("--grad-accum", type=int, default=None, help="Gradient accumulation steps (auto-computed from batch-size if omitted)")
     parser.add_argument("--epochs", type=int, default=3, help="Number of training epochs")
     parser.add_argument("--learning-rate", type=float, default=2e-4, help="Initial learning rate")
     args = parser.parse_args()
 
-    total_batch_size = args.batch_size
-    # Auto-split total batch size into safe micro-batch size and gradient accumulation steps
-    if total_batch_size % 2 == 0:
-        micro_batch_size = 2
+    micro_batch_size = args.micro_batch_size
+    if args.grad_accum is not None:
+        gradient_accumulation = args.grad_accum
+        total_batch_size = micro_batch_size * gradient_accumulation
     else:
-        micro_batch_size = 1
-    gradient_accumulation = max(1, total_batch_size // micro_batch_size)
+        total_batch_size = args.batch_size
+        gradient_accumulation = max(1, total_batch_size // micro_batch_size)
 
     print(f"=== INITIALIZING UNSLOTH FINE-TUNING ===")
     print(f"Base Model: {MODEL_NAME}")
