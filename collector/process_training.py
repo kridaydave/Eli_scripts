@@ -382,32 +382,63 @@ def extract_github_pairs() -> tuple[list[dict], list[dict]]:
 
 def extract_eli_pairs() -> tuple[list[dict], int]:
     """Extract Eli personality pairs 1x cleanly to prevent output memorization."""
-    if not ELI_PAIRS.exists():
-        return [], 0
-
-    raw_text = ELI_PAIRS.read_text(encoding="utf-8")
-    blocks = [b.strip() for b in raw_text.strip().split("\n\n") if b.strip()]
-
     unique_pairs = []
-    for b in blocks:
-        m = re.match(r"User:\s*(.*?)\nEli:\s*(.*)", b, re.DOTALL)
-        if m:
-            u, e = m.group(1).strip(), m.group(2).strip()
-            unique_pairs.append({
-                "source": "eli_personality",
-                "instruction": u,
-                "output": e,
-                "language": "text",
-                "metadata": {
-                    "source_type": "eli_personality",
-                    "source_repo": "epoch/eli-personality",
-                    "file_path": "data/personality-questions-eli.md",
-                    "license": "Apache-2.0",
-                    "quality_tier": "S",
+
+    # Parse data/eli-custom-answers.md
+    custom_ans_file = Path(__file__).resolve().parent.parent / "data" / "eli-custom-answers.md"
+    if custom_ans_file.exists():
+        raw_ca = custom_ans_file.read_text(encoding="utf-8")
+        blocks = raw_ca.split("#### ")
+        for b in blocks:
+            if not b.strip() or "*Prompt*:" not in b or "*Your Answer*:" not in b:
+                continue
+            prompt_match = re.search(r'\*Prompt\*:\s*"?(.*?)"?\n', b)
+            answer_match = re.search(r'\*Your Answer\*:\s*(.*)', b, re.DOTALL)
+            if prompt_match and answer_match:
+                prompt_str = prompt_match.group(1).strip().strip('"')
+                answer_str = answer_match.group(1).strip()
+                if "---" in answer_str:
+                    answer_str = answer_str.split("---")[0].strip()
+                if prompt_str and answer_str:
+                    unique_pairs.append({
+                        "source": "eli_personality",
+                        "instruction": prompt_str,
+                        "output": answer_str,
+                        "language": "text",
+                        "metadata": {
+                            "source_type": "user_custom_written_answers",
+                            "source_repo": "epoch/eli-custom-answers",
+                            "file_path": "data/eli-custom-answers.md",
+                            "license": "Apache-2.0",
+                            "quality_tier": "S",
+                            "language": "text",
+                            "is_test": False
+                        }
+                    })
+
+    if ELI_PAIRS.exists():
+        raw_text = ELI_PAIRS.read_text(encoding="utf-8")
+        blocks = [b.strip() for b in raw_text.strip().split("\n\n") if b.strip()]
+
+        for b in blocks:
+            m = re.match(r"User:\s*(.*?)\nEli:\s*(.*)", b, re.DOTALL)
+            if m:
+                u, e = m.group(1).strip(), m.group(2).strip()
+                unique_pairs.append({
+                    "source": "eli_personality",
+                    "instruction": u,
+                    "output": e,
                     "language": "text",
-                    "is_test": False
-                }
-            })
+                    "metadata": {
+                        "source_type": "eli_personality",
+                        "source_repo": "epoch/eli-personality",
+                        "file_path": "data/personality-questions-eli.md",
+                        "license": "Apache-2.0",
+                        "quality_tier": "S",
+                        "language": "text",
+                        "is_test": False
+                    }
+                })
 
     return unique_pairs, len(unique_pairs)
 
@@ -451,53 +482,32 @@ def main():
                 })
     print(f"  {len(agentic_pairs)} agentic coding pairs")
 
-    print("Loading Fable-5 Pi Agent traces...")
-    fable_path = Path(__file__).resolve().parent.parent / "data" / "fable-5-agent-pairs.json"
+    print("Loading Crownelius Complete-FABLE.5-traces-2M curated dataset...")
+    fable_crownelius_path = PROCESSED / "training-data-fable5-curated.jsonl"
     fable_pairs = []
-    if fable_path.exists():
-        with open(fable_path, "r", encoding="utf-8") as f_fb:
-            raw_fb = json.load(f_fb)
-            for item in raw_fb:
-                fable_pairs.append({
-                    "source": "fable5_agent_traces",
-                    "instruction": item["instruction"],
-                    "output": item["output"],
-                    "language": "agent_trace",
-                    "metadata": {
-                        "source_type": "fable5_agent_traces",
-                        "source_repo": "fable-5/pi-agent",
-                        "file_path": "data/fable-5-agent-pairs.json",
-                        "license": "Apache-2.0",
-                        "quality_tier": "S",
-                        "language": "agent_trace",
-                        "is_test": False
-                    }
-                })
-    print(f"  {len(fable_pairs)} Fable-5 agent trace pairs")
-
-    print("Loading expanded Fable-5 CoT reasoning pairs...")
-    fable_cot_path = Path(__file__).resolve().parent.parent / "data" / "fable-5-cot-expanded-pairs.json"
-    fable_cot_pairs = []
-    if fable_cot_path.exists():
-        with open(fable_cot_path, "r", encoding="utf-8") as f_fc:
-            raw_fc = json.load(f_fc)
-            for item in raw_fc:
-                fable_cot_pairs.append({
-                    "source": "fable5_cot_traces",
-                    "instruction": item["instruction"],
-                    "output": item["output"],
-                    "language": "cot_reasoning",
-                    "metadata": {
-                        "source_type": "fable5_cot_traces",
-                        "source_repo": "Glint-Research/Fable-5-traces",
-                        "file_path": "data/fable-5-cot-expanded-pairs.json",
-                        "license": "Apache-2.0",
-                        "quality_tier": "S",
+    if fable_crownelius_path.exists():
+        with open(fable_crownelius_path, "r", encoding="utf-8") as f_cr:
+            for line in f_cr:
+                item = json.loads(line)
+                convs = item.get("conversations", [])
+                if len(convs) >= 2:
+                    fable_pairs.append({
+                        "source": "fable5_crownelius_traces",
+                        "instruction": convs[0]["value"],
+                        "output": convs[1]["value"],
                         "language": "cot_reasoning",
-                        "is_test": False
-                    }
-                })
-    print(f"  {len(fable_cot_pairs)} expanded Fable-5 CoT reasoning pairs")
+                        "metadata": {
+                            "source_type": "fable5_crownelius_traces",
+                            "source_repo": "Crownelius/Complete-FABLE.5-traces-2M",
+                            "file_path": "processed/training-data-fable5-curated.jsonl",
+                            "license": "Apache-2.0",
+                            "quality_tier": "S",
+                            "language": "cot_reasoning",
+                            "is_test": False
+                        }
+                    })
+    print(f"  {len(fable_pairs)} Crownelius Complete FABLE.5 CoT trace pairs")
+    fable_cot_pairs = []
 
     print("Loading high-value S-tier additions...")
     stier_path = Path(__file__).resolve().parent.parent / "data" / "stier-additions.json"
@@ -519,28 +529,22 @@ def main():
                 stier_pairs.append(item)
     print(f"  {len(stier_pairs)} high-value S-tier additions")
 
-    print("Loading pillar additions (TS/JS backend, SQL CTEs, Rust FFI, Zustand, OpenAI JSON-Schema, Diffs)...")
-    pillar_path = Path(__file__).resolve().parent.parent / "data" / "pillar-additions.json"
-    pillar_pairs = []
-    if pillar_path.exists():
-        with open(pillar_path, "r", encoding="utf-8") as f_pl:
-            raw_pl = json.load(f_pl)
-            for item in raw_pl:
-                meta = item.get("metadata", {
-                    "source_type": item.get("source", "pillar_additions"),
-                    "source_repo": "epoch/pillar-additions",
-                    "file_path": "data/pillar-additions.json",
-                    "license": "Apache-2.0",
-                    "quality_tier": "S",
-                    "language": item.get("language", "typescript"),
-                    "is_test": False
-                })
-                item["metadata"] = meta
-                pillar_pairs.append(item)
-    print(f"  {len(pillar_pairs)} targeted pillar additions")
+    print("Loading mined Stack v2 / open-source real code samples...")
+    stack_v2_path = PROCESSED / "raw_stack_v2_mined.jsonl"
+    stack_v2_pairs = []
+    if stack_v2_path.exists():
+        with open(stack_v2_path, "r", encoding="utf-8") as f_sv2:
+            for line in f_sv2:
+                item = json.loads(line)
+                stack_v2_pairs.append(item)
+    print(f"  {len(stack_v2_pairs)} mined Stack v2 real gold code pairs")
 
-    all_pairs = eli_pairs + ds_pairs + gh_pairs + agentic_pairs + fable_pairs + fable_cot_pairs + stier_pairs + pillar_pairs
-    print(f"\nTotal S-Tier Samples: {len(all_pairs)}")
+    all_pairs = eli_pairs + ds_pairs + gh_pairs + agentic_pairs + fable_pairs + fable_cot_pairs + stier_pairs + stack_v2_pairs
+    print(f"\nTotal S-Tier Real Mined Samples before curriculum sorting: {len(all_pairs)}")
+
+    from curriculum_sorter import load_held_out_prompts, apply_progressive_curriculum
+    held_out_sigs = load_held_out_prompts()
+    all_pairs = apply_progressive_curriculum(all_pairs, held_out_sigs)
 
     alpaca_path = PROCESSED / "training-data.jsonl"
     sharegpt_path = PROCESSED / "training-data-sharegpt.jsonl"

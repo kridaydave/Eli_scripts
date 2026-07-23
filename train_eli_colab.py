@@ -32,8 +32,8 @@ from transformers import TrainingArguments
 
 # Configuration
 MODEL_NAME = "Qwen/Qwen2.5-Coder-3B-Instruct"
-MAX_SEQ_LENGTH = 2048
-DATASET_PATH = "./processed/eli-sft-train.jsonl"
+MAX_SEQ_LENGTH = 50000
+DATASET_PATH = "./processed/eli-sft-train-formatted.jsonl"
 OUTPUT_DIR = "./models/eli-tone-lora"
 EPOCHS = 3
 BATCH_SIZE = 2
@@ -63,7 +63,7 @@ def main():
         random_state=2026,
     )
 
-    # Format ChatML / ShareGPT Dataset
+    # Format ChatML / ShareGPT / Alpaca Dataset
     def format_prompts(examples):
         texts = []
         if "conversations" in examples:
@@ -78,6 +78,14 @@ def main():
             for msgs in examples["messages"]:
                 text = tokenizer.apply_chat_template(msgs, tokenize=False, add_generation_prompt=False)
                 texts.append(text)
+        elif "instruction" in examples and "output" in examples:
+            for inst, out in zip(examples["instruction"], examples["output"]):
+                messages = [
+                    {"role": "user", "content": inst},
+                    {"role": "assistant", "content": out}
+                ]
+                text = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=False)
+                texts.append(text)
         elif "text" in examples:
             return {"text": examples["text"]}
         return {"text": texts}
@@ -85,8 +93,9 @@ def main():
     dataset_path = DATASET_PATH
     if not Path(dataset_path).exists():
         for fallback in [
-            "./processed/training-data-sharegpt.jsonl",
+            "./processed/eli-sft-train-formatted.jsonl",
             "./processed/eli-sft-train.jsonl",
+            "./processed/training-data-sharegpt.jsonl",
             "./processed/training-data.jsonl"
         ]:
             if Path(fallback).exists():

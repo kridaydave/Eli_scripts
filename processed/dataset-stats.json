@@ -1,15 +1,14 @@
 {
-  "generated_at": "2026-07-23T07:35:11.429432+00:00",
-  "total_pairs": 20583,
+  "generated_at": "2026-07-23T08:27:28.083960+00:00",
+  "total_alpaca_pairs": 15328,
+  "total_sharegpt_sessions": 1200,
   "by_source": {
-    "eli_personality_unique": 1738,
-    "design_systems": 248,
-    "agentic_coding": 179,
-    "fable5_agent_traces": 1500,
-    "github_frontend": 5042,
-    "github_backend": 9361,
-    "github_total": 14403,
-    "stier_additions": 9
+    "eli_personality": 1738,
+    "github_frontend": 4906,
+    "github_backend": 9011,
+    "github_total": 13917,
+    "genuine_pillars": 3,
+    "deep_agentic_sessions": 1200
   },
   "alpaca_file": "/home/kriday/Desktop/epoch-1/processed/training-data.jsonl",
   "sharegpt_file": "/home/kriday/Desktop/epoch-1/processed/training-data-sharegpt.jsonl"

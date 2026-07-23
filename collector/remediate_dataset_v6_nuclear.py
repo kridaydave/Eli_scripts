@@ -20,6 +20,8 @@ from pathlib import Path
 from datetime import datetime, timezone
 from collections import Counter
 
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(PROJECT_ROOT))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from config import DESIGN_SYSTEMS, GITHUB, PROCESSED, ELI_PAIRS, ROOT
 
@@ -258,6 +260,7 @@ def extract_eli_remediated_pairs() -> list[dict]:
     raw_text = ELI_PAIRS.read_text(encoding="utf-8")
     blocks = [b.strip() for b in raw_text.strip().split("\n\n") if b.strip()]
     remediated = []
+    regs = ["light-personality", "pure-direct", "maximal-wit"]
     for idx, b in enumerate(blocks):
         m = re.match(r"User:\s*(.*?)\nEli:\s*(.*)", b, re.DOTALL)
         if m:
@@ -266,7 +269,7 @@ def extract_eli_remediated_pairs() -> list[dict]:
                 "instruction": u, "output": e, "language": "text", "category": "personality",
                 "metadata": {"source_type": "eli_personality", "source_repo": "epoch/eli-personality",
                     "file_path": "data/personality-questions-eli.md", "license": "Apache-2.0",
-                    "quality_tier": "S", "language": "text", "is_test": False}
+                    "quality_tier": "S", "language": "text", "register": regs[idx % len(regs)], "is_test": False}
             })
     return remediated
 
@@ -371,16 +374,26 @@ def main():
     gh_pairs = gh_backend + gh_frontend
     print(f"   -> {len(gh_backend):,} backend + {len(gh_frontend):,} frontend ({len(gh_pairs):,} total)")
 
-    print("3. Generating genuine pillar pairs (11 unique, NO recycling)...")
+    print("3. Ingesting custom Cross-Axis Joint Emergence pairs...")
+    cross_axis_path = PROCESSED / "training-data-eli-cross-axis.jsonl"
+    cross_axis_pairs = []
+    if cross_axis_path.exists():
+        with open(cross_axis_path, "r", encoding="utf-8") as f:
+            for line in f:
+                if line.strip():
+                    cross_axis_pairs.append(json.loads(line))
+    print(f"   -> {len(cross_axis_pairs):,} cross-axis joint emergence pairs")
+
+    print("4. Generating genuine pillar pairs (11 unique, NO recycling)...")
     pillar_pairs = generate_genuine_pillar_pairs()
     print(f"   -> {len(pillar_pairs):,} genuine unique pillar samples")
 
-    print("4. Generating language-aware deep agentic multi-turn sessions...")
+    print("5. Generating language-aware deep agentic multi-turn sessions...")
     deep_sessions = generate_language_aware_deep_sessions()
     print(f"   -> {len(deep_sessions):,} deep multi-turn sessions (6-12 turns each)")
 
     # Assemble Alpaca pairs and DEDUPLICATE
-    all_alpaca_pairs = eli_pairs + gh_pairs + pillar_pairs
+    all_alpaca_pairs = eli_pairs + gh_pairs + cross_axis_pairs + pillar_pairs
     print(f"\nPre-dedup Alpaca pairs: {len(all_alpaca_pairs):,}")
     all_alpaca_pairs = deduplicate_pairs(all_alpaca_pairs)
     print(f"Post-dedup Alpaca pairs: {len(all_alpaca_pairs):,}")

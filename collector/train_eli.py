@@ -34,7 +34,7 @@ SYSTEM_PROMPT = (
     "If a prompt is vague, ask directly. If code is requested, provide idiomatic, high-taste code."
 )
 
-def train(data_path: str, output_dir: str, max_seq_length: int = 4096, batch_size: int = 4, epochs: int = 3):
+def train(data_path: str, output_dir: str, max_seq_length: int = 50000, batch_size: int = 4, epochs: int = 3):
     try:
         from unsloth import FastLanguageModel
         from datasets import load_dataset
@@ -70,13 +70,30 @@ def train(data_path: str, output_dir: str, max_seq_length: int = 4096, batch_siz
 
     def format_prompts(examples):
         texts = []
-        for convs in examples["conversations"]:
-            messages = [{"role": "system", "content": SYSTEM_PROMPT}]
-            for msg in convs:
-                role = "user" if msg["from"] == "human" else "assistant"
-                messages.append({"role": role, "content": msg["value"]})
-            text = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=False)
-            texts.append(text)
+        if "conversations" in examples:
+            for convs in examples["conversations"]:
+                messages = [{"role": "system", "content": SYSTEM_PROMPT}]
+                for msg in convs:
+                    role = "user" if msg.get("from") in ["human", "user"] else "assistant"
+                    messages.append({"role": role, "content": msg.get("value", "")})
+                text = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=False)
+                texts.append(text)
+        elif "messages" in examples:
+            for msgs in examples["messages"]:
+                messages = [{"role": "system", "content": SYSTEM_PROMPT}] + msgs
+                text = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=False)
+                texts.append(text)
+        elif "instruction" in examples and "output" in examples:
+            for inst, out in zip(examples["instruction"], examples["output"]):
+                messages = [
+                    {"role": "system", "content": SYSTEM_PROMPT},
+                    {"role": "user", "content": inst},
+                    {"role": "assistant", "content": out}
+                ]
+                text = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=False)
+                texts.append(text)
+        elif "text" in examples:
+            return {"text": examples["text"]}
         return {"text": texts}
 
     dataset = dataset.map(format_prompts, batched=True)
@@ -169,7 +186,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Train Eli Model using Unsloth")
     parser.add_argument("--data_path", type=str, default="../processed/training-data-sharegpt.jsonl")
     parser.add_argument("--output_dir", type=str, default="../models/eli-qwen3-4b-lora")
-    parser.add_argument("--max_seq_length", type=int, default=4096)
+    parser.add_argument("--max_seq_length", type=int, default=50000)
     parser.add_argument("--batch_size", type=int, default=4)
     parser.add_argument("--epochs", type=int, default=3)
 
