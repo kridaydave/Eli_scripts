@@ -46,7 +46,7 @@ from transformers import TrainerCallback
 
 # Configuration
 MODEL_NAME = "unsloth/Qwen3-4B-Instruct-2507"
-MAX_SEQ_LENGTH = 32768  # 32k context window
+MAX_SEQ_LENGTH = 34816  # 34k context window (full CoT traces without truncation)
 DATASET_PATH = "./processed/eli-sft-train-formatted.jsonl"
 OUTPUT_DIR = "./models/eli-tone-lora"
 
@@ -75,7 +75,7 @@ class ThroughputBenchmarkCallback(TrainerCallback):
 def main():
     import argparse
     parser = argparse.ArgumentParser(description="Train Eli using Unsloth on Colab/Kaggle")
-    parser.add_argument("--batch-size", type=int, default=8, help="Total effective batch size")
+    parser.add_argument("--batch-size", type=int, default=16, help="Total effective batch size")
     parser.add_argument("--micro-batch-size", type=int, default=1, help="Micro batch size per GPU")
     parser.add_argument("--grad-accum", type=int, default=None, help="Gradient accumulation steps")
     parser.add_argument("--epochs", type=int, default=3, help="Number of training epochs")
