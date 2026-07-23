@@ -155,7 +155,7 @@ def main():
         logging_steps=25,
         optim="adamw_8bit",
         weight_decay=0.001,
-        lr_scheduler_type="cosine",
+        lr_scheduler_type="cosine_with_min_lr",
         lr_scheduler_kwargs={"min_lr_rate": 0.1},
         seed=2026,
         output_dir=OUTPUT_DIR,
