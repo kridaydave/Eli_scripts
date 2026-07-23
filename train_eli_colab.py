@@ -17,9 +17,10 @@ import time
 import torch
 from pathlib import Path
 
-# Disable HF hub transfer stalls in Colab/Kaggle
+# Disable HF hub transfer stalls and configure CUDA memory allocator
 os.environ["HF_HUB_DISABLE_XET"] = "1"
 os.environ["HF_HUB_ENABLE_HF_TRANSFER"] = "0"
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 
 # Import Unsloth FIRST before transformers/trl for optimizations
 from unsloth import FastLanguageModel
@@ -45,7 +46,7 @@ from transformers import TrainerCallback
 
 # Configuration
 MODEL_NAME = "unsloth/Qwen3-4B-Instruct-2507"
-MAX_SEQ_LENGTH = 49152  # 48k context window
+MAX_SEQ_LENGTH = 32768  # 32k context window (fits 32k CoT traces without T4 OOM)
 DATASET_PATH = "./processed/eli-sft-train-formatted.jsonl"
 OUTPUT_DIR = "./models/eli-tone-lora"
 
