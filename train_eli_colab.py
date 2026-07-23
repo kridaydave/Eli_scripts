@@ -49,8 +49,6 @@ MAX_SEQ_LENGTH = 49152  # 48k context window
 DATASET_PATH = "./processed/eli-sft-train-formatted.jsonl"
 OUTPUT_DIR = "./models/eli-tone-lora"
 EPOCHS = 3
-BATCH_SIZE = 2
-GRADIENT_ACCUMULATION = 4
 LEARNING_RATE = 2e-4
 
 # Custom Callback for Step Throughput & ETA Benchmarking
@@ -76,11 +74,25 @@ class ThroughputBenchmarkCallback(TrainerCallback):
                       f"Estimated Remaining Time: {eta_hours:.2f} hours")
 
 def main():
+    import argparse
+    parser = argparse.ArgumentParser(description="Train Eli using Unsloth on Colab/Kaggle")
+    parser.add_argument("--batch-size", type=int, default=8, help="Total effective batch size (micro_batch * grad_accum * gpus)")
+    args = parser.parse_args()
+
+    total_batch_size = args.batch_size
+    # Auto-split total batch size into safe micro-batch size and gradient accumulation steps
+    if total_batch_size % 2 == 0:
+        micro_batch_size = 2
+    else:
+        micro_batch_size = 1
+    gradient_accumulation = max(1, total_batch_size // micro_batch_size)
+
     print(f"=== INITIALIZING UNSLOTH FINE-TUNING ===")
     print(f"Base Model: {MODEL_NAME}")
     print(f"Context Length: {MAX_SEQ_LENGTH:,} tokens (48k)")
     print(f"Dataset Path: {DATASET_PATH}")
     print(f"Output Checkpoints: {OUTPUT_DIR}")
+    print(f"Total Batch Size: {total_batch_size} (Micro-batch: {micro_batch_size}, Grad Accumulation: {gradient_accumulation})")
 
     model, tokenizer = FastLanguageModel.from_pretrained(
         model_name=MODEL_NAME,
@@ -135,7 +147,7 @@ def main():
     dataset = load_dataset("json", data_files=dataset_path, split="train")
     dataset = dataset.map(format_prompts, batched=True)
     total_samples = len(dataset)
-    effective_batch_size = BATCH_SIZE * GRADIENT_ACCUMULATION
+    effective_batch_size = micro_batch_size * gradient_accumulation
     total_steps = (total_samples // effective_batch_size) * EPOCHS
     print(f"Dataset loaded: {total_samples:,} training samples ({total_steps:,} total training steps).")
 
@@ -145,8 +157,8 @@ def main():
         max_seq_length=MAX_SEQ_LENGTH,
         dataset_num_proc=2,
         packing=False,
-        per_device_train_batch_size=BATCH_SIZE,
-        gradient_accumulation_steps=GRADIENT_ACCUMULATION,
+        per_device_train_batch_size=micro_batch_size,
+        gradient_accumulation_steps=gradient_accumulation,
         warmup_steps=100,
         num_train_epochs=EPOCHS,
         learning_rate=LEARNING_RATE,
