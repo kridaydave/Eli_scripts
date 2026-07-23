@@ -4,7 +4,7 @@ Run on Google Colab (T4 / L4 / A100 GPU)
 
 Requirements:
     pip install "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git"
-    pip install --no-deps xformers "trl<0.9.0" peft accelerate bitsandbytes
+    pip install --no-deps xformers trl peft accelerate bitsandbytes
 """
 
 import os
@@ -19,7 +19,7 @@ from trl import SFTTrainer
 from transformers import TrainingArguments
 
 # Configuration
-MODEL_NAME = "Qwen/Qwen2.5-Coder-3B-Instruct" # Direct HF repo to prevent XET download stalls
+MODEL_NAME = "Qwen/Qwen2.5-Coder-3B-Instruct"
 MAX_SEQ_LENGTH = 2048
 DATASET_PATH = "./processed/eli-sft-train.jsonl"
 OUTPUT_DIR = "./models/eli-tone-lora"
@@ -71,7 +71,7 @@ def main():
 
     trainer = SFTTrainer(
         model=model,
-        tokenizer=tokenizer,
+        processing_class=tokenizer,  # Use processing_class for newer TRL compatibility
         train_dataset=dataset,
         dataset_text_field="text",
         max_seq_length=MAX_SEQ_LENGTH,
@@ -80,7 +80,7 @@ def main():
         args=TrainingArguments(
             per_device_train_batch_size=BATCH_SIZE,
             gradient_accumulation_steps=GRADIENT_ACCUMULATION,
-            warmup_ratio=0.05,
+            warmup_steps=2,
             num_train_epochs=EPOCHS,
             learning_rate=LEARNING_RATE,
             fp16=not torch.cuda.is_bf16_supported(),
