@@ -45,9 +45,9 @@ def train(data_path: str, output_dir: str, max_seq_length: int = 50000, batch_si
         print("Install via: pip install unsloth torch trl transformers datasets accelerate bitsandbytes")
         return
 
-    print("=== Loading Qwen 3-4B Base Model via Unsloth ===")
+    print("=== Loading Qwen 2.5 Coder 3B Base Model via Unsloth ===")
     model, tokenizer = FastLanguageModel.from_pretrained(
-        model_name="Qwen/Qwen3-4B-Instruct",
+        model_name="unsloth/Qwen2.5-Coder-3B-Instruct",
         max_seq_length=max_seq_length,
         dtype=None, # Auto-detect (bf16 for Ampere+)
         load_in_4bit=True,

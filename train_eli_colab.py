@@ -21,6 +21,9 @@ from pathlib import Path
 os.environ["HF_HUB_DISABLE_XET"] = "1"
 os.environ["HF_HUB_ENABLE_HF_TRANSFER"] = "0"
 
+# Import Unsloth FIRST before transformers/trl for optimizations
+from unsloth import FastLanguageModel
+
 # Monkeypatch transformers/trl Trainer compatibility
 import transformers
 import inspect
@@ -37,12 +40,11 @@ if hasattr(transformers, 'trainer') and hasattr(transformers.trainer, 'Trainer')
     transformers.trainer.Trainer.__init__ = patched_trainer_init
 
 from datasets import load_dataset
-from unsloth import FastLanguageModel
 from trl import SFTTrainer, SFTConfig
 from transformers import TrainerCallback
 
 # Configuration
-MODEL_NAME = "Qwen/Qwen3-4B-Instruct"
+MODEL_NAME = "unsloth/Qwen2.5-Coder-3B-Instruct"
 MAX_SEQ_LENGTH = 49152  # 48k context window
 DATASET_PATH = "./processed/eli-sft-train-formatted.jsonl"
 OUTPUT_DIR = "./models/eli-tone-lora"
