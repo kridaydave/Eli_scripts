@@ -50,12 +50,15 @@ MAX_SEQ_LENGTH = 34816  # 34k context window (full CoT traces without truncation
 DATASET_PATH = "./processed/eli-sft-train-formatted.jsonl"
 OUTPUT_DIR = "./models/eli-tone-lora"
 
-# Custom Callback for Step Throughput & ETA Benchmarking
-class ThroughputBenchmarkCallback(TrainerCallback):
-    def __init__(self, total_steps: int):
+# Custom Callback for Step Throughput & Periodic Sample Generation
+class ThroughputAndSamplingCallback(TrainerCallback):
+    def __init__(self, total_steps: int, model, tokenizer, eval_prompt="Hey Eli, write a python script to validate JWT tokens and handle expiration cleanly."):
         self.total_steps = total_steps
         self.step_start_time = None
         self.step_durations = []
+        self.model = model
+        self.tokenizer = tokenizer
+        self.eval_prompt = eval_prompt
 
     def on_step_begin(self, args, state, control, **kwargs):
         self.step_start_time = time.time()
@@ -72,14 +75,31 @@ class ThroughputBenchmarkCallback(TrainerCallback):
                       f"Avg Step Time: {avg_step_time:.2f}s | "
                       f"Estimated Remaining Time: {eta_hours:.2f} hours")
 
+        # Sample generation every 250 steps to inspect code quality & tone
+        if state.global_step > 0 and state.global_step % 250 == 0:
+            print(f"\n--- [SANITY CHECK @ Step {state.global_step}] Generating Sample Code ---")
+            messages = [{"role": "user", "content": self.eval_prompt}]
+            prompt = self.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+            inputs = self.tokenizer(prompt, return_tensors="pt").to("cuda")
+            
+            FastLanguageModel.for_inference(self.model)
+            with torch.no_grad():
+                outputs = self.model.generate(**inputs, max_new_tokens=256, temperature=0.7)
+            response = self.tokenizer.decode(outputs[0][inputs.input_ids.shape[1]:], skip_special_tokens=True)
+            FastLanguageModel.for_training(self.model)
+            
+            print(f"Prompt: {self.eval_prompt}")
+            print(f"Eli Output:\n{response[:400]}...")
+            print("----------------------------------------------------------------------\n")
+
 def main():
     import argparse
     parser = argparse.ArgumentParser(description="Train Eli using Unsloth on Colab/Kaggle")
     parser.add_argument("--batch-size", type=int, default=16, help="Total effective batch size")
     parser.add_argument("--micro-batch-size", type=int, default=1, help="Micro batch size per GPU")
     parser.add_argument("--grad-accum", type=int, default=None, help="Gradient accumulation steps")
-    parser.add_argument("--epochs", type=int, default=3, help="Number of training epochs")
-    parser.add_argument("--learning-rate", type=float, default=2e-4, help="Initial learning rate")
+    parser.add_argument("--epochs", type=int, default=2, help="Number of training epochs (default 2 to prevent CoT overfit)")
+    parser.add_argument("--learning-rate", type=float, default=1e-4, help="Initial learning rate (default 1e-4 for stable code LoRA)")
     args = parser.parse_args()
 
     micro_batch_size = args.micro_batch_size
@@ -92,10 +112,11 @@ def main():
 
     print(f"=== INITIALIZING UNSLOTH FINE-TUNING ===")
     print(f"Base Model: {MODEL_NAME}")
-    print(f"Context Length: {MAX_SEQ_LENGTH:,} tokens (32k)")
+    print(f"Context Length: {MAX_SEQ_LENGTH:,} tokens (34k)")
     print(f"Dataset Path: {DATASET_PATH}")
     print(f"Output Checkpoints: {OUTPUT_DIR}")
     print(f"Total Batch Size: {total_batch_size} (Micro-batch: {micro_batch_size}, Grad Accumulation: {gradient_accumulation})")
+    print(f"Epochs: {args.epochs} | Learning Rate: {args.learning_rate}")
 
     model, tokenizer = FastLanguageModel.from_pretrained(
         model_name=MODEL_NAME,
@@ -147,14 +168,21 @@ def main():
                 break
 
     print(f"Loading dataset from {dataset_path}...")
-    dataset = load_dataset("json", data_files=dataset_path, split="train")
-    dataset = dataset.map(format_prompts, batched=True)
-    total_samples = len(dataset)
+    full_dataset = load_dataset("json", data_files=dataset_path, split="train")
+    full_dataset = full_dataset.map(format_prompts, batched=True)
+
+    # Split into train (99.5%) and eval (0.5% ~125 examples) to monitor eval loss & overfit
+    split_dataset = full_dataset.train_test_split(test_size=0.005, seed=2026)
+    train_dataset = split_dataset["train"]
+    eval_dataset = split_dataset["test"]
+
+    total_samples = len(train_dataset)
     effective_batch_size = micro_batch_size * gradient_accumulation
     total_steps = (total_samples // effective_batch_size) * args.epochs
-    print(f"Dataset loaded: {total_samples:,} training samples ({total_steps:,} total training steps).")
+    print(f"Dataset split: {total_samples:,} train samples | {len(eval_dataset):,} eval validation samples.")
+    print(f"Total training steps: {total_steps:,}.")
 
-    # Step-Based Checkpointing Config (Resilient against disconnects)
+    # Step-Based Checkpointing & Validation Config
     sft_config = SFTConfig(
         dataset_text_field="text",
         max_seq_length=MAX_SEQ_LENGTH,
@@ -175,28 +203,32 @@ def main():
         seed=2026,
         output_dir=OUTPUT_DIR,
         save_strategy="steps",
-        save_steps=50,
+        save_steps=250,
+        eval_strategy="steps",
+        eval_steps=250,
         save_total_limit=3,
         report_to="none",
     )
 
-    benchmark_cb = ThroughputBenchmarkCallback(total_steps=total_steps)
+    sampling_cb = ThroughputAndSamplingCallback(total_steps=total_steps, model=model, tokenizer=tokenizer)
 
     try:
         trainer = SFTTrainer(
             model=model,
-            train_dataset=dataset,
+            train_dataset=train_dataset,
+            eval_dataset=eval_dataset,
             processing_class=tokenizer,
             args=sft_config,
-            callbacks=[benchmark_cb],
+            callbacks=[sampling_cb],
         )
     except TypeError:
         trainer = SFTTrainer(
             model=model,
-            train_dataset=dataset,
+            train_dataset=train_dataset,
+            eval_dataset=eval_dataset,
             tokenizer=tokenizer,
             args=sft_config,
-            callbacks=[benchmark_cb],
+            callbacks=[sampling_cb],
         )
 
     # Auto-resume from last step checkpoint if available
