@@ -43,7 +43,7 @@ def run_inference(model, tokenizer, prompt_text: str) -> str:
 def main():
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument("--base_model", type=str, default="unsloth/Qwen2.5-Coder-3B-Instruct")
+    parser.add_argument("--base_model", type=str, default="unsloth/Qwen3-4B-Instruct-2507")
     parser.add_argument("--lora_path", type=str, default="./models/eli-tone-lora")
     parser.add_argument("--output_file", type=str, default=None)
     parser.add_argument("--batch_size", type=int, default=16)

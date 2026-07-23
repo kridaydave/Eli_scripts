@@ -44,7 +44,7 @@ from trl import SFTTrainer, SFTConfig
 from transformers import TrainerCallback
 
 # Configuration
-MODEL_NAME = "unsloth/Qwen2.5-Coder-3B-Instruct"
+MODEL_NAME = "unsloth/Qwen3-4B-Instruct-2507"
 MAX_SEQ_LENGTH = 49152  # 48k context window
 DATASET_PATH = "./processed/eli-sft-train-formatted.jsonl"
 OUTPUT_DIR = "./models/eli-tone-lora"
