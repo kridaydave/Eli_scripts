@@ -25,3 +25,7 @@ data/pillar-*.json
 # Optional: processed outputs
 processed/*.jsonl
 !processed/README.md
+!processed/raw_stack_v2_mined.jsonl
+!processed/training-data-fable5-curated.jsonl
+!processed/training-data-eli-wiseness.jsonl
+!processed/training-data-eli-cross-axis.jsonl
