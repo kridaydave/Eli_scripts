@@ -63,20 +63,38 @@ def main():
         random_state=2026,
     )
 
-    # Format ChatML Dataset
+    # Format ChatML / ShareGPT Dataset
     def format_prompts(examples):
         texts = []
-        for messages in examples["messages"]:
-            formatted = tokenizer.apply_chat_template(
-                messages,
-                tokenize=False,
-                add_generation_prompt=False
-            )
-            texts.append(formatted)
+        if "conversations" in examples:
+            for convs in examples["conversations"]:
+                messages = []
+                for msg in convs:
+                    role = "user" if msg.get("from") in ["human", "user"] else "assistant"
+                    messages.append({"role": role, "content": msg.get("value", "")})
+                text = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=False)
+                texts.append(text)
+        elif "messages" in examples:
+            for msgs in examples["messages"]:
+                text = tokenizer.apply_chat_template(msgs, tokenize=False, add_generation_prompt=False)
+                texts.append(text)
+        elif "text" in examples:
+            return {"text": examples["text"]}
         return {"text": texts}
 
-    print(f"Loading dataset from {DATASET_PATH}...")
-    dataset = load_dataset("json", data_files=DATASET_PATH, split="train")
+    dataset_path = DATASET_PATH
+    if not Path(dataset_path).exists():
+        for fallback in [
+            "./processed/training-data-sharegpt.jsonl",
+            "./processed/eli-sft-train.jsonl",
+            "./processed/training-data.jsonl"
+        ]:
+            if Path(fallback).exists():
+                dataset_path = fallback
+                break
+
+    print(f"Loading dataset from {dataset_path}...")
+    dataset = load_dataset("json", data_files=dataset_path, split="train")
     dataset = dataset.map(format_prompts, batched=True)
 
     print(f"Dataset loaded ({len(dataset)} items). Setting up SFTTrainer...")
