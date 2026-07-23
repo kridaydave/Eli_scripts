@@ -1,10 +1,6 @@
 """
 Colab Fine-Tuning Script for Eli (Qwen 2.5/3 Coder) using Unsloth
 Run on Google Colab (T4 / L4 / A100 GPU)
-
-Requirements:
-    pip install "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git"
-    pip install --no-deps xformers trl peft accelerate bitsandbytes
 """
 
 import os
@@ -69,15 +65,14 @@ def main():
 
     print(f"Dataset loaded ({len(dataset)} items). Setting up SFTTrainer...")
 
-    trainer = SFTTrainer(
-        model=model,
-        processing_class=tokenizer,  # Use processing_class for newer TRL compatibility
-        train_dataset=dataset,
-        dataset_text_field="text",
-        max_seq_length=MAX_SEQ_LENGTH,
-        dataset_num_proc=2,
-        packing=False,
-        args=TrainingArguments(
+    trainer_kwargs = {
+        "model": model,
+        "train_dataset": dataset,
+        "dataset_text_field": "text",
+        "max_seq_length": MAX_SEQ_LENGTH,
+        "dataset_num_proc": 2,
+        "packing": False,
+        "args": TrainingArguments(
             per_device_train_batch_size=BATCH_SIZE,
             gradient_accumulation_steps=GRADIENT_ACCUMULATION,
             warmup_steps=2,
@@ -92,8 +87,18 @@ def main():
             seed=2026,
             output_dir=OUTPUT_DIR,
             save_strategy="no",
+            report_to="none",
         ),
-    )
+    }
+
+    # Universal TRL / Transformers version compatibility fallback ladder
+    try:
+        trainer = SFTTrainer(processing_class=tokenizer, **trainer_kwargs)
+    except TypeError:
+        try:
+            trainer = SFTTrainer(tokenizer=tokenizer, **trainer_kwargs)
+        except TypeError:
+            trainer = SFTTrainer(**trainer_kwargs)
 
     print("=== STARTING TRAINING ===")
     trainer_stats = trainer.train()
