@@ -1,0 +1,12 @@
+{
+  "dataset_name": "Eli-VL Vision-Language Multimodal Dataset",
+  "generated_at": "2026-07-22T11:03:16.919462+00:00",
+  "target_model": "Eli-VL (Qwen-VL / Qwen3-VL LoRA Adapter)",
+  "total_multimodal_pairs": 192,
+  "source_counts": {
+    "references_main": 134,
+    "eli_frontend_ui_webp": 58
+  },
+  "output_file": "/home/kriday/Desktop/epoch-1/processed/training-data-eli-vl.jsonl",
+  "file_size_kb": 284.54
+}

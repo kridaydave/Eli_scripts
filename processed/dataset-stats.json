@@ -1,0 +1,16 @@
+{
+  "generated_at": "2026-07-22T17:31:54.482284+00:00",
+  "total_alpaca_pairs": 15358,
+  "total_sharegpt_sessions": 1200,
+  "by_source": {
+    "eli_personality": 1738,
+    "github_frontend": 4907,
+    "github_backend": 9012,
+    "github_total": 13919,
+    "genuine_pillars": 51,
+    "ast_mutation_debug": 0,
+    "deep_agentic_sessions": 1200
+  },
+  "alpaca_file": "/home/kriday/Desktop/epoch-1/processed/training-data.jsonl",
+  "sharegpt_file": "/home/kriday/Desktop/epoch-1/processed/training-data-sharegpt.jsonl"
+}

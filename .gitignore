@@ -1,0 +1,27 @@
+# Ignored data and models
+*.parquet
+*.bin
+*.pt
+*.safetensors
+models/
+__pycache__/
+.venv/
+.env
+
+# Ignore raw cloned repositories and private scratch dirs
+raw/
+private/
+memory/
+references/
+
+# Ignore raw agent trace dumps containing third-party API keys
+data/fable-5-*.json
+data/fable5-*.parquet
+data/long-horizon-*.json
+data/agentic-*.json
+data/stier-*.json
+data/pillar-*.json
+
+# Optional: processed outputs
+processed/*.jsonl
+!processed/README.md

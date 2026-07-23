@@ -1,0 +1,104 @@
+"""
+Colab Fine-Tuning Script for Eli (Qwen 2.5/3 Coder) using Unsloth
+Run on Google Colab (T4 / L4 / A100 GPU)
+
+Requirements:
+    pip install "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git"
+    pip install --no-deps xformers "trl<0.9.0" peft accelerate bitsandbytes
+"""
+
+import os
+import torch
+from datasets import load_dataset
+from unsloth import FastLanguageModel
+from trl import SFTTrainer
+from transformers import TrainingArguments
+
+# Configuration
+MODEL_NAME = "unsloth/Qwen2.5-Coder-3B-Instruct-bnb-4bit" # Or 7B if using A100/L4
+MAX_SEQ_LENGTH = 2048
+DATASET_PATH = "./processed/eli-sft-train.jsonl"
+OUTPUT_DIR = "./models/eli-tone-lora"
+EPOCHS = 3
+BATCH_SIZE = 2
+GRADIENT_ACCUMULATION = 4
+LEARNING_RATE = 2e-4
+
+def main():
+    print(f"=== INITIALIZING UNSLOTH FINE-TUNING ===")
+    print(f"Loading Base Model: {MODEL_NAME}")
+    
+    model, tokenizer = FastLanguageModel.from_pretrained(
+        model_name=MODEL_NAME,
+        max_seq_length=MAX_SEQ_LENGTH,
+        dtype=None,  # Auto-detect float16 / bfloat16
+        load_in_4bit=True,
+    )
+
+    # Setup LoRA Adapters
+    model = FastLanguageModel.get_peft_model(
+        model,
+        r=16,
+        target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
+        lora_alpha=32,
+        lora_dropout=0.05,
+        bias="none",
+        use_gradient_checkpointing="unsloth",
+        random_state=2026,
+    )
+
+    # Format ChatML Dataset
+    def format_prompts(examples):
+        texts = []
+        for messages in examples["messages"]:
+            formatted = tokenizer.apply_chat_template(
+                messages,
+                tokenize=False,
+                add_generation_prompt=False
+            )
+            texts.append(formatted)
+        return {"text": texts}
+
+    print(f"Loading dataset from {DATASET_PATH}...")
+    dataset = load_dataset("json", data_files=DATASET_PATH, split="train")
+    dataset = dataset.map(format_prompts, batched=True)
+
+    print(f"Dataset loaded ({len(dataset)} items). Setting up SFTTrainer...")
+
+    trainer = SFTTrainer(
+        model=model,
+        tokenizer=tokenizer,
+        train_dataset=dataset,
+        dataset_text_field="text",
+        max_seq_length=MAX_SEQ_LENGTH,
+        dataset_num_proc=2,
+        packing=False,
+        args=TrainingArguments(
+            per_device_train_batch_size=BATCH_SIZE,
+            gradient_accumulation_steps=GRADIENT_ACCUMULATION,
+            warmup_ratio=0.05,
+            num_train_epochs=EPOCHS,
+            learning_rate=LEARNING_RATE,
+            fp16=not torch.cuda.is_bf16_supported(),
+            bf16=torch.cuda.is_bf16_supported(),
+            logging_steps=5,
+            optim="adamw_8bit",
+            weight_decay=0.01,
+            lr_scheduler_type="cosine",
+            seed=2026,
+            output_dir=OUTPUT_DIR,
+            save_strategy="no",
+        ),
+    )
+
+    print("=== STARTING TRAINING ===")
+    trainer_stats = trainer.train()
+
+    print(f"\n=== TRAINING COMPLETE ===")
+    print(f"Saving LoRA Adapter to {OUTPUT_DIR}...")
+    model.save_pretrained(OUTPUT_DIR)
+    tokenizer.save_pretrained(OUTPUT_DIR)
+    print(f"Saved successfully!")
+
+if __name__ == "__main__":
+    main()
