@@ -45,23 +45,50 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--base_model", type=str, default="Qwen/Qwen2.5-Coder-3B-Instruct")
     parser.add_argument("--lora_path", type=str, default="./models/eli-tone-lora")
+    parser.add_argument("--output_file", type=str, default=None)
     args = parser.parse_args()
 
     print("=== STARTING STEP 0 HELD-OUT EMERGENCE EVALUATION ===")
-    print(f"Loading Base Model: {args.base_model}")
+    
+    # Try importing Unsloth for fast 4-bit inference to avoid memory limits
+    try:
+        from unsloth import FastLanguageModel
+        has_unsloth = True
+    except ImportError:
+        has_unsloth = False
 
-    tokenizer = AutoTokenizer.from_pretrained(args.base_model)
-    model = AutoModelForCausalLM.from_pretrained(
-        args.base_model,
-        torch_dtype=torch.float16 if torch.cuda.is_available() else torch.float32,
-        device_map="auto"
-    )
-
-    if Path(args.lora_path).exists():
-        print(f"Loading LoRA weights from {args.lora_path}...")
-        model = PeftModel.from_pretrained(model, args.lora_path)
+    lora_loaded = False
+    if has_unsloth:
+        # If LoRA path exists, load directly through FastLanguageModel (it resolves base model automatically)
+        if Path(args.lora_path).exists():
+            model_to_load = args.lora_path
+            print(f"Loading LoRA weights via Unsloth: {model_to_load}")
+            lora_loaded = True
+        else:
+            model_to_load = args.base_model
+            print(f"Loading Base Model via Unsloth: {model_to_load}")
+        
+        model, tokenizer = FastLanguageModel.from_pretrained(
+            model_name=model_to_load,
+            max_seq_length=2048,
+            dtype=None,
+            load_in_4bit=True,
+        )
+        FastLanguageModel.for_inference(model)
     else:
-        print(f"Notice: LoRA path {args.lora_path} not found. Running UNTUNED BASE MODEL evaluation.")
+        print(f"Loading Base Model: {args.base_model}")
+        tokenizer = AutoTokenizer.from_pretrained(args.base_model)
+        model = AutoModelForCausalLM.from_pretrained(
+            args.base_model,
+            torch_dtype=torch.float16 if torch.cuda.is_available() else torch.float32,
+            device_map="auto"
+        )
+        if Path(args.lora_path).exists():
+            print(f"Loading LoRA weights from {args.lora_path}...")
+            model = PeftModel.from_pretrained(model, args.lora_path)
+            lora_loaded = True
+        else:
+            print(f"Notice: LoRA path {args.lora_path} not found. Running UNTUNED BASE MODEL evaluation.")
 
     eval_items = []
     with open(HELD_OUT_FILE, "r", encoding="utf-8") as f:
@@ -95,12 +122,18 @@ def main():
         }
         results.append(result_entry)
 
-    OUTPUT_EVAL_FILE.parent.mkdir(parents=True, exist_ok=True)
-    with open(OUTPUT_EVAL_FILE, "w", encoding="utf-8") as f:
+    if args.output_file:
+        output_path = Path(args.output_file)
+    else:
+        suffix = "lora" if lora_loaded else "base"
+        output_path = PROJECT_ROOT / "processed" / f"emergence_eval_results_{suffix}.json"
+
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(output_path, "w", encoding="utf-8") as f:
         json.dump(results, f, indent=2, ensure_ascii=False)
 
     print(f"\n=== HELD-OUT EVALUATION COMPLETE ===")
-    print(f"Results saved to {OUTPUT_EVAL_FILE}")
+    print(f"Results saved to {output_path}")
 
 if __name__ == "__main__":
     main()
