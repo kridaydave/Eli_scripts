@@ -156,7 +156,7 @@ def main():
         dataset_text_field="text",
         max_seq_length=MAX_SEQ_LENGTH,
         dataset_num_proc=2,
-        packing=False,
+        packing=True,
         per_device_train_batch_size=micro_batch_size,
         gradient_accumulation_steps=gradient_accumulation,
         warmup_steps=100,
@@ -172,7 +172,7 @@ def main():
         seed=2026,
         output_dir=OUTPUT_DIR,
         save_strategy="steps",
-        save_steps=250,
+        save_steps=50,
         save_total_limit=3,
         report_to="none",
     )
