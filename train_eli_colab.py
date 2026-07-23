@@ -4,6 +4,7 @@ Run on Google Colab (T4 / L4 / A100 GPU)
 """
 
 import os
+from pathlib import Path
 # Disable XET fallback stall in Colab
 os.environ["HF_HUB_DISABLE_XET"] = "1"
 os.environ["HF_HUB_ENABLE_HF_TRANSFER"] = "0"
@@ -31,8 +32,12 @@ from trl import SFTTrainer
 from transformers import TrainingArguments
 
 # Configuration
-MODEL_NAME = "Qwen/Qwen2.5-Coder-3B-Instruct"
-MAX_SEQ_LENGTH = 50000
+# Base model: Qwen3-4B Pure Dense (Apache 2.0)
+# Chosen over Qwen2.5-Coder-3B because Eli needs personality, writing, and
+# register calibration to stick — not just code. The general 4B model's dual-mode
+# architecture absorbs style transfer better than code-specialized variants.
+MODEL_NAME = "Qwen/Qwen3-4B"
+MAX_SEQ_LENGTH = 4096  # Was 50000 — reduced to prevent OOM on T4/L4 Colab instances
 DATASET_PATH = "./processed/eli-sft-train-formatted.jsonl"
 OUTPUT_DIR = "./models/eli-tone-lora"
 EPOCHS = 3

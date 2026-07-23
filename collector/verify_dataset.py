@@ -10,12 +10,15 @@ Checks:
 import json
 import os
 import re
+from pathlib import Path
 
-alpaca_file = "/home/kriday/Desktop/epoch-1/processed/training-data.jsonl"
-sharegpt_file = "/home/kriday/Desktop/epoch-1/processed/training-data-sharegpt.jsonl"
-vl_file = "/home/kriday/Desktop/epoch-1/processed/training-data-eli-vl.jsonl"
-eval_prompts_file = "/home/kriday/Desktop/epoch-1/eval/prompts.md"
-eval_prompts_detailed_file = "/home/kriday/Desktop/epoch-1/eval/prompts-detailed.md"
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
+alpaca_file = str(PROJECT_ROOT / "processed" / "training-data.jsonl")
+sharegpt_file = str(PROJECT_ROOT / "processed" / "training-data-sharegpt.jsonl")
+vl_file = str(PROJECT_ROOT / "processed" / "training-data-eli-vl.jsonl")
+eval_prompts_file = str(PROJECT_ROOT / "eval" / "prompts.md")
+eval_prompts_detailed_file = str(PROJECT_ROOT / "eval" / "prompts-detailed.md")
 
 def get_words(text: str) -> set:
     return set(re.findall(r'\w+', text.lower()))
