@@ -48,8 +48,6 @@ MODEL_NAME = "unsloth/Qwen3-4B-Instruct-2507"
 MAX_SEQ_LENGTH = 49152  # 48k context window
 DATASET_PATH = "./processed/eli-sft-train-formatted.jsonl"
 OUTPUT_DIR = "./models/eli-tone-lora"
-EPOCHS = 3
-LEARNING_RATE = 2e-4
 
 # Custom Callback for Step Throughput & ETA Benchmarking
 class ThroughputBenchmarkCallback(TrainerCallback):
@@ -77,6 +75,8 @@ def main():
     import argparse
     parser = argparse.ArgumentParser(description="Train Eli using Unsloth on Colab/Kaggle")
     parser.add_argument("--batch-size", type=int, default=8, help="Total effective batch size (micro_batch * grad_accum * gpus)")
+    parser.add_argument("--epochs", type=int, default=3, help="Number of training epochs")
+    parser.add_argument("--learning-rate", type=float, default=2e-4, help="Initial learning rate")
     args = parser.parse_args()
 
     total_batch_size = args.batch_size
@@ -148,7 +148,7 @@ def main():
     dataset = dataset.map(format_prompts, batched=True)
     total_samples = len(dataset)
     effective_batch_size = micro_batch_size * gradient_accumulation
-    total_steps = (total_samples // effective_batch_size) * EPOCHS
+    total_steps = (total_samples // effective_batch_size) * args.epochs
     print(f"Dataset loaded: {total_samples:,} training samples ({total_steps:,} total training steps).")
 
     # Step-Based Checkpointing Config (Resilient against disconnects)
@@ -160,8 +160,8 @@ def main():
         per_device_train_batch_size=micro_batch_size,
         gradient_accumulation_steps=gradient_accumulation,
         warmup_steps=100,
-        num_train_epochs=EPOCHS,
-        learning_rate=LEARNING_RATE,
+        num_train_epochs=args.epochs,
+        learning_rate=args.learning_rate,
         fp16=not torch.cuda.is_bf16_supported(),
         bf16=torch.cuda.is_bf16_supported(),
         logging_steps=25,
