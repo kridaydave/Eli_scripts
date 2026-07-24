@@ -2965,8 +2965,8 @@ def main():
                     sharegpt_samples.append(item)
         print(f"[✓] Loaded {len(sharegpt_samples)} ShareGPT chat samples.")
 
-    # Duplicate high-priority Eli persona & refusal samples to give them sufficient weight (~100x weight)
-    weighted_chat_samples = CHAT_AND_REFUSAL_SAMPLES * 250
+    # Duplicate Eli persona, taste, & refusal samples with a balanced 8x weight (~3,000 samples / ~10% batch mix)
+    weighted_chat_samples = CHAT_AND_REFUSAL_SAMPLES * 8
     print(f"[*] Created {len(weighted_chat_samples)} weighted Eli persona/greeting/refusal instances.")
 
     # Combine all datasets

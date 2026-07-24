@@ -151,8 +151,7 @@ def build_target_weighted_sft_train():
                     convs = entry.get("conversations", [])
                     if len(convs) >= 2:
                         fable_cot_pairs.append({
-                            "instruction": convs[0]["value"],
-                            "output": convs[1]["value"],
+                            "conversations": convs,
                             "metadata": {
                                 "source_type": "fable5_crownelius_traces",
                                 "pillar": "cot_reasoning",
@@ -228,15 +227,20 @@ def build_target_weighted_sft_train():
     # 2. Write ShareGPT / ChatML formatted dataset (`processed/eli-sft-train-formatted.jsonl`)
     formatted_records = []
     for idx, item in enumerate(all_pairs):
-        inst = item.get("instruction", "")
-        out = item.get("output", "")
         meta = item.get("metadata", {})
-        formatted_records.append({
-            "id": f"eli_sft_{idx:06d}",
-            "conversations": [
+        if "conversations" in item:
+            convs = item["conversations"]
+        else:
+            inst = item.get("instruction", "")
+            out = item.get("output", "")
+            convs = [
                 {"from": "human", "value": inst},
                 {"from": "gpt", "value": out}
-            ],
+            ]
+        
+        formatted_records.append({
+            "id": f"eli_sft_{idx:06d}",
+            "conversations": convs,
             "metadata": meta
         })
 
