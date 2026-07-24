@@ -11,6 +11,8 @@ Optimized for high-throughput training without Colab update freezes:
 - Safe in-loop sampling without corrupting Unsloth model graph
 """
 
+import os
+
 # Force unbuffered output so Colab / Kaggle stdout updates instantly without freezing/stalls
 os.environ["PYTHONUNBUFFERED"] = "1"
 
@@ -20,7 +22,6 @@ os.environ["HF_HUB_ENABLE_HF_TRANSFER"] = "0"
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True,max_split_size_mb:128"
 
-import os
 import sys
 import time
 import gc
