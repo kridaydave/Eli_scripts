@@ -125,7 +125,7 @@ class ThroughputAndSamplingCallback(TrainerCallback):
 def main():
     import argparse
     parser = argparse.ArgumentParser(description="Train Eli using Unsloth on Colab/Kaggle")
-    parser.add_argument("--epochs", type=int, default=1, help="Number of training epochs")
+    parser.add_argument("--epochs", type=int, default=3, help="Number of training epochs (default: 3)")
     parser.add_argument("--learning-rate", type=float, default=2e-4, help="Learning rate")
     parser.add_argument("--batch-size", type=int, default=16, help="Total effective batch size")
     parser.add_argument("--micro-batch-size", type=int, default=1, help="Micro batch size per GPU")
