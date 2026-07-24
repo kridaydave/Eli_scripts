@@ -47,7 +47,7 @@ from transformers import TrainerCallback
 # Configuration
 MODEL_NAME = "unsloth/Qwen3-4B-Instruct-2507"
 MAX_SEQ_LENGTH = 34816  # 34k context window (full CoT traces without truncation)
-DATASET_PATH = "./processed/eli-sft-train-formatted.jsonl"
+DATASET_PATH = "./processed/eli-sft-train-formatted-chat-blended.jsonl"
 OUTPUT_DIR = "./models/eli-tone-lora"
 
 # Custom Callback for Step Throughput & Periodic Sample Generation
@@ -89,6 +89,7 @@ class ThroughputAndSamplingCallback(TrainerCallback):
             FastLanguageModel.for_training(self.model)
             
             print(f"Prompt: {self.eval_prompt}")
+            print(f"[RAW TEMPLATED PROMPT SENT TO MODEL]:\n{repr(prompt)}\n")
             print(f"Eli Output:\n{response[:400]}...")
             print("----------------------------------------------------------------------\n")
 

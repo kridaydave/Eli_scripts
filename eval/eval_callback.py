@@ -124,19 +124,21 @@ class CodeEvalCallback(TrainerCallback):
         passed = 0
         total = len(self.eval_items)
         per_problem = []
+        format_counts = {"direct_code": 0, "tool_call_wrapped": 0, "raw_unwrapped": 0, "extraction_failed": 0}
 
         for i, item in enumerate(self.eval_items):
             response = generate_code(
                 self.model, self.tokenizer, item["prompt"],
                 temperature=self.temperature,
             )
-            extracted = extract_code_from_response(
+            extracted, format_type = extract_code_from_response(
                 response, item["function_name"], item.get("language", "python")
             )
+            format_counts[format_type] += 1
 
             if extracted is None:
-                per_problem.append({"id": item["id"], "passed": False, "error": "extraction_failed"})
-                print(f"  [{i+1}/{total}] {item['id']}: ✗ (extraction)")
+                per_problem.append({"id": item["id"], "passed": False, "error": "extraction_failed", "format": format_type})
+                print(f"  [{i+1}/{total}] {item['id']}: ✗ (extraction | fmt: {format_type})")
             else:
                 result = run_tests_sandboxed(
                     extracted, item["test_code"], item["function_name"],
@@ -146,14 +148,17 @@ class CodeEvalCallback(TrainerCallback):
                     "id": item["id"],
                     "passed": result["passed"],
                     "error": result.get("error"),
+                    "format": format_type,
                 })
                 if result["passed"]:
                     passed += 1
-                    print(f"  [{i+1}/{total}] {item['id']}: ✓")
+                    print(f"  [{i+1}/{total}] {item['id']}: ✓ (fmt: {format_type})")
                 else:
-                    print(f"  [{i+1}/{total}] {item['id']}: ✗ ({result.get('error', '')[:50]})")
+                    print(f"  [{i+1}/{total}] {item['id']}: ✗ ({result.get('error', '')[:40]} | fmt: {format_type})")
 
         pass_at_1 = passed / total if total > 0 else 0.0
+
+        print(f"  [FORMAT STATS] Direct Code: {format_counts['direct_code']}/{total} | Tool-Call Wrapped: {format_counts['tool_call_wrapped']}/{total}")
 
         # Log entry
         entry = {

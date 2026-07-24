@@ -55,43 +55,46 @@ SYSTEM_PROMPT = (
 # Code Extraction
 # ──────────────────────────────────────────────────────────────────────
 
-def extract_code_from_response(response: str, function_name: str, language: str = "python") -> str | None:
+def extract_code_from_response(response: str, function_name: str, language: str = "python") -> tuple[str | None, str]:
     """
     Extract executable code from model response.
-    Handles: bare code, fenced code blocks, markdown, etc.
-    Returns the extracted code string or None if extraction fails.
+    Handles: bare code, fenced code blocks, markdown, thinking tags, and JSON/heredoc tool-calls.
+    Returns: (extracted_code_string or None, format_type: "direct_code" | "tool_call_wrapped" | "raw_unwrapped")
     """
-    # Strategy 1: Extract from fenced code blocks (```python ... ``` or ``` ... ```)
+    # Clean thinking tags if present
+    clean_resp = re.sub(r'<think>.*?</think>', '', response, flags=re.DOTALL).strip()
+    
+    # 1. Direct code block extraction (Ideal user-facing format)
     code_block_patterns = [
-        rf'```(?:python|py)\s*\n(.*?)```',     # ```python ... ```
-        rf'```\s*\n(.*?)```',                     # ``` ... ```
+        rf'```(?:python|py)\s*\n(.*?)```',
+        rf'```\s*\n(.*?)```',
     ]
     for pattern in code_block_patterns:
-        matches = re.findall(pattern, response, re.DOTALL)
+        matches = re.findall(pattern, clean_resp, re.DOTALL)
         for match in matches:
             if function_name in match and f"def {function_name}" in match:
-                return match.strip()
+                return match.strip(), "direct_code"
 
-    # Strategy 2: Find the function definition directly in the response
-    # Look for def function_name(...): and grab everything from there
+    # 2. Direct regex function match
     func_pattern = rf'((?:(?:import|from)\s+\S+.*\n)*\s*def\s+{re.escape(function_name)}\s*\(.*$(?:\n(?:[ \t]+.*|[ \t]*$))*)'
-    match = re.search(func_pattern, response, re.MULTILINE)
+    match = re.search(func_pattern, clean_resp, re.MULTILINE)
     if match:
-        return match.group(0).strip()
+        return match.group(0).strip(), "direct_code"
 
-    # Strategy 3: If there are code blocks, return the longest one that contains 'def '
-    all_blocks = re.findall(r'```(?:\w*)\s*\n(.*?)```', response, re.DOTALL)
+    # 3. Fallback: Search inside unescaped JSON / Heredoc tool calls (Diagnostic unwrapping)
+    # Replaces escaped newlines inside JSON string blocks
+    unescaped_text = clean_resp.replace("\\n", "\n").replace('\\"', '"')
+    match = re.search(func_pattern, unescaped_text, re.MULTILINE)
+    if match:
+        return match.group(0).strip(), "tool_call_wrapped"
+
+    # 4. Longest code block containing 'def '
+    all_blocks = re.findall(r'```(?:\w*)\s*\n(.*?)```', clean_resp, re.DOTALL)
     code_blocks_with_def = [b for b in all_blocks if 'def ' in b]
     if code_blocks_with_def:
-        return max(code_blocks_with_def, key=len).strip()
+        return max(code_blocks_with_def, key=len).strip(), "raw_unwrapped"
 
-    # Strategy 4: Last resort — if the entire response looks like code, use it
-    lines = response.strip().split('\n')
-    code_lines = [l for l in lines if l.strip() and not l.strip().startswith('#')]
-    if code_lines and any(f'def {function_name}' in l for l in code_lines):
-        return response.strip()
-
-    return None
+    return None, "extraction_failed"
 
 
 # ──────────────────────────────────────────────────────────────────────
@@ -301,7 +304,7 @@ def run_eval(
         gen_time = time.time() - gen_start
 
         # 2. Extract function
-        extracted = extract_code_from_response(response, function_name, item.get("language", "python"))
+        extracted, format_type = extract_code_from_response(response, function_name, item.get("language", "python"))
 
         if extracted is None:
             result = {
@@ -310,6 +313,7 @@ def run_eval(
                 "tags": tags,
                 "passed": False,
                 "error": "CODE_EXTRACTION_FAILED",
+                "format": format_type,
                 "raw_response_len": len(response),
                 "generation_time_s": gen_time,
             }
