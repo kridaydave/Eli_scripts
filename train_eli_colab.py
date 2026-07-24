@@ -11,21 +11,21 @@ Optimized for high-throughput training without Colab update freezes:
 - Safe in-loop sampling without corrupting Unsloth model graph
 """
 
+# Force unbuffered output so Colab / Kaggle stdout updates instantly without freezing/stalls
+os.environ["PYTHONUNBUFFERED"] = "1"
+
+# Disable HF hub transfer stalls and configure tokenizers/CUDA memory allocator BEFORE PyTorch import
+os.environ["HF_HUB_DISABLE_XET"] = "1"
+os.environ["HF_HUB_ENABLE_HF_TRANSFER"] = "0"
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True,max_split_size_mb:128"
+
 import os
 import sys
 import time
 import gc
 import torch
 from pathlib import Path
-
-# Force unbuffered output so Colab / Kaggle stdout updates instantly without freezing/stalls
-os.environ["PYTHONUNBUFFERED"] = "1"
-
-# Disable HF hub transfer stalls and configure tokenizers/CUDA memory allocator
-os.environ["HF_HUB_DISABLE_XET"] = "1"
-os.environ["HF_HUB_ENABLE_HF_TRANSFER"] = "0"
-os.environ["TOKENIZERS_PARALLELISM"] = "false"
-os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True,max_split_size_mb:128"
 
 # Import Unsloth FIRST before transformers/trl for optimizations
 from unsloth import FastLanguageModel
@@ -159,6 +159,9 @@ def main():
     parser.add_argument("--enable-sampling", action="store_true", help="Enable sample generation during step callbacks")
     parser.add_argument("--disable-sampling", action="store_true", help="Disable sample generation during step callbacks")
     parser.add_argument("--enable-code-eval", action="store_true", help="Enable periodic code execution pass@1 evaluation during training")
+    parser.add_argument("--hf-token", type=str, default=os.environ.get("HF_TOKEN"), help="HuggingFace Hub Token for auto-uploading adapters")
+    parser.add_argument("--hf-repo", type=str, default="kridaydave/eli-tone-lora", help="HuggingFace target repository name")
+    parser.add_argument("--disable-hub-push", action="store_true", help="Disable automatic push to HuggingFace Hub")
     args = parser.parse_args()
 
     max_seq_len = args.max_seq_len
@@ -172,6 +175,16 @@ def main():
 
     enable_sampling = args.enable_sampling and not args.disable_sampling
 
+    hf_token = args.hf_token or os.environ.get("HF_TOKEN")
+    push_to_hub = bool(hf_token and not args.disable_hub_push)
+    if hf_token:
+        try:
+            from huggingface_hub import login
+            login(token=hf_token)
+            print(f"🔑 [HF AUTH] Authenticated with HuggingFace Hub (Target Repo: {args.hf_repo})", flush=True)
+        except Exception as e:
+            print(f"⚠️ [HF AUTH] Warning: Could not log in to HuggingFace Hub: {e}", flush=True)
+
     print(f"=== INITIALIZING UNSLOTH FINE-TUNING ===", flush=True)
     print(f"Base Model: {MODEL_NAME}", flush=True)
     print(f"Context Length: {max_seq_len:,} tokens", flush=True)
@@ -180,6 +193,8 @@ def main():
     print(f"Total Batch Size: {total_batch_size} (Micro-batch: {micro_batch_size}, Grad Accumulation: {gradient_accumulation})", flush=True)
     print(f"Epochs: {args.epochs} | Learning Rate: {args.learning_rate}", flush=True)
     print(f"Save Steps: {args.save_steps} | Eval Steps: {args.eval_steps}", flush=True)
+    if push_to_hub:
+        print(f"HuggingFace Hub Auto-Push Enabled: {args.hf_repo}", flush=True)
 
     model, tokenizer = FastLanguageModel.from_pretrained(
         model_name=MODEL_NAME,
@@ -285,12 +300,15 @@ def main():
         output_dir=OUTPUT_DIR,
         save_strategy="steps",
         save_steps=args.save_steps,
-        save_only_model=True,
+        save_only_model=False,
         ignore_data_skip=True,
         eval_strategy="steps" if len(eval_dataset) > 0 else "no",
         eval_steps=args.eval_steps,
         save_total_limit=3,
         report_to="none",
+        push_to_hub=push_to_hub,
+        hub_model_id=args.hf_repo if push_to_hub else None,
+        hub_token=hf_token if push_to_hub else None,
     )
 
     colab_cb = ColabProgressCallback()
@@ -365,7 +383,16 @@ def main():
     print(f"Saving final LoRA Adapter to {OUTPUT_DIR}...", flush=True)
     model.save_pretrained(OUTPUT_DIR)
     tokenizer.save_pretrained(OUTPUT_DIR)
-    print("Saved successfully!", flush=True)
+    print("Saved to local disk successfully!", flush=True)
+
+    if push_to_hub:
+        try:
+            print(f"\n🚀 Pushing final LoRA Adapter to HuggingFace Hub ({args.hf_repo})...", flush=True)
+            model.push_to_hub(args.hf_repo, token=hf_token)
+            tokenizer.push_to_hub(args.hf_repo, token=hf_token)
+            print(f"✅ Successfully uploaded adapter to HuggingFace Hub: https://huggingface.co/{args.hf_repo}", flush=True)
+        except Exception as e:
+            print(f"⚠️ Failed to push to HuggingFace Hub: {e}", flush=True)
 
 if __name__ == "__main__":
     main()
