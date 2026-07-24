@@ -75,6 +75,11 @@ class ColabProgressCallback(TrainerCallback):
             torch.cuda.empty_cache()
             gc.collect()
 
+    def on_save(self, args, state, control, **kwargs):
+        step = state.global_step
+        print(f"\n💾 [CHECKPOINT SAVED @ Step {step}] Successfully saved checkpoint to {args.output_dir}/checkpoint-{step}\n", flush=True)
+        sys.stdout.flush()
+
 
 
 # Custom Callback for Step Throughput & Periodic Sample Generation
