@@ -51,7 +51,7 @@ from transformers import TrainerCallback
 
 # Configuration Defaults
 MODEL_NAME = "unsloth/Qwen3-4B-Instruct-2507"
-MAX_SEQ_LENGTH = 34816  # 34k context window (full CoT traces without truncation)
+MAX_SEQ_LENGTH = 16384  # 16k context window (VRAM safe on T4/L4 GPUs)
 DATASET_PATH = "./processed/eli-sft-train-formatted-chat-blended.jsonl"
 OUTPUT_DIR = "./models/eli-tone-lora"
 
@@ -70,8 +70,8 @@ class ColabProgressCallback(TrainerCallback):
         sys.stdout.flush()
 
     def on_step_end(self, args, state, control, **kwargs):
-        # Periodically clear CUDA cache every 25 steps to prevent VRAM fragmentation OOMs
-        if state.global_step > 0 and state.global_step % 25 == 0:
+        # Periodically clear CUDA cache every 10 steps to prevent VRAM fragmentation OOMs
+        if state.global_step > 0 and state.global_step % 10 == 0:
             torch.cuda.empty_cache()
             gc.collect()
 
@@ -138,7 +138,7 @@ def main():
     parser.add_argument("--micro-batch-size", type=int, default=1, help="Micro batch size per GPU")
     parser.add_argument("--grad-accum", type=int, default=None, help="Gradient accumulation steps (overrides batch-size)")
     parser.add_argument("--max-seq-len", type=int, default=MAX_SEQ_LENGTH, help="Maximum context length")
-    parser.add_argument("--save-steps", type=int, default=250, help="Checkpoint save steps interval")
+    parser.add_argument("--save-steps", type=int, default=50, help="Checkpoint save steps interval")
     parser.add_argument("--eval-steps", type=int, default=250, help="Validation loss evaluation steps interval")
     parser.add_argument("--checkpoint", type=str, default=None, help="Explicit checkpoint path to resume training")
     parser.add_argument("--enable-sampling", action="store_true", help="Enable sample generation during step callbacks")
@@ -270,6 +270,7 @@ def main():
         output_dir=OUTPUT_DIR,
         save_strategy="steps",
         save_steps=args.save_steps,
+        ignore_data_skip=True,
         eval_strategy="steps" if len(eval_dataset) > 0 else "no",
         eval_steps=args.eval_steps,
         save_total_limit=2,
