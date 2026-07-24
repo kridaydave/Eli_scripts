@@ -127,10 +127,10 @@ Those two tell the whole story: fast and deep, frontend and backend.
     - **Eli (~3–7B) → Qwen-3-4B (Pure Dense)** + **Modular Eli-VL Adapter** — Apache 2.0, dense transformer, ~4GB Q8 / 8GB BF16, 262K context. Ships as a hyper-fast core text/code model. For multimodal screenshot-to-code tasks, Eli's taste & personality weights are also released as a stackable LoRA adapter (`Eli-VL`) compatible with Qwen-VL base models.
     - **Theo (~7–14B) → Gemma-4-12B Unified** — Apache 2.0, 13.4GB Q8 / 26.7GB BF16, 256K context, encoder-free unified multimodal (text+image+audio, no vision tower). Kept for native screenshot/Figma intake; coding lifted via training (base LCB ~72%).
     - **Albert (~14–32B) → Qwen3.5-32B Dense** — Apache 2.0, ~36GB Q8 / 72GB BF16, 262K context. Swapped from Gemma-4-31B after benchmarks showed Qwen leads real coding (SWE-bench ~72% vs ~41%); clean dense fine-tune, best MMLU-Pro (86.1%). Dense aligns with "thinker not refactorer" (no 1M-ctx need).
-2. **Data pipeline** — who owns the curation process internally?
+2. **Data pipeline** — RESOLVED. Master training corpus (24,792 target-weighted pairs across Stack v2, FABLE 5 CoT, Wiseness, Voice, and Cross-Axis) is 100% curated, MinHash deduplicated, verified, and sealed in `processed/eli-sft-train.jsonl`.
 3. **Taste benchmark** — HumanEval measures correctness. How does Epoch measure taste?
-4. **Albert's local story** — does Albert eventually ship as a local-first model?
-5. **Personality tuning** — how do you train for personality without it feeling forced?
+4. **Albert's local story** — RESOLVED (see `docs/albert-local.md`). Albert ships local-first across FP16, Q8, Q6, Q4, and Q1 quantization options.
+5. **Personality tuning** — RESOLVED (see `docs/personality.md`). CEO-as-voice dataset curation method establishing authentic model persona without system prompt hacks.
 
 ---
 

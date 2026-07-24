@@ -13,7 +13,7 @@ python3 collector/build_simple_sft_train_jsonl.py
 python3 collector/inject_chat_data.py
 
 echo "=== 3. LAUNCHING UNSLOTH FINE-TUNING ==="
-python3 train_eli_colab.py
+python3 train_eli_colab.py "$@"
 
 echo "=== 4. LAUNCHING HELD-OUT EMERGENCE EVALUATION ==="
 python3 eval_emergence.py --lora_path ./models/eli-tone-lora

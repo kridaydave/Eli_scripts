@@ -113,90 +113,88 @@ class CodeEvalCallback(TrainerCallback):
             run_tests_sandboxed,
         )
 
-        # Unsloth: switch to inference mode
-        try:
-            from unsloth import FastLanguageModel
-            FastLanguageModel.for_inference(self.model)
-            has_unsloth = True
-        except ImportError:
-            has_unsloth = False
+        import sys
+        import gc
 
+        self.model.eval()
         passed = 0
         total = len(self.eval_items)
         per_problem = []
         format_counts = {"direct_code": 0, "tool_call_wrapped": 0, "raw_unwrapped": 0, "extraction_failed": 0}
 
-        for i, item in enumerate(self.eval_items):
-            response = generate_code(
-                self.model, self.tokenizer, item["prompt"],
-                temperature=self.temperature,
-            )
-            extracted, format_type = extract_code_from_response(
-                response, item["function_name"], item.get("language", "python")
-            )
-            format_counts[format_type] += 1
+        try:
+            with torch.no_grad():
+                for i, item in enumerate(self.eval_items):
+                    response = generate_code(
+                        self.model, self.tokenizer, item["prompt"],
+                        temperature=self.temperature,
+                    )
+                    extracted, format_type = extract_code_from_response(
+                        response, item["function_name"], item.get("language", "python")
+                    )
+                    format_counts[format_type] += 1
 
-            if extracted is None:
-                per_problem.append({"id": item["id"], "passed": False, "error": "extraction_failed", "format": format_type})
-                print(f"  [{i+1}/{total}] {item['id']}: ✗ (extraction | fmt: {format_type})")
-            else:
-                result = run_tests_sandboxed(
-                    extracted, item["test_code"], item["function_name"],
-                    timeout=self.timeout,
-                )
-                per_problem.append({
-                    "id": item["id"],
-                    "passed": result["passed"],
-                    "error": result.get("error"),
-                    "format": format_type,
-                })
-                if result["passed"]:
-                    passed += 1
-                    print(f"  [{i+1}/{total}] {item['id']}: ✓ (fmt: {format_type})")
-                else:
-                    print(f"  [{i+1}/{total}] {item['id']}: ✗ ({result.get('error', '')[:40]} | fmt: {format_type})")
+                    if extracted is None:
+                        per_problem.append({"id": item["id"], "passed": False, "error": "extraction_failed", "format": format_type})
+                        print(f"  [{i+1}/{total}] {item['id']}: ✗ (extraction | fmt: {format_type})", flush=True)
+                    else:
+                        result = run_tests_sandboxed(
+                            extracted, item["test_code"], item["function_name"],
+                            timeout=self.timeout,
+                        )
+                        per_problem.append({
+                            "id": item["id"],
+                            "passed": result["passed"],
+                            "error": result.get("error"),
+                            "format": format_type,
+                        })
+                        if result["passed"]:
+                            passed += 1
+                            print(f"  [{i+1}/{total}] {item['id']}: ✓ (fmt: {format_type})", flush=True)
+                        else:
+                            print(f"  [{i+1}/{total}] {item['id']}: ✗ ({result.get('error', '')[:40]} | fmt: {format_type})", flush=True)
 
-        pass_at_1 = passed / total if total > 0 else 0.0
+            pass_at_1 = passed / total if total > 0 else 0.0
 
-        print(f"  [FORMAT STATS] Direct Code: {format_counts['direct_code']}/{total} | Tool-Call Wrapped: {format_counts['tool_call_wrapped']}/{total}")
+            print(f"  [FORMAT STATS] Direct Code: {format_counts['direct_code']}/{total} | Tool-Call Wrapped: {format_counts['tool_call_wrapped']}/{total}", flush=True)
 
-        # Log entry
-        entry = {
-            "step": state.global_step,
-            "timestamp": datetime.now().isoformat(),
-            "pass_at_1": round(pass_at_1, 4),
-            "passed": passed,
-            "total": total,
-            "train_loss": state.log_history[-1].get("loss") if state.log_history else None,
-            "problems": per_problem,
-        }
-        self.eval_history.append(entry)
+            # Log entry
+            entry = {
+                "step": state.global_step,
+                "timestamp": datetime.now().isoformat(),
+                "pass_at_1": round(pass_at_1, 4),
+                "passed": passed,
+                "total": total,
+                "train_loss": state.log_history[-1].get("loss") if state.log_history else None,
+                "problems": per_problem,
+            }
+            self.eval_history.append(entry)
 
-        # Print summary
-        bar = "█" * int(pass_at_1 * 20) + "░" * (20 - int(pass_at_1 * 20))
-        print(f"\n  Step {state.global_step} | pass@1: {bar} {pass_at_1:.0%} ({passed}/{total})")
-        if state.log_history:
-            loss = state.log_history[-1].get("loss", "?")
-            print(f"  Current train loss: {loss}")
+            # Print summary
+            bar = "█" * int(pass_at_1 * 20) + "░" * (20 - int(pass_at_1 * 20))
+            print(f"\n  Step {state.global_step} | pass@1: {bar} {pass_at_1:.0%} ({passed}/{total})", flush=True)
+            if state.log_history:
+                loss = state.log_history[-1].get("loss", "?")
+                print(f"  Current train loss: {loss}", flush=True)
 
-        # Show trend if we have history
-        if len(self.eval_history) > 1:
-            prev = self.eval_history[-2]
-            delta = entry["pass_at_1"] - prev["pass_at_1"]
-            arrow = "↑" if delta > 0 else ("↓" if delta < 0 else "→")
-            print(f"  Trend: {arrow} {delta:+.1%} from step {prev['step']}")
+            # Show trend if we have history
+            if len(self.eval_history) > 1:
+                prev = self.eval_history[-2]
+                delta = entry["pass_at_1"] - prev["pass_at_1"]
+                arrow = "↑" if delta > 0 else ("↓" if delta < 0 else "→")
+                print(f"  Trend: {arrow} {delta:+.1%} from step {prev['step']}", flush=True)
 
-        print(f"{'='*60}\n")
+            print(f"{'='*60}\n", flush=True)
 
-        # Save eval log to disk
-        self.log_dir.mkdir(parents=True, exist_ok=True)
-        log_file = self.log_dir / "code_eval_history.jsonl"
-        with open(log_file, "a", encoding="utf-8") as f:
-            f.write(json.dumps(entry) + "\n")
-
-        # Switch back to training mode
-        if has_unsloth:
-            FastLanguageModel.for_training(self.model)
+            # Save eval log to disk
+            self.log_dir.mkdir(parents=True, exist_ok=True)
+            log_file = self.log_dir / "code_eval_history.jsonl"
+            with open(log_file, "a", encoding="utf-8") as f:
+                f.write(json.dumps(entry) + "\n")
+        finally:
+            self.model.train()
+            torch.cuda.empty_cache()
+            gc.collect()
 
     def on_train_end(self, args, state, control, **kwargs):
         """Print final eval summary at end of training."""

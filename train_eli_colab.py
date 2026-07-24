@@ -2,24 +2,29 @@
 Colab / Kaggle Fine-Tuning Script for Eli using Unsloth
 Run on Google Colab or Kaggle (T4 / L4 / P100 / A100 GPU)
 
-Production Step-Based Checkpointing & Hardware Benchmarking Guard:
-- Base Model: Qwen/Qwen3-4B-Instruct
-- Quantization: 4-bit NF4 via Unsloth
-- Context Window: 49,152 tokens (48k context for long Fable-5 CoT traces)
-- Checkpointing: Step-based every 250 steps (save_strategy="steps", save_steps=250)
-  Resilient against Colab/Kaggle session disconnects (max loss = 15 mins).
-- Benchmark Hook: Logs step wall-clock time across first 50 steps to print accurate ETA.
+Optimized for high-throughput training without Colab update freezes:
+- Unsloth 2-5x fast fused Triton kernels (lora_dropout=0.0)
+- Process & Tokenizer thread safety (TOKENIZERS_PARALLELISM=false)
+- Unbuffered live stdout streaming (PYTHONUNBUFFERED=1)
+- Non-blocking single-process data loading (dataset_num_proc=1, dataloader_num_workers=0)
+- Fast validation loss evaluation (eval_dataset capped to 32 samples)
+- Safe in-loop sampling without corrupting Unsloth model graph
 """
 
 import os
 import sys
 import time
+import gc
 import torch
 from pathlib import Path
 
-# Disable HF hub transfer stalls and configure CUDA memory allocator
+# Force unbuffered output so Colab / Kaggle stdout updates instantly without freezing/stalls
+os.environ["PYTHONUNBUFFERED"] = "1"
+
+# Disable HF hub transfer stalls and configure tokenizers/CUDA memory allocator
 os.environ["HF_HUB_DISABLE_XET"] = "1"
 os.environ["HF_HUB_ENABLE_HF_TRANSFER"] = "0"
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
 os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True,max_split_size_mb:128"
 
 # Import Unsloth FIRST before transformers/trl for optimizations
@@ -44,21 +49,38 @@ from datasets import load_dataset
 from trl import SFTTrainer, SFTConfig
 from transformers import TrainerCallback
 
-# Configuration
+# Configuration Defaults
 MODEL_NAME = "unsloth/Qwen3-4B-Instruct-2507"
 MAX_SEQ_LENGTH = 34816  # 34k context window (full CoT traces without truncation)
 DATASET_PATH = "./processed/eli-sft-train-formatted-chat-blended.jsonl"
 OUTPUT_DIR = "./models/eli-tone-lora"
 
+
+# Custom Progress Callback for Unbuffered Colab Logging
+class ColabProgressCallback(TrainerCallback):
+    """Flushes stdout on every logging step so Colab notebook UI updates live without freezing."""
+    def on_log(self, args, state, control, logs=None, **kwargs):
+        if logs:
+            loss = logs.get("loss", None)
+            lr = logs.get("learning_rate", None)
+            step = state.global_step
+            max_steps = state.max_steps
+            if loss is not None:
+                print(f"[Step {step}/{max_steps}] Train Loss: {loss:.4f} | LR: {lr:.2e}", flush=True)
+        sys.stdout.flush()
+
+
 # Custom Callback for Step Throughput & Periodic Sample Generation
 class ThroughputAndSamplingCallback(TrainerCallback):
-    def __init__(self, total_steps: int, model, tokenizer, eval_prompt="Hey Eli, write a python script to validate JWT tokens and handle expiration cleanly."):
+    def __init__(self, total_steps: int, model, tokenizer, eval_prompt="Hey Eli, write a python script to validate JWT tokens and handle expiration cleanly.", enable_sampling=False, sample_every_steps=250):
         self.total_steps = total_steps
         self.step_start_time = None
         self.step_durations = []
         self.model = model
         self.tokenizer = tokenizer
         self.eval_prompt = eval_prompt
+        self.enable_sampling = enable_sampling
+        self.sample_every_steps = sample_every_steps
 
     def on_step_begin(self, args, state, control, **kwargs):
         self.step_start_time = time.time()
@@ -67,44 +89,57 @@ class ThroughputAndSamplingCallback(TrainerCallback):
         if self.step_start_time:
             duration = time.time() - self.step_start_time
             self.step_durations.append(duration)
-            if state.global_step <= 50 and state.global_step % 10 == 0:
+            if state.global_step <= 50 and state.global_step % 10 == 0 and state.global_step > 0:
                 avg_step_time = sum(self.step_durations[-10:]) / len(self.step_durations[-10:])
                 remaining_steps = self.total_steps - state.global_step
                 eta_hours = (avg_step_time * remaining_steps) / 3600.0
                 print(f"[BENCHMARK Step {state.global_step}/{self.total_steps}] "
                       f"Avg Step Time: {avg_step_time:.2f}s | "
-                      f"Estimated Remaining Time: {eta_hours:.2f} hours")
+                      f"Estimated Remaining Time: {eta_hours:.2f} hours", flush=True)
 
-        # Sample generation every 250 steps to inspect code quality & tone
-        if state.global_step > 0 and state.global_step % 250 == 0:
-            print(f"\n--- [SANITY CHECK @ Step {state.global_step}] Generating Sample Code ---")
-            messages = [{"role": "user", "content": self.eval_prompt}]
-            prompt = self.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
-            inputs = self.tokenizer(prompt, return_tensors="pt").to("cuda")
-            
-            FastLanguageModel.for_inference(self.model)
-            with torch.no_grad():
-                outputs = self.model.generate(**inputs, max_new_tokens=256, temperature=0.7)
-            response = self.tokenizer.decode(outputs[0][inputs.input_ids.shape[1]:], skip_special_tokens=True)
-            FastLanguageModel.for_training(self.model)
-            
-            print(f"Prompt: {self.eval_prompt}")
-            print(f"[RAW TEMPLATED PROMPT SENT TO MODEL]:\n{repr(prompt)}\n")
-            print(f"Eli Output:\n{response[:400]}...")
-            print("----------------------------------------------------------------------\n")
+        # Sample generation every sample_every_steps ONLY if explicitly enabled
+        if self.enable_sampling and state.global_step > 0 and state.global_step % self.sample_every_steps == 0:
+            try:
+                print(f"\n--- [SANITY CHECK @ Step {state.global_step}] Generating Sample Code ---", flush=True)
+                messages = [{"role": "user", "content": self.eval_prompt}]
+                prompt = self.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+                inputs = self.tokenizer(prompt, return_tensors="pt").to("cuda")
+                
+                # Switch to eval mode safely without breaking Unsloth training kernels
+                self.model.eval()
+                with torch.no_grad():
+                    outputs = self.model.generate(**inputs, max_new_tokens=256, temperature=0.7)
+                response = self.tokenizer.decode(outputs[0][inputs.input_ids.shape[1]:], skip_special_tokens=True)
+                self.model.train()
+                
+                print(f"Eli Output:\n{response[:300]}...", flush=True)
+                print("----------------------------------------------------------------------\n", flush=True)
+            except Exception as e:
+                print(f"[SANITY CHECK @ Step {state.global_step}] Skipped: {e}", flush=True)
+            finally:
+                self.model.train()
+                torch.cuda.empty_cache()
+                gc.collect()
+
 
 def main():
     import argparse
     parser = argparse.ArgumentParser(description="Train Eli using Unsloth on Colab/Kaggle")
+    parser.add_argument("--epochs", type=int, default=1, help="Number of training epochs")
+    parser.add_argument("--learning-rate", type=float, default=2e-4, help="Learning rate")
     parser.add_argument("--batch-size", type=int, default=16, help="Total effective batch size")
     parser.add_argument("--micro-batch-size", type=int, default=1, help="Micro batch size per GPU")
-    parser.add_argument("--grad-accum", type=int, default=None, help="Gradient accumulation steps")
-    parser.add_argument("--epochs", type=int, default=2, help="Number of training epochs (default 2 to prevent CoT overfit)")
-    parser.add_argument("--learning-rate", type=float, default=1e-4, help="Initial learning rate (default 1e-4 for stable code LoRA)")
-    parser.add_argument("--checkpoint", "--resume-from-checkpoint", "--lora_path", "--lora-path", type=str, default=None, help="Path to checkpoint directory to resume training from")
+    parser.add_argument("--grad-accum", type=int, default=None, help="Gradient accumulation steps (overrides batch-size)")
+    parser.add_argument("--max-seq-len", type=int, default=MAX_SEQ_LENGTH, help="Maximum context length")
+    parser.add_argument("--save-steps", type=int, default=250, help="Checkpoint save steps interval")
+    parser.add_argument("--eval-steps", type=int, default=250, help="Validation loss evaluation steps interval")
+    parser.add_argument("--checkpoint", type=str, default=None, help="Explicit checkpoint path to resume training")
+    parser.add_argument("--enable-sampling", action="store_true", help="Enable sample generation during step callbacks")
+    parser.add_argument("--disable-sampling", action="store_true", help="Disable sample generation during step callbacks")
+    parser.add_argument("--enable-code-eval", action="store_true", help="Enable periodic code execution pass@1 evaluation during training")
     args = parser.parse_args()
 
-
+    max_seq_len = args.max_seq_len
     micro_batch_size = args.micro_batch_size
     if args.grad_accum is not None:
         gradient_accumulation = args.grad_accum
@@ -113,32 +148,38 @@ def main():
         total_batch_size = args.batch_size
         gradient_accumulation = max(1, total_batch_size // micro_batch_size)
 
-    print(f"=== INITIALIZING UNSLOTH FINE-TUNING ===")
-    print(f"Base Model: {MODEL_NAME}")
-    print(f"Context Length: {MAX_SEQ_LENGTH:,} tokens (34k)")
-    print(f"Dataset Path: {DATASET_PATH}")
-    print(f"Output Checkpoints: {OUTPUT_DIR}")
-    print(f"Total Batch Size: {total_batch_size} (Micro-batch: {micro_batch_size}, Grad Accumulation: {gradient_accumulation})")
-    print(f"Epochs: {args.epochs} | Learning Rate: {args.learning_rate}")
+    enable_sampling = args.enable_sampling and not args.disable_sampling
+
+    print(f"=== INITIALIZING UNSLOTH FINE-TUNING ===", flush=True)
+    print(f"Base Model: {MODEL_NAME}", flush=True)
+    print(f"Context Length: {max_seq_len:,} tokens", flush=True)
+    print(f"Dataset Path: {DATASET_PATH}", flush=True)
+    print(f"Output Checkpoints: {OUTPUT_DIR}", flush=True)
+    print(f"Total Batch Size: {total_batch_size} (Micro-batch: {micro_batch_size}, Grad Accumulation: {gradient_accumulation})", flush=True)
+    print(f"Epochs: {args.epochs} | Learning Rate: {args.learning_rate}", flush=True)
+    print(f"Save Steps: {args.save_steps} | Eval Steps: {args.eval_steps}", flush=True)
 
     model, tokenizer = FastLanguageModel.from_pretrained(
         model_name=MODEL_NAME,
-        max_seq_length=MAX_SEQ_LENGTH,
+        max_seq_length=max_seq_len,
         dtype=None,  # Auto float16 / bfloat16
         load_in_4bit=True,
     )
 
-    # Configure LoRA Adapters (Attention projections only to trim activation memory)
+    # Configure LoRA Adapters (lora_dropout=0.0 is CRITICAL for Unsloth fast Triton fused kernels)
     model = FastLanguageModel.get_peft_model(
         model,
         r=16,
-        target_modules=["q_proj", "k_proj", "v_proj", "o_proj"],
+        target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
         lora_alpha=32,
-        lora_dropout=0.05,
+        lora_dropout=0.0,
         bias="none",
         use_gradient_checkpointing="unsloth",
         random_state=2026,
     )
+
+    # Enable Unsloth Training Mode FIRST before SFTTrainer
+    FastLanguageModel.for_training(model)
 
     def format_prompts(examples):
         texts = []
@@ -170,71 +211,86 @@ def main():
                 dataset_path = fallback
                 break
 
-    print(f"Loading dataset from {dataset_path}...")
+    print(f"Loading dataset from {dataset_path}...", flush=True)
     full_dataset = load_dataset("json", data_files=dataset_path, split="train")
-    full_dataset = full_dataset.map(format_prompts, batched=True)
+    full_dataset = full_dataset.map(format_prompts, batched=True, num_proc=1)
 
-    # Split into train (99.5%) and eval (0.5% ~125 examples) to monitor eval loss & overfit
+    # Split into train and eval to monitor loss
     split_dataset = full_dataset.train_test_split(test_size=0.005, seed=2026)
     train_dataset = split_dataset["train"]
     eval_dataset = split_dataset["test"]
+    
+    # Cap validation eval_dataset size to max 32 samples to prevent Colab evaluation freezes
+    if len(eval_dataset) > 32:
+        eval_dataset = eval_dataset.select(range(32))
 
     total_samples = len(train_dataset)
     effective_batch_size = micro_batch_size * gradient_accumulation
     total_steps = (total_samples // effective_batch_size) * args.epochs
-    print(f"Dataset split: {total_samples:,} train samples | {len(eval_dataset):,} eval validation samples.")
-    print(f"Total training steps: {total_steps:,}.")
+    print(f"Dataset split: {total_samples:,} train samples | {len(eval_dataset):,} eval samples.", flush=True)
+    print(f"Total training steps: {total_steps:,}.", flush=True)
 
     # Step-Based Checkpointing & Validation Config
     sft_config = SFTConfig(
         dataset_text_field="text",
-        max_seq_length=MAX_SEQ_LENGTH,
-        dataset_num_proc=2,
+        max_seq_length=max_seq_len,
+        dataset_num_proc=1,
+        dataloader_num_workers=0,
         packing=False,
         per_device_train_batch_size=micro_batch_size,
         gradient_accumulation_steps=gradient_accumulation,
-        warmup_steps=100,
+        warmup_steps=50,
         num_train_epochs=args.epochs,
         learning_rate=args.learning_rate,
         fp16=not torch.cuda.is_bf16_supported(),
         bf16=torch.cuda.is_bf16_supported(),
-        logging_steps=25,
+        logging_steps=10,
+        logging_first_step=True,
         optim="adamw_8bit",
-        weight_decay=0.001,
+        weight_decay=0.01,
         lr_scheduler_type="cosine_with_min_lr",
         lr_scheduler_kwargs={"min_lr_rate": 0.1},
         seed=2026,
         output_dir=OUTPUT_DIR,
         save_strategy="steps",
-        save_steps=250,
-        eval_strategy="steps",
-        eval_steps=250,
-        save_total_limit=3,
+        save_steps=args.save_steps,
+        eval_strategy="steps" if len(eval_dataset) > 0 else "no",
+        eval_steps=args.eval_steps,
+        save_total_limit=2,
         report_to="none",
     )
 
-    sampling_cb = ThroughputAndSamplingCallback(total_steps=total_steps, model=model, tokenizer=tokenizer)
+    colab_cb = ColabProgressCallback()
+    sampling_cb = ThroughputAndSamplingCallback(
+        total_steps=total_steps, 
+        model=model, 
+        tokenizer=tokenizer,
+        enable_sampling=enable_sampling,
+        sample_every_steps=args.save_steps
+    )
 
-    # Code execution eval callback — tracks pass@1 alongside loss
-    callbacks = [sampling_cb]
-    eval_set_path = Path(__file__).resolve().parent / "eval" / "code_exec_eval_set.jsonl"
-    if eval_set_path.exists():
-        try:
-            from eval.eval_callback import CodeEvalCallback
-            code_eval_cb = CodeEvalCallback(
-                model=model,
-                tokenizer=tokenizer,
-                eval_set_path=str(eval_set_path),
-                eval_every_steps=500,
-                num_problems=10,
-                log_dir=str(Path(OUTPUT_DIR) / "eval_logs"),
-            )
-            callbacks.append(code_eval_cb)
-            print(f"[CodeEval] Loaded — will run pass@1 on 10 problems every 500 steps")
-        except Exception as e:
-            print(f"[CodeEval] Skipped (import error): {e}")
-    else:
-        print(f"[CodeEval] Skipped — eval set not found at {eval_set_path}")
+    callbacks = [colab_cb, sampling_cb]
+
+    # Optional Code Execution Eval Callback during training
+    if args.enable_code_eval:
+        eval_set_path = Path(__file__).resolve().parent / "eval" / "code_exec_eval_set.jsonl"
+        if eval_set_path.exists():
+            try:
+                from eval.eval_callback import CodeEvalCallback
+                code_eval_cb = CodeEvalCallback(
+                    model=model,
+                    tokenizer=tokenizer,
+                    eval_set_path=str(eval_set_path),
+                    eval_every_steps=args.eval_steps,
+                    num_problems=5,
+                    log_dir=str(Path(OUTPUT_DIR) / "eval_logs"),
+                )
+                callbacks.append(code_eval_cb)
+                print(f"[CodeEval] Loaded — running pass@1 on 5 problems every {args.eval_steps} steps", flush=True)
+            except Exception as e:
+                print(f"[CodeEval] Skipped (import error): {e}", flush=True)
+        else:
+            print(f"[CodeEval] Skipped — eval set not found at {eval_set_path}", flush=True)
 
     try:
         trainer = SFTTrainer(
@@ -262,22 +318,21 @@ def main():
         if checkpoints:
             checkpoints.sort(key=lambda x: int(x.name.split("-")[-1]))
             last_checkpoint = str(checkpoints[-1])
-            print(f"Found existing checkpoint: {last_checkpoint}. Resuming training...")
+            print(f"Found existing checkpoint: {last_checkpoint}. Resuming training...", flush=True)
     elif last_checkpoint:
-        print(f"Using explicitly specified checkpoint: {last_checkpoint}. Resuming training...")
+        print(f"Using explicitly specified checkpoint: {last_checkpoint}. Resuming training...", flush=True)
 
-
-    print("\n=== STARTING UNSLOTH SFT TRAINING ===")
+    print("\n=== STARTING UNSLOTH SFT TRAINING ===", flush=True)
     if last_checkpoint:
         trainer_stats = trainer.train(resume_from_checkpoint=last_checkpoint)
     else:
         trainer_stats = trainer.train()
 
-    print(f"\n=== TRAINING COMPLETE ===")
-    print(f"Saving final LoRA Adapter to {OUTPUT_DIR}...")
+    print(f"\n=== TRAINING COMPLETE ===", flush=True)
+    print(f"Saving final LoRA Adapter to {OUTPUT_DIR}...", flush=True)
     model.save_pretrained(OUTPUT_DIR)
     tokenizer.save_pretrained(OUTPUT_DIR)
-    print("Saved successfully!")
+    print("Saved successfully!", flush=True)
 
 if __name__ == "__main__":
     main()
