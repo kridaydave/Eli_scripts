@@ -9,8 +9,8 @@ echo "=== 1. INSTALLING UNSLOTH & DEPENDENCIES ==="
 pip install --quiet "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git"
 pip install --quiet --no-deps xformers trl peft accelerate bitsandbytes datasets
 
-echo "=== 2. PREPARING DATASET ==="
 python3 collector/build_simple_sft_train_jsonl.py
+python3 collector/inject_chat_data.py
 
 echo "=== 3. LAUNCHING UNSLOTH FINE-TUNING ==="
 python3 train_eli_colab.py
