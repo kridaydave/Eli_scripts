@@ -1,0 +1,835 @@
+{
+  "files_audited": {
+    "held_out_transfer_test.jsonl": {
+      "file_name": "held_out_transfer_test.jsonl",
+      "file_size_mb": 0.03,
+      "total_lines": 45,
+      "parse_errors": 0,
+      "empty_fields": 45,
+      "unclosed_code_fences": 0,
+      "exact_duplicates": 44,
+      "sources": {
+        "unknown": 45
+      },
+      "pillars": {
+        "unspecified": 45
+      },
+      "sample_keys": [
+        "context",
+        "response",
+        "score_distinguishes_grid_cell",
+        "score_no_register_bleed",
+        "score_hedging_matches_certainty",
+        "domain",
+        "id",
+        "score_directness_matches_stakes",
+        "artifact",
+        "cell"
+      ],
+      "dpo_chosen_equals_rejected": 0,
+      "vision_missing_images": 0,
+      "has_images_count": 0,
+      "prompt_len_summary": {
+        "min": 0,
+        "max": 0,
+        "mean": 0.0,
+        "p50": 0,
+        "p90": 0,
+        "p99": 0
+      },
+      "output_len_summary": {
+        "min": 0,
+        "max": 0,
+        "mean": 0.0,
+        "p50": 0,
+        "p90": 0,
+        "p99": 0
+      }
+    },
+    "train_code_review.jsonl": {
+      "file_name": "train_code_review.jsonl",
+      "file_size_mb": 0.08,
+      "total_lines": 150,
+      "parse_errors": 0,
+      "empty_fields": 0,
+      "unclosed_code_fences": 0,
+      "exact_duplicates": 0,
+      "sources": {
+        "train_code_review": 150
+      },
+      "pillars": {
+        "unspecified": 150
+      },
+      "sample_keys": [
+        "metadata",
+        "output",
+        "instruction"
+      ],
+      "dpo_chosen_equals_rejected": 0,
+      "vision_missing_images": 0,
+      "has_images_count": 0,
+      "prompt_len_summary": {
+        "min": 10,
+        "max": 51,
+        "mean": 21.4,
+        "p50": 20,
+        "p90": 30,
+        "p99": 39
+      },
+      "output_len_summary": {
+        "min": 15,
+        "max": 105,
+        "mean": 41.9,
+        "p50": 39,
+        "p90": 75,
+        "p99": 99
+      }
+    },
+    "eli-sft-train-formatted-chat-blended.jsonl": {
+      "file_name": "eli-sft-train-formatted-chat-blended.jsonl",
+      "file_size_mb": 58.94,
+      "total_lines": 30200,
+      "parse_errors": 0,
+      "empty_fields": 0,
+      "unclosed_code_fences": 8,
+      "exact_duplicates": 20535,
+      "sources": {
+        "eli_wiseness_register": 3410,
+        "stack_v2_mined_real": 7292,
+        "fable5_crownelius_traces": 8530,
+        "eli_taste": 800,
+        "user_custom_written_answers": 3100,
+        "eli_anti_sycophancy": 1200,
+        "eli_cross_axis_emergence": 2100,
+        "eli_identity_chat": 288,
+        "eli_refusal": 1200,
+        "agentic_pivot": 200,
+        "eli_cross_axis_pushback": 360,
+        "eli_tech_chat": 240,
+        "eli_frontend_chat": 240,
+        "agentic_debug": 200,
+        "agentic_feature": 200,
+        "agentic_review": 200,
+        "eli_code_review": 240,
+        "agentic_refactor": 200,
+        "agentic_greenfield": 200
+      },
+      "pillars": {
+        "unspecified": 14362,
+        "cot_reasoning": 8530,
+        "taste": 800,
+        "wiseness_and_voice": 3100,
+        "truthfulness": 1200,
+        "chat": 288,
+        "wiseness": 1200,
+        "tech": 240,
+        "frontend": 240,
+        "code": 240
+      },
+      "sample_keys": [
+        "metadata",
+        "conversations",
+        "id"
+      ],
+      "dpo_chosen_equals_rejected": 0,
+      "vision_missing_images": 0,
+      "has_images_count": 0,
+      "prompt_len_summary": {
+        "min": 1,
+        "max": 527,
+        "mean": 17.9,
+        "p50": 15,
+        "p90": 26,
+        "p99": 131
+      },
+      "output_len_summary": {
+        "min": 1,
+        "max": 21194,
+        "mean": 179.4,
+        "p50": 42,
+        "p90": 545,
+        "p99": 1245
+      }
+    },
+    "eli-sft-train-formatted.jsonl": {
+      "file_name": "eli-sft-train-formatted.jsonl",
+      "file_size_mb": 51.09,
+      "total_lines": 24792,
+      "parse_errors": 0,
+      "empty_fields": 0,
+      "unclosed_code_fences": 8,
+      "exact_duplicates": 15213,
+      "sources": {
+        "fable5_crownelius_traces": 8530,
+        "eli_cross_axis_emergence": 2100,
+        "stack_v2_mined_real": 7292,
+        "eli_wiseness_register": 3410,
+        "eli_cross_axis_pushback": 360,
+        "user_custom_written_answers": 3100
+      },
+      "pillars": {
+        "cot_reasoning": 8530,
+        "unspecified": 13162,
+        "wiseness_and_voice": 3100
+      },
+      "sample_keys": [
+        "metadata",
+        "conversations",
+        "id"
+      ],
+      "dpo_chosen_equals_rejected": 0,
+      "vision_missing_images": 0,
+      "has_images_count": 0,
+      "prompt_len_summary": {
+        "min": 1,
+        "max": 527,
+        "mean": 16.8,
+        "p50": 17,
+        "p90": 26,
+        "p99": 43
+      },
+      "output_len_summary": {
+        "min": 1,
+        "max": 21194,
+        "mean": 189.2,
+        "p50": 48,
+        "p90": 565,
+        "p99": 1322
+      }
+    },
+    "eli-sft-train.jsonl": {
+      "file_name": "eli-sft-train.jsonl",
+      "file_size_mb": 49.78,
+      "total_lines": 24792,
+      "parse_errors": 0,
+      "empty_fields": 0,
+      "unclosed_code_fences": 8,
+      "exact_duplicates": 15213,
+      "sources": {
+        "fable5_crownelius_traces": 8530,
+        "eli_cross_axis_emergence": 2100,
+        "stack_v2_mined_real": 7292,
+        "eli_wiseness_register": 3410,
+        "eli_cross_axis_pushback": 360,
+        "user_custom_written_answers": 3100
+      },
+      "pillars": {
+        "cot_reasoning": 8530,
+        "unspecified": 13162,
+        "wiseness_and_voice": 3100
+      },
+      "sample_keys": [
+        "output",
+        "metadata",
+        "conversations",
+        "instruction"
+      ],
+      "dpo_chosen_equals_rejected": 0,
+      "vision_missing_images": 0,
+      "has_images_count": 0,
+      "prompt_len_summary": {
+        "min": 1,
+        "max": 527,
+        "mean": 16.8,
+        "p50": 17,
+        "p90": 26,
+        "p99": 43
+      },
+      "output_len_summary": {
+        "min": 1,
+        "max": 21194,
+        "mean": 189.2,
+        "p50": 48,
+        "p90": 565,
+        "p99": 1322
+      }
+    },
+    "execution_verified_sft.jsonl": {
+      "file_name": "execution_verified_sft.jsonl",
+      "file_size_mb": 0.0,
+      "total_lines": 1,
+      "parse_errors": 0,
+      "empty_fields": 1,
+      "unclosed_code_fences": 0,
+      "exact_duplicates": 0,
+      "sources": {
+        "unknown": 1
+      },
+      "pillars": {
+        "unspecified": 1
+      },
+      "sample_keys": [
+        "epoch",
+        "is_stub",
+        "deferred",
+        "_notice"
+      ],
+      "dpo_chosen_equals_rejected": 0,
+      "vision_missing_images": 0,
+      "has_images_count": 0,
+      "prompt_len_summary": {
+        "min": 0,
+        "max": 0,
+        "mean": 0.0,
+        "p50": 0,
+        "p90": 0,
+        "p99": 0
+      },
+      "output_len_summary": {
+        "min": 0,
+        "max": 0,
+        "mean": 0.0,
+        "p50": 0,
+        "p90": 0,
+        "p99": 0
+      }
+    },
+    "raw_stack_v2_mined.jsonl": {
+      "file_name": "raw_stack_v2_mined.jsonl",
+      "file_size_mb": 33.41,
+      "total_lines": 7292,
+      "parse_errors": 0,
+      "empty_fields": 0,
+      "unclosed_code_fences": 2,
+      "exact_duplicates": 0,
+      "sources": {
+        "stack_v2_mined_real": 7292
+      },
+      "pillars": {
+        "unspecified": 7292
+      },
+      "sample_keys": [
+        "metadata",
+        "output",
+        "instruction"
+      ],
+      "dpo_chosen_equals_rejected": 0,
+      "vision_missing_images": 0,
+      "has_images_count": 0,
+      "prompt_len_summary": {
+        "min": 16,
+        "max": 40,
+        "mean": 20.9,
+        "p50": 20,
+        "p90": 26,
+        "p99": 33
+      },
+      "output_len_summary": {
+        "min": 9,
+        "max": 2031,
+        "mean": 417.3,
+        "p50": 338,
+        "p90": 862,
+        "p99": 1307
+      }
+    },
+    "training-data-eli-cross-axis-scaled.jsonl": {
+      "file_name": "training-data-eli-cross-axis-scaled.jsonl",
+      "file_size_mb": 2.29,
+      "total_lines": 2730,
+      "parse_errors": 0,
+      "empty_fields": 0,
+      "unclosed_code_fences": 0,
+      "exact_duplicates": 0,
+      "sources": {
+        "eli_cross_axis_emergence": 2730
+      },
+      "pillars": {
+        "unspecified": 2730
+      },
+      "sample_keys": [
+        "metadata",
+        "output",
+        "instruction"
+      ],
+      "dpo_chosen_equals_rejected": 0,
+      "vision_missing_images": 0,
+      "has_images_count": 0,
+      "prompt_len_summary": {
+        "min": 16,
+        "max": 21,
+        "mean": 18.0,
+        "p50": 18,
+        "p90": 19,
+        "p99": 20
+      },
+      "output_len_summary": {
+        "min": 56,
+        "max": 79,
+        "mean": 64.4,
+        "p50": 64,
+        "p90": 74,
+        "p99": 77
+      }
+    },
+    "training-data-eli-cross-axis.jsonl": {
+      "file_name": "training-data-eli-cross-axis.jsonl",
+      "file_size_mb": 0.29,
+      "total_lines": 410,
+      "parse_errors": 0,
+      "empty_fields": 0,
+      "unclosed_code_fences": 0,
+      "exact_duplicates": 330,
+      "sources": {
+        "eli_cross_axis_emergence": 350,
+        "eli_cross_axis_pushback": 60
+      },
+      "pillars": {
+        "unspecified": 410
+      },
+      "sample_keys": [
+        "metadata",
+        "output",
+        "instruction"
+      ],
+      "dpo_chosen_equals_rejected": 0,
+      "vision_missing_images": 0,
+      "has_images_count": 0,
+      "prompt_len_summary": {
+        "min": 16,
+        "max": 52,
+        "mean": 25.7,
+        "p50": 26,
+        "p90": 28,
+        "p99": 28
+      },
+      "output_len_summary": {
+        "min": 34,
+        "max": 278,
+        "mean": 48.5,
+        "p50": 46,
+        "p90": 57,
+        "p99": 106
+      }
+    },
+    "training-data-eli-dpo.jsonl": {
+      "file_name": "training-data-eli-dpo.jsonl",
+      "file_size_mb": 0.59,
+      "total_lines": 640,
+      "parse_errors": 0,
+      "empty_fields": 0,
+      "unclosed_code_fences": 0,
+      "exact_duplicates": 19,
+      "sources": {
+        "eli_dpo_preference": 640
+      },
+      "pillars": {
+        "code": 210,
+        "frontend": 210,
+        "writing": 110,
+        "wiseness": 110
+      },
+      "sample_keys": [
+        "prompt",
+        "metadata",
+        "id",
+        "chosen",
+        "rejected"
+      ],
+      "dpo_chosen_equals_rejected": 0,
+      "vision_missing_images": 0,
+      "has_images_count": 0,
+      "prompt_len_summary": {
+        "min": 5,
+        "max": 14,
+        "mean": 9.0,
+        "p50": 8,
+        "p90": 14,
+        "p99": 14
+      },
+      "output_len_summary": {
+        "min": 14,
+        "max": 61,
+        "mean": 37.7,
+        "p50": 39,
+        "p90": 54,
+        "p99": 61
+      }
+    },
+    "training-data-eli-vl-taste.jsonl": {
+      "file_name": "training-data-eli-vl-taste.jsonl",
+      "file_size_mb": 3.65,
+      "total_lines": 1500,
+      "parse_errors": 0,
+      "empty_fields": 0,
+      "unclosed_code_fences": 0,
+      "exact_duplicates": 138,
+      "sources": {
+        "playwright_taste_harness": 1500
+      },
+      "pillars": {
+        "unspecified": 1500
+      },
+      "sample_keys": [
+        "metadata",
+        "output",
+        "instruction"
+      ],
+      "dpo_chosen_equals_rejected": 0,
+      "vision_missing_images": 0,
+      "has_images_count": 0,
+      "prompt_len_summary": {
+        "min": 9,
+        "max": 27,
+        "mean": 14.5,
+        "p50": 14,
+        "p90": 18,
+        "p99": 23
+      },
+      "output_len_summary": {
+        "min": 6,
+        "max": 1141,
+        "mean": 232.0,
+        "p50": 197,
+        "p90": 452,
+        "p99": 583
+      }
+    },
+    "training-data-eli-vl-uniqueness-user.jsonl": {
+      "file_name": "training-data-eli-vl-uniqueness-user.jsonl",
+      "file_size_mb": 0.01,
+      "total_lines": 13,
+      "parse_errors": 0,
+      "empty_fields": 0,
+      "unclosed_code_fences": 0,
+      "exact_duplicates": 9,
+      "sources": {
+        "user_authentic_manual_annotations": 13
+      },
+      "pillars": {
+        "unspecified": 13
+      },
+      "sample_keys": [
+        "metadata",
+        "image",
+        "conversations",
+        "id"
+      ],
+      "dpo_chosen_equals_rejected": 0,
+      "vision_missing_images": 0,
+      "has_images_count": 13,
+      "prompt_len_summary": {
+        "min": 14,
+        "max": 28,
+        "mean": 21.7,
+        "p50": 26,
+        "p90": 28,
+        "p99": 28
+      },
+      "output_len_summary": {
+        "min": 14,
+        "max": 52,
+        "mean": 32.1,
+        "p50": 32,
+        "p90": 51,
+        "p99": 52
+      }
+    },
+    "training-data-eli-vl-uniqueness.jsonl": {
+      "file_name": "training-data-eli-vl-uniqueness.jsonl",
+      "file_size_mb": 0.28,
+      "total_lines": 192,
+      "parse_errors": 0,
+      "empty_fields": 0,
+      "unclosed_code_fences": 0,
+      "exact_duplicates": 188,
+      "sources": {
+        "unknown": 192
+      },
+      "pillars": {
+        "unspecified": 192
+      },
+      "sample_keys": [
+        "metadata",
+        "image",
+        "conversations",
+        "id"
+      ],
+      "dpo_chosen_equals_rejected": 0,
+      "vision_missing_images": 0,
+      "has_images_count": 192,
+      "prompt_len_summary": {
+        "min": 12,
+        "max": 23,
+        "mean": 18.3,
+        "p50": 17,
+        "p90": 23,
+        "p99": 23
+      },
+      "output_len_summary": {
+        "min": 120,
+        "max": 161,
+        "mean": 143.0,
+        "p50": 143,
+        "p90": 153,
+        "p99": 158
+      }
+    },
+    "training-data-eli-vl.jsonl": {
+      "file_name": "training-data-eli-vl.jsonl",
+      "file_size_mb": 0.28,
+      "total_lines": 192,
+      "parse_errors": 0,
+      "empty_fields": 0,
+      "unclosed_code_fences": 0,
+      "exact_duplicates": 178,
+      "sources": {
+        "references/labels.json": 134,
+        "references/eli-frontend-ui": 58
+      },
+      "pillars": {
+        "unspecified": 192
+      },
+      "sample_keys": [
+        "metadata",
+        "image",
+        "conversations",
+        "id"
+      ],
+      "dpo_chosen_equals_rejected": 0,
+      "vision_missing_images": 0,
+      "has_images_count": 192,
+      "prompt_len_summary": {
+        "min": 14,
+        "max": 21,
+        "mean": 16.9,
+        "p50": 17,
+        "p90": 21,
+        "p99": 21
+      },
+      "output_len_summary": {
+        "min": 143,
+        "max": 184,
+        "mean": 163.5,
+        "p50": 166,
+        "p90": 180,
+        "p99": 184
+      }
+    },
+    "training-data-eli-wiseness.jsonl": {
+      "file_name": "training-data-eli-wiseness.jsonl",
+      "file_size_mb": 0.32,
+      "total_lines": 682,
+      "parse_errors": 0,
+      "empty_fields": 0,
+      "unclosed_code_fences": 0,
+      "exact_duplicates": 1,
+      "sources": {
+        "eli_wiseness_register": 682
+      },
+      "pillars": {
+        "unspecified": 682
+      },
+      "sample_keys": [
+        "metadata",
+        "output",
+        "instruction"
+      ],
+      "dpo_chosen_equals_rejected": 0,
+      "vision_missing_images": 0,
+      "has_images_count": 0,
+      "prompt_len_summary": {
+        "min": 9,
+        "max": 20,
+        "mean": 13.2,
+        "p50": 12,
+        "p90": 18,
+        "p99": 20
+      },
+      "output_len_summary": {
+        "min": 17,
+        "max": 54,
+        "mean": 31.1,
+        "p50": 27,
+        "p90": 49,
+        "p99": 54
+      }
+    },
+    "training-data-eli-writing.jsonl": {
+      "file_name": "training-data-eli-writing.jsonl",
+      "file_size_mb": 0.64,
+      "total_lines": 700,
+      "parse_errors": 0,
+      "empty_fields": 0,
+      "unclosed_code_fences": 0,
+      "exact_duplicates": 137,
+      "sources": {
+        "whitelisted_writing": 700
+      },
+      "pillars": {
+        "unspecified": 700
+      },
+      "sample_keys": [
+        "metadata",
+        "output",
+        "instruction"
+      ],
+      "dpo_chosen_equals_rejected": 0,
+      "vision_missing_images": 0,
+      "has_images_count": 0,
+      "prompt_len_summary": {
+        "min": 8,
+        "max": 20,
+        "mean": 13.9,
+        "p50": 14,
+        "p90": 17,
+        "p99": 19
+      },
+      "output_len_summary": {
+        "min": 71,
+        "max": 114,
+        "mean": 92.0,
+        "p50": 92,
+        "p90": 102,
+        "p99": 109
+      }
+    },
+    "training-data-fable5-curated.jsonl": {
+      "file_name": "training-data-fable5-curated.jsonl",
+      "file_size_mb": 12.43,
+      "total_lines": 8530,
+      "parse_errors": 0,
+      "empty_fields": 0,
+      "unclosed_code_fences": 6,
+      "exact_duplicates": 7159,
+      "sources": {
+        "Crownelius/Complete-FABLE.5-traces-2M": 8530
+      },
+      "pillars": {
+        "unspecified": 8530
+      },
+      "sample_keys": [
+        "metadata",
+        "conversations",
+        "id"
+      ],
+      "dpo_chosen_equals_rejected": 0,
+      "vision_missing_images": 0,
+      "has_images_count": 0,
+      "prompt_len_summary": {
+        "min": 1,
+        "max": 527,
+        "mean": 12.3,
+        "p50": 9,
+        "p90": 15,
+        "p99": 66
+      },
+      "output_len_summary": {
+        "min": 2,
+        "max": 21194,
+        "mean": 161.7,
+        "p50": 41,
+        "p90": 307,
+        "p99": 2360
+      }
+    },
+    "training-data-sharegpt.jsonl": {
+      "file_name": "training-data-sharegpt.jsonl",
+      "file_size_mb": 6.54,
+      "total_lines": 1200,
+      "parse_errors": 0,
+      "empty_fields": 0,
+      "unclosed_code_fences": 0,
+      "exact_duplicates": 1188,
+      "sources": {
+        "agentic_refactor": 200,
+        "agentic_greenfield": 200,
+        "agentic_debug": 200,
+        "agentic_review": 200,
+        "agentic_feature": 200,
+        "agentic_pivot": 200
+      },
+      "pillars": {
+        "unspecified": 1200
+      },
+      "sample_keys": [
+        "metadata",
+        "conversations"
+      ],
+      "dpo_chosen_equals_rejected": 0,
+      "vision_missing_images": 0,
+      "has_images_count": 0,
+      "prompt_len_summary": {
+        "min": 16,
+        "max": 171,
+        "mean": 76.7,
+        "p50": 60,
+        "p90": 171,
+        "p99": 171
+      },
+      "output_len_summary": {
+        "min": 430,
+        "max": 856,
+        "mean": 560.1,
+        "p50": 528,
+        "p90": 856,
+        "p99": 856
+      }
+    },
+    "training-data.jsonl": {
+      "file_name": "training-data.jsonl",
+      "file_size_mb": 36.62,
+      "total_lines": 15328,
+      "parse_errors": 0,
+      "empty_fields": 0,
+      "unclosed_code_fences": 0,
+      "exact_duplicates": 376,
+      "sources": {
+        "eli_personality": 1738,
+        "github_backend": 8823,
+        "github_frontend": 4744,
+        "eli_cross_axis_emergence": 20,
+        "remediated_pillar": 3
+      },
+      "pillars": {
+        "unspecified": 15328
+      },
+      "sample_keys": [
+        "metadata",
+        "output",
+        "instruction"
+      ],
+      "dpo_chosen_equals_rejected": 0,
+      "vision_missing_images": 0,
+      "has_images_count": 0,
+      "prompt_len_summary": {
+        "min": 2,
+        "max": 52,
+        "mean": 10.7,
+        "p50": 11,
+        "p90": 15,
+        "p99": 18
+      },
+      "output_len_summary": {
+        "min": 1,
+        "max": 903,
+        "mean": 226.0,
+        "p50": 194,
+        "p90": 473,
+        "p99": 567
+      }
+    }
+  },
+  "contamination": {
+    "eli-sft-train.jsonl": {
+      "exact_matches": 0,
+      "fuzzy_matches": 0
+    },
+    "eli-sft-train-formatted.jsonl": {
+      "exact_matches": 0,
+      "fuzzy_matches": 0
+    },
+    "training-data.jsonl": {
+      "exact_matches": 0,
+      "fuzzy_matches": 0
+    },
+    "training-data-fable5-curated.jsonl": {
+      "exact_matches": 0,
+      "fuzzy_matches": 0
+    },
+    "raw_stack_v2_mined.jsonl": {
+      "exact_matches": 0,
+      "fuzzy_matches": 0
+    }
+  }
+}
