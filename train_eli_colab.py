@@ -101,7 +101,9 @@ def main():
     parser.add_argument("--grad-accum", type=int, default=None, help="Gradient accumulation steps")
     parser.add_argument("--epochs", type=int, default=2, help="Number of training epochs (default 2 to prevent CoT overfit)")
     parser.add_argument("--learning-rate", type=float, default=1e-4, help="Initial learning rate (default 1e-4 for stable code LoRA)")
+    parser.add_argument("--checkpoint", "--resume-from-checkpoint", "--lora_path", "--lora-path", type=str, default=None, help="Path to checkpoint directory to resume training from")
     args = parser.parse_args()
+
 
     micro_batch_size = args.micro_batch_size
     if args.grad_accum is not None:
@@ -253,14 +255,17 @@ def main():
             callbacks=callbacks,
         )
 
-    # Auto-resume from last step checkpoint if available
-    last_checkpoint = None
-    if Path(OUTPUT_DIR).exists():
+    # Auto-resume from last step checkpoint or explicit argument
+    last_checkpoint = args.checkpoint
+    if not last_checkpoint and Path(OUTPUT_DIR).exists():
         checkpoints = [d for d in Path(OUTPUT_DIR).glob("checkpoint-*") if d.is_dir()]
         if checkpoints:
             checkpoints.sort(key=lambda x: int(x.name.split("-")[-1]))
             last_checkpoint = str(checkpoints[-1])
             print(f"Found existing checkpoint: {last_checkpoint}. Resuming training...")
+    elif last_checkpoint:
+        print(f"Using explicitly specified checkpoint: {last_checkpoint}. Resuming training...")
+
 
     print("\n=== STARTING UNSLOTH SFT TRAINING ===")
     if last_checkpoint:
