@@ -17,3 +17,6 @@ When configuring SFT fine-tuning scripts (e.g., with Unsloth or Hugging Face TRL
 ## 3. Cloud Notebook Reliability & Defragmentation
 - **Granular Save Intervals**: Use `save_steps=50` for frequent checkpointing in preemptible or interactive cloud notebook environments (Google Colab / Kaggle).
 - **Proactive CUDA Cache Cleanup**: Trigger `torch.cuda.empty_cache()` and `gc.collect()` every 10 steps in custom `TrainerCallback` instances to prevent VRAM fragmentation accumulation.
+
+## 4. Active Process Communication & Restart Protocol
+- **Disk vs. Memory State**: Editing scripts or pushing git updates does not modify active in-memory process variables. When updating parameters (e.g. `save_steps`, `learning_rate`, `batch_size`), explicitly notify the user whether the change requires restarting the cell/command or if the active process will finish under its original parameters.
