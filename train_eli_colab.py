@@ -203,13 +203,22 @@ def main():
 
     dataset_path = DATASET_PATH
     if not Path(dataset_path).exists():
-        for fallback in [
-            "./processed/eli-sft-train-formatted.jsonl",
-            "./processed/eli-sft-train.jsonl",
-        ]:
-            if Path(fallback).exists():
-                dataset_path = fallback
-                break
+        print(f"Dataset '{dataset_path}' not found locally. Building dataset automatically...", flush=True)
+        import subprocess
+        try:
+            subprocess.run([sys.executable, "collector/build_simple_sft_train_jsonl.py"], check=True)
+            subprocess.run([sys.executable, "collector/inject_chat_data.py"], check=True)
+        except Exception as e:
+            print(f"Auto dataset build exception: {e}", flush=True)
+
+        if not Path(dataset_path).exists():
+            for fallback in [
+                "./processed/eli-sft-train-formatted.jsonl",
+                "./processed/eli-sft-train.jsonl",
+            ]:
+                if Path(fallback).exists():
+                    dataset_path = fallback
+                    break
 
     print(f"Loading dataset from {dataset_path}...", flush=True)
     full_dataset = load_dataset("json", data_files=dataset_path, split="train")
