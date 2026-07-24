@@ -58,7 +58,7 @@ OUTPUT_DIR = "./models/eli-tone-lora"
 
 # Custom Progress Callback for Unbuffered Colab Logging
 class ColabProgressCallback(TrainerCallback):
-    """Flushes stdout on every logging step so Colab notebook UI updates live without freezing."""
+    """Flushes stdout on every logging step and cleans CUDA memory cache periodically to prevent VRAM fragmentation crashes."""
     def on_log(self, args, state, control, logs=None, **kwargs):
         if logs:
             loss = logs.get("loss", None)
@@ -68,6 +68,13 @@ class ColabProgressCallback(TrainerCallback):
             if loss is not None:
                 print(f"[Step {step}/{max_steps}] Train Loss: {loss:.4f} | LR: {lr:.2e}", flush=True)
         sys.stdout.flush()
+
+    def on_step_end(self, args, state, control, **kwargs):
+        # Periodically clear CUDA cache every 25 steps to prevent VRAM fragmentation OOMs
+        if state.global_step > 0 and state.global_step % 25 == 0:
+            torch.cuda.empty_cache()
+            gc.collect()
+
 
 
 # Custom Callback for Step Throughput & Periodic Sample Generation
