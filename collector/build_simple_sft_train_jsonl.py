@@ -252,5 +252,12 @@ def build_target_weighted_sft_train():
     print(f"  - Main SFT Train File (Alpaca):  {OUTPUT_SFT_TRAIN} ({OUTPUT_SFT_TRAIN.stat().st_size / 1024 / 1024:.2f} MB)")
     print(f"  - Formatted SFT File (ShareGPT): {OUTPUT_SFT_TRAIN_FORMATTED} ({OUTPUT_SFT_TRAIN_FORMATTED.stat().st_size / 1024 / 1024:.2f} MB)")
 
+    inject_script = PROJECT_ROOT / "collector" / "inject_chat_data.py"
+    if inject_script.exists():
+        print("\n=== AUTO-INJECTING CHAT, REFUSAL, TASTE & AGENTIC SESSIONS ===")
+        import subprocess, sys
+        subprocess.run([sys.executable, str(inject_script)], check=True)
+
 if __name__ == "__main__":
     build_target_weighted_sft_train()
+
