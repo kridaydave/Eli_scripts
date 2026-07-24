@@ -59,6 +59,12 @@ OUTPUT_DIR = "./models/eli-tone-lora"
 # Custom Progress Callback for Unbuffered Colab Logging
 class ColabProgressCallback(TrainerCallback):
     """Flushes stdout on every logging step and cleans CUDA memory cache periodically to prevent VRAM fragmentation crashes."""
+    def on_train_begin(self, args, state, control, **kwargs):
+        # Override restored TrainerState save_steps/eval_steps with CLI arguments upon checkpoint resumption
+        state.save_steps = args.save_steps
+        state.eval_steps = args.eval_steps
+        print(f"📌 [CONFIG SYNC] Synced TrainerState: save_steps={state.save_steps}, eval_steps={state.eval_steps}", flush=True)
+
     def on_log(self, args, state, control, logs=None, **kwargs):
         if logs:
             loss = logs.get("loss", None)
@@ -77,7 +83,11 @@ class ColabProgressCallback(TrainerCallback):
 
     def on_save(self, args, state, control, **kwargs):
         step = state.global_step
+        torch.cuda.empty_cache()
+        gc.collect()
         print(f"\n💾 [CHECKPOINT SAVED @ Step {step}] Successfully saved checkpoint to {args.output_dir}/checkpoint-{step}\n", flush=True)
+        torch.cuda.empty_cache()
+        gc.collect()
         sys.stdout.flush()
 
 
@@ -275,10 +285,11 @@ def main():
         output_dir=OUTPUT_DIR,
         save_strategy="steps",
         save_steps=args.save_steps,
+        save_only_model=True,
         ignore_data_skip=True,
         eval_strategy="steps" if len(eval_dataset) > 0 else "no",
         eval_steps=args.eval_steps,
-        save_total_limit=2,
+        save_total_limit=3,
         report_to="none",
     )
 
