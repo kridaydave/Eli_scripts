@@ -46,13 +46,27 @@ transformers.Trainer.__init__ = patched_trainer_init
 if hasattr(transformers, 'trainer') and hasattr(transformers.trainer, 'Trainer'):
     transformers.trainer.Trainer.__init__ = patched_trainer_init
 
+# Monkeypatch accelerate convert_to_fp32 to prevent allocating 9.43 GiB FP32 logits tensors during evaluation on 16k context
+try:
+    import accelerate.utils.operations
+    orig_convert_to_fp32 = getattr(accelerate.utils.operations, "_convert_to_fp32", None)
+    def safe_convert_to_fp32(tensor, *args, **kwargs):
+        if isinstance(tensor, torch.Tensor) and tensor.numel() > 50_000_000:
+            return tensor
+        if orig_convert_to_fp32:
+            return orig_convert_to_fp32(tensor, *args, **kwargs)
+        return tensor.float() if isinstance(tensor, torch.Tensor) else tensor
+    accelerate.utils.operations._convert_to_fp32 = safe_convert_to_fp32
+except Exception:
+    pass
+
 from datasets import load_dataset
 from trl import SFTTrainer, SFTConfig
 from transformers import TrainerCallback
 
 # Configuration Defaults
 MODEL_NAME = "unsloth/Qwen3-4B-Instruct-2507"
-MAX_SEQ_LENGTH = 16384  # 16k context window (VRAM safe on T4/L4 GPUs)
+MAX_SEQ_LENGTH = 16384  # 16k context window for long CoT traces
 DATASET_PATH = "./processed/eli-sft-train-formatted-chat-blended.jsonl"
 OUTPUT_DIR = "./models/eli-tone-lora"
 
@@ -81,6 +95,11 @@ class ColabProgressCallback(TrainerCallback):
         if state.global_step > 0 and state.global_step % 10 == 0:
             torch.cuda.empty_cache()
             gc.collect()
+
+    def on_evaluate(self, args, state, control, **kwargs):
+        # Clear CUDA cache right after evaluation pass
+        torch.cuda.empty_cache()
+        gc.collect()
 
     def on_save(self, args, state, control, **kwargs):
         step = state.global_step
@@ -156,14 +175,14 @@ def main():
     parser.add_argument("--max-seq-len", type=int, default=MAX_SEQ_LENGTH, help="Maximum context length")
     parser.add_argument("--save-steps", type=int, default=50, help="Checkpoint save steps interval")
     parser.add_argument("--eval-steps", type=int, default=250, help="Validation loss evaluation steps interval")
+    parser.add_argument("--enable-eval", action="store_true", help="Enable validation loss evaluation passes (disabled by default to save VRAM)")
     parser.add_argument("--checkpoint", type=str, default=None, help="Explicit checkpoint path to resume training")
     parser.add_argument("--enable-sampling", action="store_true", help="Enable sample generation during step callbacks")
     parser.add_argument("--disable-sampling", action="store_true", help="Disable sample generation during step callbacks")
     parser.add_argument("--enable-code-eval", action="store_true", help="Enable periodic code execution pass@1 evaluation during training")
-    default_hf_token = os.environ.get("HF_TOKEN") or ("hf_HNUUetcbcpXRyhQ" + "XactJtuKAAlrvYQPGsH")
-    parser.add_argument("--hf-token", type=str, default=default_hf_token, help="HuggingFace Hub Token for auto-uploading adapters")
+    parser.add_argument("--hf-token", type=str, default=None, help="HuggingFace Hub Token for auto-uploading adapters (optional)")
     parser.add_argument("--hf-repo", type=str, default="kridaydave/eli-tone-lora", help="HuggingFace target repository name")
-    parser.add_argument("--disable-hub-push", action="store_true", help="Disable automatic push to HuggingFace Hub")
+    parser.add_argument("--push-to-hub", action="store_true", help="Push model checkpoints and final adapter to HuggingFace Hub")
     args = parser.parse_args()
 
     max_seq_len = args.max_seq_len
@@ -178,14 +197,16 @@ def main():
     enable_sampling = args.enable_sampling and not args.disable_sampling
 
     hf_token = args.hf_token or os.environ.get("HF_TOKEN")
-    push_to_hub = bool(hf_token and not args.disable_hub_push)
-    if hf_token:
+    push_to_hub = bool(args.push_to_hub and hf_token)
+    if push_to_hub:
         try:
             from huggingface_hub import login
             login(token=hf_token)
             print(f"🔑 [HF AUTH] Authenticated with HuggingFace Hub (Target Repo: {args.hf_repo})", flush=True)
         except Exception as e:
             print(f"⚠️ [HF AUTH] Warning: Could not log in to HuggingFace Hub: {e}", flush=True)
+    else:
+        print("💾 [LOCAL MODE] Saving model directly to local disk (HuggingFace Hub push disabled)", flush=True)
 
     print(f"=== INITIALIZING UNSLOTH FINE-TUNING ===", flush=True)
     print(f"Base Model: {MODEL_NAME}", flush=True)
@@ -263,19 +284,21 @@ def main():
     full_dataset = load_dataset("json", data_files=dataset_path, split="train")
     full_dataset = full_dataset.map(format_prompts, batched=True, num_proc=1)
 
-    # Split into train and eval to monitor loss
+    # Split into train and eval (eval disabled by default to prevent 16k context evaluation logits OOMs)
     split_dataset = full_dataset.train_test_split(test_size=0.005, seed=2026)
     train_dataset = split_dataset["train"]
-    eval_dataset = split_dataset["test"]
-    
-    # Cap validation eval_dataset size to max 32 samples to prevent Colab evaluation freezes
-    if len(eval_dataset) > 32:
-        eval_dataset = eval_dataset.select(range(32))
+    if args.enable_eval:
+        eval_dataset = split_dataset["test"]
+        if len(eval_dataset) > 32:
+            eval_dataset = eval_dataset.select(range(32))
+    else:
+        eval_dataset = None
 
     total_samples = len(train_dataset)
     effective_batch_size = micro_batch_size * gradient_accumulation
     total_steps = (total_samples // effective_batch_size) * args.epochs
-    print(f"Dataset split: {total_samples:,} train samples | {len(eval_dataset):,} eval samples.", flush=True)
+    eval_count = len(eval_dataset) if eval_dataset is not None else 0
+    print(f"Dataset split: {total_samples:,} train samples | {eval_count:,} eval samples.", flush=True)
     print(f"Total training steps: {total_steps:,}.", flush=True)
 
     # Step-Based Checkpointing & Validation Config
@@ -286,7 +309,10 @@ def main():
         dataloader_num_workers=0,
         packing=False,
         per_device_train_batch_size=micro_batch_size,
+        per_device_eval_batch_size=micro_batch_size,
         gradient_accumulation_steps=gradient_accumulation,
+        gradient_checkpointing=True,
+        gradient_checkpointing_kwargs={"use_reentrant": False},
         warmup_steps=50,
         num_train_epochs=args.epochs,
         learning_rate=args.learning_rate,
@@ -302,10 +328,12 @@ def main():
         output_dir=OUTPUT_DIR,
         save_strategy="steps",
         save_steps=args.save_steps,
-        save_only_model=False,
+        save_only_model=True,
         ignore_data_skip=True,
-        eval_strategy="steps" if len(eval_dataset) > 0 else "no",
+        eval_strategy="steps" if (args.enable_eval and eval_dataset is not None) else "no",
         eval_steps=args.eval_steps,
+        prediction_loss_only=True,
+        eval_accumulation_steps=1,
         save_total_limit=3,
         report_to="none",
         push_to_hub=push_to_hub,

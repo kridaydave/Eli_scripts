@@ -34,7 +34,7 @@ SYSTEM_PROMPT = (
     "If a prompt is vague, ask directly. If code is requested, provide idiomatic, high-taste code."
 )
 
-def train(data_path: str, output_dir: str, max_seq_length: int = 50000, batch_size: int = 4, epochs: int = 3):
+def train(data_path: str, output_dir: str, max_seq_length: int = 16384, batch_size: int = 1, epochs: int = 3):
     try:
         from unsloth import FastLanguageModel
         from datasets import load_dataset
@@ -64,6 +64,9 @@ def train(data_path: str, output_dir: str, max_seq_length: int = 50000, batch_si
         use_gradient_checkpointing="unsloth",
         random_state=3407,
     )
+
+    # Enable Unsloth Training Mode
+    FastLanguageModel.for_training(model)
 
     print(f"=== Loading Dataset from {data_path} ===")
     dataset = load_dataset("json", data_files=data_path, split="train")
@@ -104,10 +107,12 @@ def train(data_path: str, output_dir: str, max_seq_length: int = 50000, batch_si
         sft_config = SFTConfig(
             dataset_text_field="text",
             max_seq_length=max_seq_length,
-            dataset_num_proc=2,
+            dataset_num_proc=1,
             packing=False,
             per_device_train_batch_size=batch_size,
-            gradient_accumulation_steps=4,
+            gradient_accumulation_steps=8,
+            gradient_checkpointing=True,
+            gradient_checkpointing_kwargs={"use_reentrant": False},
             warmup_steps=100,
             num_train_epochs=epochs,
             learning_rate=2e-4,
@@ -121,6 +126,7 @@ def train(data_path: str, output_dir: str, max_seq_length: int = 50000, batch_si
             seed=3407,
             output_dir=output_dir,
             save_strategy="epoch",
+            save_only_model=True,
         )
         try:
             trainer = SFTTrainer(
@@ -146,7 +152,9 @@ def train(data_path: str, output_dir: str, max_seq_length: int = 50000, batch_si
     except (ImportError, TypeError):
         training_args = TrainingArguments(
             per_device_train_batch_size=batch_size,
-            gradient_accumulation_steps=4,
+            gradient_accumulation_steps=8,
+            gradient_checkpointing=True,
+            gradient_checkpointing_kwargs={"use_reentrant": False},
             warmup_steps=100,
             num_train_epochs=epochs,
             learning_rate=2e-4,
@@ -160,13 +168,14 @@ def train(data_path: str, output_dir: str, max_seq_length: int = 50000, batch_si
             seed=3407,
             output_dir=output_dir,
             save_strategy="epoch",
+            save_only_model=True,
         )
         trainer_kwargs = {
             "model": model,
             "train_dataset": dataset,
             "dataset_text_field": "text",
             "max_seq_length": max_seq_length,
-            "dataset_num_proc": 2,
+            "dataset_num_proc": 1,
             "packing": False,
             "args": training_args,
         }
@@ -188,8 +197,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Train Eli Model using Unsloth")
     parser.add_argument("--data_path", type=str, default="../processed/training-data-sharegpt.jsonl")
     parser.add_argument("--output_dir", type=str, default="../models/eli-qwen3-4b-lora")
-    parser.add_argument("--max_seq_length", type=int, default=50000)
-    parser.add_argument("--batch_size", type=int, default=4)
+    parser.add_argument("--max_seq_length", type=int, default=16384)
+    parser.add_argument("--batch_size", type=int, default=1)
     parser.add_argument("--epochs", type=int, default=3)
 
     args = parser.parse_args()
