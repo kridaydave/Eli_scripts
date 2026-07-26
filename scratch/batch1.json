@@ -1,0 +1,788 @@
+[
+  {
+    "id": "ui-00",
+    "filename": "0.webp",
+    "path": "UI/0.webp",
+    "title": "Fintech Wealth Management Hero UI",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "fintech",
+      "wealth-management",
+      "dashboard-hero",
+      "minimalist"
+    ],
+    "description": "Sleek dark-mode financial asset hero UI displaying portfolio growth curves, asset allocation rings, and real-time yield metrics with subtle emerald green indicators.",
+    "hero_tag_desc": "Hero Portfolio Chart & Yield Metrics Ring",
+    "what_ui_is_saying": "Communicates elite personal wealth management with real-time portfolio performance tracking.",
+    "ai_image_prompt": "Figma UI design showcase of a luxury wealth management platform hero section with portfolio balance curves, asset breakdown ring chart, dark slate background, emerald green accents, high contrast typography --ar 16:9",
+    "copy_brief": {
+      "persona": "Product Designers, Developers, and Digital Marketers.",
+      "tone": "Direct, functional, and authoritative.",
+      "key_message": "Optimal UI structure for hero section.",
+      "value_prop": "Improves readability and streamlines user workflow.",
+      "cta_strategy": "Primary CTA: Explore Component."
+    },
+    "copy_prompt": "Write high-converting website copy for a Fintech Wealth Management Hero UI:\n1. Clear headline hook.\n2. Supporting subheadline.\n3. Key feature highlights.\n4. Primary action CTA.",
+    "size_kb": 120
+  },
+  {
+    "id": "ui-01",
+    "filename": "1.webp",
+    "path": "UI/1.webp",
+    "title": "Generative Organic Gradient Fluid Art",
+    "category": "generative-art",
+    "is_hero": false,
+    "tags": [
+      "generative-art",
+      "fluid-gradient",
+      "abstract-mesh",
+      "wallpaper"
+    ],
+    "description": "Vibrant 3D fluid gradient mesh with iridescent violet, deep indigo, and warm cyan hues creating organic wave contours.",
+    "hero_tag_desc": "Fluid Gradient Wave Contour",
+    "what_ui_is_saying": "Expresses creative energy and abstract aesthetic depth for landing page hero backdrops.",
+    "ai_image_prompt": "Abstract 3D fluid gradient artwork, iridescent wave forms, vibrant purple cyan indigo colors, soft ambient lighting, smooth render, ultra-high resolution --ar 16:9",
+    "copy_brief": {
+      "persona": "Product Designers, Developers, and Digital Marketers.",
+      "tone": "Direct, functional, and authoritative.",
+      "key_message": "Optimal UI structure for generative art.",
+      "value_prop": "Improves readability and streamlines user workflow.",
+      "cta_strategy": "Primary CTA: Explore Component."
+    },
+    "copy_prompt": "Write high-converting website copy for a Generative Organic Gradient Fluid Art:\n1. Clear headline hook.\n2. Supporting subheadline.\n3. Key feature highlights.\n4. Primary action CTA.",
+    "size_kb": 120
+  },
+  {
+    "id": "ui-02",
+    "filename": "2.webp",
+    "path": "UI/2.webp",
+    "title": "SaaS Analytics & Conversion Command Center",
+    "category": "dashboard-ui",
+    "is_hero": false,
+    "tags": [
+      "analytics-dashboard",
+      "conversion-funnel",
+      "saas-metrics",
+      "data-visualization"
+    ],
+    "description": "Multi-panel SaaS performance dashboard featuring live funnel conversion bars, visitor geographic maps, and active MRR growth trends.",
+    "hero_tag_desc": "Funnel Conversion & Geographical Heatmap",
+    "what_ui_is_saying": "Provides real-time visibility into customer acquisition, MRR metrics, and conversion bottlenecks.",
+    "ai_image_prompt": "Modern SaaS analytics dashboard UI with horizontal funnel charts, visitor geographic heatmap, dark theme, crisp sans-serif typography, clean data cards --ar 16:9",
+    "copy_brief": {
+      "persona": "Product Designers, Developers, and Digital Marketers.",
+      "tone": "Direct, functional, and authoritative.",
+      "key_message": "Optimal UI structure for dashboard ui.",
+      "value_prop": "Improves readability and streamlines user workflow.",
+      "cta_strategy": "Primary CTA: Explore Component."
+    },
+    "copy_prompt": "Write high-converting website copy for a SaaS Analytics & Conversion Command Center:\n1. Clear headline hook.\n2. Supporting subheadline.\n3. Key feature highlights.\n4. Primary action CTA.",
+    "size_kb": 120
+  },
+  {
+    "id": "ui-03",
+    "filename": "3.webp",
+    "path": "UI/3.webp",
+    "title": "AI Code Execution & Prompt Studio Dashboard",
+    "category": "dashboard-ui",
+    "is_hero": false,
+    "tags": [
+      "developer-tools",
+      "ai-code-editor",
+      "prompt-studio",
+      "ide-interface"
+    ],
+    "description": "Developer IDE and prompt engineering console with side-by-side token inspector, AST tree viewer, and terminal execution log.",
+    "hero_tag_desc": "Split Editor & Live Token Execution Console",
+    "what_ui_is_saying": "Enables prompt engineers to benchmark latency, inspect token costs, and debug code generation in real time.",
+    "ai_image_prompt": "AI prompt engineering studio UI, split-screen code editor, token count metrics bar, dark slate theme, glowing terminal execution panel, clean modern IDE layout --ar 16:9",
+    "copy_brief": {
+      "persona": "Product Designers, Developers, and Digital Marketers.",
+      "tone": "Direct, functional, and authoritative.",
+      "key_message": "Optimal UI structure for dashboard ui.",
+      "value_prop": "Improves readability and streamlines user workflow.",
+      "cta_strategy": "Primary CTA: Explore Component."
+    },
+    "copy_prompt": "Write high-converting website copy for a AI Code Execution & Prompt Studio Dashboard:\n1. Clear headline hook.\n2. Supporting subheadline.\n3. Key feature highlights.\n4. Primary action CTA.",
+    "size_kb": 120
+  },
+  {
+    "id": "ui-04",
+    "filename": "4.webp",
+    "path": "UI/4.webp",
+    "title": "Autonomous Agent Workflow Orchestrator Hero",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "agentic-ai",
+      "workflow-nodes",
+      "node-editor",
+      "hero-ui"
+    ],
+    "description": "High-impact landing hero depicting interconnected AI agent nodes executing parallel web scraping, summarization, and vector indexing pipelines.",
+    "hero_tag_desc": "Interactive Node-Graph Workflow Simulator",
+    "what_ui_is_saying": "Demonstrates the power of multi-agent orchestration for enterprise automation.",
+    "ai_image_prompt": "Figma UI landing hero for an AI agent platform, node-based workflow graph connecting subagent icons, dark UI theme, glowing connection lines, crisp typography --ar 16:9",
+    "copy_brief": {
+      "persona": "Product Designers, Developers, and Digital Marketers.",
+      "tone": "Direct, functional, and authoritative.",
+      "key_message": "Optimal UI structure for hero section.",
+      "value_prop": "Improves readability and streamlines user workflow.",
+      "cta_strategy": "Primary CTA: Explore Component."
+    },
+    "copy_prompt": "Write high-converting website copy for a Autonomous Agent Workflow Orchestrator Hero:\n1. Clear headline hook.\n2. Supporting subheadline.\n3. Key feature highlights.\n4. Primary action CTA.",
+    "size_kb": 120
+  },
+  {
+    "id": "ui-05",
+    "filename": "5.webp",
+    "path": "UI/5.webp",
+    "title": "Generative Synthetic Spatial Mesh",
+    "category": "generative-art",
+    "is_hero": false,
+    "tags": [
+      "spatial-mesh",
+      "generative-geometry",
+      "abstract-3d"
+    ],
+    "description": "Abstract parametric grid geometry rendered with soft depth-of-field and subtle monochromatic gradient shadows.",
+    "hero_tag_desc": "Parametric Spatial Geometry Grid",
+    "what_ui_is_saying": "Provides futuristic architectural texture suitable for hero graphic backgrounds.",
+    "ai_image_prompt": "Abstract parametric 3D geometric grid structure, clean architectural minimalism, soft monochrome grey gradient lighting, render --ar 16:9",
+    "copy_brief": {
+      "persona": "Product Designers, Developers, and Digital Marketers.",
+      "tone": "Direct, functional, and authoritative.",
+      "key_message": "Optimal UI structure for generative art.",
+      "value_prop": "Improves readability and streamlines user workflow.",
+      "cta_strategy": "Primary CTA: Explore Component."
+    },
+    "copy_prompt": "Write high-converting website copy for a Generative Synthetic Spatial Mesh:\n1. Clear headline hook.\n2. Supporting subheadline.\n3. Key feature highlights.\n4. Primary action CTA.",
+    "size_kb": 120
+  },
+  {
+    "id": "ui-06",
+    "filename": "6.webp",
+    "path": "UI/6.webp",
+    "title": "Minimalist Banner Header Component",
+    "category": "standard_web_component",
+    "is_hero": false,
+    "tags": [
+      "header-banner",
+      "web-component",
+      "navigation-bar"
+    ],
+    "description": "Clean top navigation banner component featuring inline status pills, quick search shortcut triggers, and primary action buttons.",
+    "hero_tag_desc": "Top Navigation Bar with Quick Search Trigger",
+    "what_ui_is_saying": "Provides friction-free header navigation and instant keyboard search access.",
+    "ai_image_prompt": "Clean modern web header component UI, search bar with shortcut key badge, profile avatar menu, off-white background, subtle border divider --ar 16:9",
+    "copy_brief": {
+      "persona": "Product Designers, Developers, and Digital Marketers.",
+      "tone": "Direct, functional, and authoritative.",
+      "key_message": "Optimal UI structure for standard_web_component.",
+      "value_prop": "Improves readability and streamlines user workflow.",
+      "cta_strategy": "Primary CTA: Explore Component."
+    },
+    "copy_prompt": "Write high-converting website copy for a Minimalist Banner Header Component:\n1. Clear headline hook.\n2. Supporting subheadline.\n3. Key feature highlights.\n4. Primary action CTA.",
+    "size_kb": 120
+  },
+  {
+    "id": "ui-07",
+    "filename": "7.webp",
+    "path": "UI/7.webp",
+    "title": "Creative Studio & Portfolio Landing Page",
+    "category": "landing-page",
+    "is_hero": true,
+    "tags": [
+      "portfolio-landing",
+      "creative-agency",
+      "typography-hero"
+    ],
+    "description": "Editorial agency landing page showcasing oversized headline typography, video showreel thumbnail, and curated project grid.",
+    "hero_tag_desc": "Oversized Typographic Headline & Video Showreel",
+    "what_ui_is_saying": "Positions the creative studio as a premier brand design atelier.",
+    "ai_image_prompt": "Creative agency landing page UI, bold expressive headline typography, video showreel embed, off-white editorial aesthetic, minimalist layout --ar 16:9",
+    "copy_brief": {
+      "persona": "Product Designers, Developers, and Digital Marketers.",
+      "tone": "Direct, functional, and authoritative.",
+      "key_message": "Optimal UI structure for landing page.",
+      "value_prop": "Improves readability and streamlines user workflow.",
+      "cta_strategy": "Primary CTA: Explore Component."
+    },
+    "copy_prompt": "Write high-converting website copy for a Creative Studio & Portfolio Landing Page:\n1. Clear headline hook.\n2. Supporting subheadline.\n3. Key feature highlights.\n4. Primary action CTA.",
+    "size_kb": 120
+  },
+  {
+    "id": "ui-08",
+    "filename": "8.webp",
+    "path": "UI/8.webp",
+    "title": "Crypto & Web3 Token Trading Terminal",
+    "category": "dashboard-ui",
+    "is_hero": false,
+    "tags": [
+      "crypto-terminal",
+      "candlestick-chart",
+      "orderbook",
+      "web3-trading"
+    ],
+    "description": "Professional cryptocurrency exchange terminal with real-time candlestick charts, live orderbook depth visualizer, and instant swap card.",
+    "hero_tag_desc": "Real-Time Candlestick Chart & Orderbook Depth",
+    "what_ui_is_saying": "Delivers sub-millisecond trading execution and deep liquidity insights for Web3 traders.",
+    "ai_image_prompt": "Cryptocurrency exchange web app UI, dark mode candlestick chart, order book depth visualizer, token swap widget, neon green and red price indicators --ar 16:9",
+    "copy_brief": {
+      "persona": "Product Designers, Developers, and Digital Marketers.",
+      "tone": "Direct, functional, and authoritative.",
+      "key_message": "Optimal UI structure for dashboard ui.",
+      "value_prop": "Improves readability and streamlines user workflow.",
+      "cta_strategy": "Primary CTA: Explore Component."
+    },
+    "copy_prompt": "Write high-converting website copy for a Crypto & Web3 Token Trading Terminal:\n1. Clear headline hook.\n2. Supporting subheadline.\n3. Key feature highlights.\n4. Primary action CTA.",
+    "size_kb": 120
+  },
+  {
+    "id": "ui-09",
+    "filename": "9.webp",
+    "path": "UI/9.webp",
+    "title": "E-Commerce Product Intelligence Dashboard",
+    "category": "dashboard-ui",
+    "is_hero": false,
+    "tags": [
+      "ecommerce-analytics",
+      "inventory-tracker",
+      "revenue-insights"
+    ],
+    "description": "Comprehensive retail analytics suite showing SKU velocity, customer lifetime value charts, and regional fulfillment status.",
+    "hero_tag_desc": "SKU Sales Velocity & Customer LTV Cohort",
+    "what_ui_is_saying": "Empowers e-commerce operators to optimize inventory restocking and maximize LTV.",
+    "ai_image_prompt": "E-commerce business dashboard UI, SKU performance bar chart, customer retention cohort grid, light background, clear metric cards --ar 16:9",
+    "copy_brief": {
+      "persona": "Product Designers, Developers, and Digital Marketers.",
+      "tone": "Direct, functional, and authoritative.",
+      "key_message": "Optimal UI structure for dashboard ui.",
+      "value_prop": "Improves readability and streamlines user workflow.",
+      "cta_strategy": "Primary CTA: Explore Component."
+    },
+    "copy_prompt": "Write high-converting website copy for a E-Commerce Product Intelligence Dashboard:\n1. Clear headline hook.\n2. Supporting subheadline.\n3. Key feature highlights.\n4. Primary action CTA.",
+    "size_kb": 120
+  },
+  {
+    "id": "ui-10",
+    "filename": "10.webp",
+    "path": "UI/10.webp",
+    "title": "SaaS Pricing & Subscription Tier Page",
+    "category": "landing-page",
+    "is_hero": false,
+    "tags": [
+      "pricing-table",
+      "saas-tiers",
+      "feature-comparison"
+    ],
+    "description": "Clean 3-tier pricing matrix with recommended plan highlight, feature checkmarks, and billing cycle toggle.",
+    "hero_tag_desc": "3-Tier Pricing Card Grid with Pro Highlight",
+    "what_ui_is_saying": "Guides prospects to select the optimal subscription plan with clear feature differentiation.",
+    "ai_image_prompt": "SaaS pricing page UI, three card tiers with Pro plan badge, monthly yearly toggle pill, checkmark comparison list, clean off-white background --ar 16:9",
+    "copy_brief": {
+      "persona": "Product Designers, Developers, and Digital Marketers.",
+      "tone": "Direct, functional, and authoritative.",
+      "key_message": "Optimal UI structure for landing page.",
+      "value_prop": "Improves readability and streamlines user workflow.",
+      "cta_strategy": "Primary CTA: Explore Component."
+    },
+    "copy_prompt": "Write high-converting website copy for a SaaS Pricing & Subscription Tier Page:\n1. Clear headline hook.\n2. Supporting subheadline.\n3. Key feature highlights.\n4. Primary action CTA.",
+    "size_kb": 120
+  },
+  {
+    "id": "ui-11",
+    "filename": "11.webp",
+    "path": "UI/11.webp",
+    "title": "Cloud Infrastructure & DevOps Monitor",
+    "category": "dashboard-ui",
+    "is_hero": false,
+    "tags": [
+      "devops-dashboard",
+      "server-metrics",
+      "cpu-ram-monitor"
+    ],
+    "description": "Real-time server infrastructure health dashboard tracking CPU usage, memory allocation, active worker pods, and error rate telemetry.",
+    "hero_tag_desc": "Live Pod Health & Memory Allocation Telemetry",
+    "what_ui_is_saying": "Provides DevOps engineers with instant visibility into cluster health and container scaling.",
+    "ai_image_prompt": "DevOps cloud monitoring dashboard UI, CPU and RAM usage graphs, Kubernetes pod status grid, dark slate theme, clean telemetry metrics --ar 16:9",
+    "copy_brief": {
+      "persona": "Product Designers, Developers, and Digital Marketers.",
+      "tone": "Direct, functional, and authoritative.",
+      "key_message": "Optimal UI structure for dashboard ui.",
+      "value_prop": "Improves readability and streamlines user workflow.",
+      "cta_strategy": "Primary CTA: Explore Component."
+    },
+    "copy_prompt": "Write high-converting website copy for a Cloud Infrastructure & DevOps Monitor:\n1. Clear headline hook.\n2. Supporting subheadline.\n3. Key feature highlights.\n4. Primary action CTA.",
+    "size_kb": 120
+  },
+  {
+    "id": "ui-12",
+    "filename": "12.webp",
+    "path": "UI/12.webp",
+    "title": "B2B Sales Pipeline & CRM Kanban Board",
+    "category": "landing-page",
+    "is_hero": false,
+    "tags": [
+      "crm-kanban",
+      "sales-pipeline",
+      "lead-management"
+    ],
+    "description": "Interactive CRM deal stage Kanban board with deal value summary cards, lead health indicators, and quick action drawer.",
+    "hero_tag_desc": "Drag-and-Drop Deal Stage Kanban Columns",
+    "what_ui_is_saying": "Streamlines pipeline management and speeds up sales deal closure.",
+    "ai_image_prompt": "CRM sales pipeline web app UI, Kanban column layout for deal stages, lead card previews with deal value badges, clean minimalist layout --ar 16:9",
+    "copy_brief": {
+      "persona": "Product Designers, Developers, and Digital Marketers.",
+      "tone": "Direct, functional, and authoritative.",
+      "key_message": "Optimal UI structure for landing page.",
+      "value_prop": "Improves readability and streamlines user workflow.",
+      "cta_strategy": "Primary CTA: Explore Component."
+    },
+    "copy_prompt": "Write high-converting website copy for a B2B Sales Pipeline & CRM Kanban Board:\n1. Clear headline hook.\n2. Supporting subheadline.\n3. Key feature highlights.\n4. Primary action CTA.",
+    "size_kb": 120
+  },
+  {
+    "id": "ui-13",
+    "filename": "13.webp",
+    "path": "UI/13.webp",
+    "title": "Healthcare & Telemedicine Patient Portal",
+    "category": "landing-page",
+    "is_hero": false,
+    "tags": [
+      "telemedicine",
+      "patient-portal",
+      "health-tracker"
+    ],
+    "description": "Warm, approachable healthcare landing page featuring virtual appointment booking, patient vital sign summaries, and doctor directory.",
+    "hero_tag_desc": "Virtual Appointment Scheduling & Vital Summary",
+    "what_ui_is_saying": "Offers patients an intuitive gateway to access remote care and track health vitals.",
+    "ai_image_prompt": "Telemedicine patient portal UI, doctor booking card, health vital tracking cards, soft calm blue color palette, clean modern UI --ar 16:9",
+    "copy_brief": {
+      "persona": "Product Designers, Developers, and Digital Marketers.",
+      "tone": "Direct, functional, and authoritative.",
+      "key_message": "Optimal UI structure for landing page.",
+      "value_prop": "Improves readability and streamlines user workflow.",
+      "cta_strategy": "Primary CTA: Explore Component."
+    },
+    "copy_prompt": "Write high-converting website copy for a Healthcare & Telemedicine Patient Portal:\n1. Clear headline hook.\n2. Supporting subheadline.\n3. Key feature highlights.\n4. Primary action CTA.",
+    "size_kb": 120
+  },
+  {
+    "id": "ui-14",
+    "filename": "14.webp",
+    "path": "UI/14.webp",
+    "title": "EdTech Learning Management Course Hub",
+    "category": "landing-page",
+    "is_hero": false,
+    "tags": [
+      "edtech-portal",
+      "course-dashboard",
+      "learning-hub"
+    ],
+    "description": "Modern online learning portal displaying course progress rings, upcoming live workshops, and downloadable curriculum modules.",
+    "hero_tag_desc": "Interactive Course Progress Ring & Video Player",
+    "what_ui_is_saying": "Encourages student course completion through interactive lesson tracking.",
+    "ai_image_prompt": "EdTech learning platform UI, course video player preview, progress completion circular gauge, upcoming classes list, clean light aesthetic --ar 16:9",
+    "copy_brief": {
+      "persona": "Product Designers, Developers, and Digital Marketers.",
+      "tone": "Direct, functional, and authoritative.",
+      "key_message": "Optimal UI structure for landing page.",
+      "value_prop": "Improves readability and streamlines user workflow.",
+      "cta_strategy": "Primary CTA: Explore Component."
+    },
+    "copy_prompt": "Write high-converting website copy for a EdTech Learning Management Course Hub:\n1. Clear headline hook.\n2. Supporting subheadline.\n3. Key feature highlights.\n4. Primary action CTA.",
+    "size_kb": 120
+  },
+  {
+    "id": "ui-15",
+    "filename": "15.webp",
+    "path": "UI/15.webp",
+    "title": "AI Copywriting & Document Generator UI",
+    "category": "landing-page",
+    "is_hero": false,
+    "tags": [
+      "ai-writer",
+      "document-editor",
+      "content-gen"
+    ],
+    "description": "AI content creation studio featuring prompt template library, inline tone adjuster, and real-time document preview pane.",
+    "hero_tag_desc": "Inline Tone Adjuster & Output Workspace",
+    "what_ui_is_saying": "Accelerates content production with tailored AI writing assistance.",
+    "ai_image_prompt": "AI copywriting web application UI, left prompt sidebar with tone pills, right live text editor document canvas, clean minimal layout --ar 16:9",
+    "copy_brief": {
+      "persona": "Product Designers, Developers, and Digital Marketers.",
+      "tone": "Direct, functional, and authoritative.",
+      "key_message": "Optimal UI structure for landing page.",
+      "value_prop": "Improves readability and streamlines user workflow.",
+      "cta_strategy": "Primary CTA: Explore Component."
+    },
+    "copy_prompt": "Write high-converting website copy for a AI Copywriting & Document Generator UI:\n1. Clear headline hook.\n2. Supporting subheadline.\n3. Key feature highlights.\n4. Primary action CTA.",
+    "size_kb": 120
+  },
+  {
+    "id": "ui-16",
+    "filename": "16.webp",
+    "path": "UI/16.webp",
+    "title": "Real Estate Property Search & Map Explorer",
+    "category": "landing-page",
+    "is_hero": false,
+    "tags": [
+      "real-estate",
+      "property-map",
+      "housing-search"
+    ],
+    "description": "Interactive real estate listing platform integrating split-screen property card feeds with live interactive map pin clusters.",
+    "hero_tag_desc": "Split-Screen Map Explorer & Property Cards",
+    "what_ui_is_saying": "Simplifies neighborhood exploration and property comparison for homebuyers.",
+    "ai_image_prompt": "Real estate property search UI, split view with interactive map map pins on right and photo listing cards on left, clean search bar header --ar 16:9",
+    "copy_brief": {
+      "persona": "Product Designers, Developers, and Digital Marketers.",
+      "tone": "Direct, functional, and authoritative.",
+      "key_message": "Optimal UI structure for landing page.",
+      "value_prop": "Improves readability and streamlines user workflow.",
+      "cta_strategy": "Primary CTA: Explore Component."
+    },
+    "copy_prompt": "Write high-converting website copy for a Real Estate Property Search & Map Explorer:\n1. Clear headline hook.\n2. Supporting subheadline.\n3. Key feature highlights.\n4. Primary action CTA.",
+    "size_kb": 120
+  },
+  {
+    "id": "ui-17",
+    "filename": "17.webp",
+    "path": "UI/17.webp",
+    "title": "Fintech Payment Gateway Integration Dock",
+    "category": "standard_web_component",
+    "is_hero": false,
+    "tags": [
+      "payment-dock",
+      "checkout-widget",
+      "fintech-component"
+    ],
+    "description": "Compact checkout payment drawer supporting one-click Apple Pay, credit card encryption fields, and multi-currency conversion.",
+    "hero_tag_desc": "One-Click Express Payment Drawer Widget",
+    "what_ui_is_saying": "Reduces cart abandonment with seamless checkout options.",
+    "ai_image_prompt": "Payment gateway checkout component UI, Apple Pay button, credit card input fields, secure SSL badge, off-white card design --ar 16:9",
+    "copy_brief": {
+      "persona": "Product Designers, Developers, and Digital Marketers.",
+      "tone": "Direct, functional, and authoritative.",
+      "key_message": "Optimal UI structure for standard_web_component.",
+      "value_prop": "Improves readability and streamlines user workflow.",
+      "cta_strategy": "Primary CTA: Explore Component."
+    },
+    "copy_prompt": "Write high-converting website copy for a Fintech Payment Gateway Integration Dock:\n1. Clear headline hook.\n2. Supporting subheadline.\n3. Key feature highlights.\n4. Primary action CTA.",
+    "size_kb": 120
+  },
+  {
+    "id": "ui-18",
+    "filename": "18.webp",
+    "path": "UI/18.webp",
+    "title": "Brand System Guidelines Color Swatch Component",
+    "category": "brand-identity",
+    "is_hero": false,
+    "tags": [
+      "brand-spec",
+      "color-swatches",
+      "design-system"
+    ],
+    "description": "Design system brand guide card displaying core HSL color swatches, typography specimen scales, and usage rules.",
+    "hero_tag_desc": "Core HSL Color Swatches & Type Specimen Scale",
+    "what_ui_is_saying": "Ensures brand consistency across digital and print touchpoints.",
+    "ai_image_prompt": "Brand identity style guide UI card, color swatch palette boxes with HEX hex codes, typography scale specimen hierarchy, minimal Swiss layout --ar 1:1",
+    "copy_brief": {
+      "persona": "Product Designers, Developers, and Digital Marketers.",
+      "tone": "Direct, functional, and authoritative.",
+      "key_message": "Optimal UI structure for brand identity.",
+      "value_prop": "Improves readability and streamlines user workflow.",
+      "cta_strategy": "Primary CTA: Explore Component."
+    },
+    "copy_prompt": "Write high-converting website copy for a Brand System Guidelines Color Swatch Component:\n1. Clear headline hook.\n2. Supporting subheadline.\n3. Key feature highlights.\n4. Primary action CTA.",
+    "size_kb": 120
+  },
+  {
+    "id": "ui-19",
+    "filename": "19.webp",
+    "path": "UI/19.webp",
+    "title": "Mobile App Onboarding & Welcome Flow",
+    "category": "standard_web_component",
+    "is_hero": false,
+    "tags": [
+      "mobile-ui",
+      "onboarding-screen",
+      "mobile-app"
+    ],
+    "description": "Sleek mobile app welcome screen featuring illustration card, feature highlight bullet carousel, and primary CTA button.",
+    "hero_tag_desc": "Illustration Hero & Quick Onboarding Carousel",
+    "what_ui_is_saying": "Guides new app users through core feature benefits in seconds.",
+    "ai_image_prompt": "Mobile app onboarding UI screen, central vector illustration, feature indicator dots, full-width primary CTA button, modern dark mode --ar 16:9",
+    "copy_brief": {
+      "persona": "Product Designers, Developers, and Digital Marketers.",
+      "tone": "Direct, functional, and authoritative.",
+      "key_message": "Optimal UI structure for standard_web_component.",
+      "value_prop": "Improves readability and streamlines user workflow.",
+      "cta_strategy": "Primary CTA: Explore Component."
+    },
+    "copy_prompt": "Write high-converting website copy for a Mobile App Onboarding & Welcome Flow:\n1. Clear headline hook.\n2. Supporting subheadline.\n3. Key feature highlights.\n4. Primary action CTA.",
+    "size_kb": 120
+  },
+  {
+    "id": "ui-20",
+    "filename": "20.webp",
+    "path": "UI/20.webp",
+    "title": "Enterprise Security Audit Log & Compliance Dashboard",
+    "category": "dashboard-ui",
+    "is_hero": false,
+    "tags": [
+      "security-audit",
+      "compliance-log",
+      "iam-monitor"
+    ],
+    "description": "High-security IAM compliance dashboard monitoring active user sessions, API key rate limits, and anomaly alerts.",
+    "hero_tag_desc": "Real-Time Security Event & Anomaly Telemetry",
+    "what_ui_is_saying": "Provides security ops teams with instant event auditability and compliance readiness.",
+    "ai_image_prompt": "Cybersecurity audit log dashboard UI, real-time threat alert feed, IAM session table, dark theme with red green status badges --ar 16:9",
+    "copy_brief": {
+      "persona": "Product Designers, Developers, and Digital Marketers.",
+      "tone": "Direct, functional, and authoritative.",
+      "key_message": "Optimal UI structure for dashboard ui.",
+      "value_prop": "Improves readability and streamlines user workflow.",
+      "cta_strategy": "Primary CTA: Explore Component."
+    },
+    "copy_prompt": "Write high-converting website copy for a Enterprise Security Audit Log & Compliance Dashboard:\n1. Clear headline hook.\n2. Supporting subheadline.\n3. Key feature highlights.\n4. Primary action CTA.",
+    "size_kb": 120
+  },
+  {
+    "id": "ui-21",
+    "filename": "21.webp",
+    "path": "UI/21.webp",
+    "title": "Brand Logo Mark & Identity Emblem",
+    "category": "brand-identity",
+    "is_hero": false,
+    "tags": [
+      "logo-design",
+      "brand-identity",
+      "vector-emblem"
+    ],
+    "description": "Geometric brand logo mark showcasing vector precision grid, proportions, and light/dark background adaptability.",
+    "hero_tag_desc": "Geometric Vector Logo Grid Construction",
+    "what_ui_is_saying": "Establishes a memorable corporate visual identity.",
+    "ai_image_prompt": "Minimalist geometric corporate logo design mockup, vector grid lines, dark and light variant cards, professional brand identity --ar 1:1",
+    "copy_brief": {
+      "persona": "Product Designers, Developers, and Digital Marketers.",
+      "tone": "Direct, functional, and authoritative.",
+      "key_message": "Optimal UI structure for brand identity.",
+      "value_prop": "Improves readability and streamlines user workflow.",
+      "cta_strategy": "Primary CTA: Explore Component."
+    },
+    "copy_prompt": "Write high-converting website copy for a Brand Logo Mark & Identity Emblem:\n1. Clear headline hook.\n2. Supporting subheadline.\n3. Key feature highlights.\n4. Primary action CTA.",
+    "size_kb": 120
+  },
+  {
+    "id": "ui-22",
+    "filename": "22.webp",
+    "path": "UI/22.webp",
+    "title": "Abstract Monogram Brand Icon",
+    "category": "brand-identity",
+    "is_hero": false,
+    "tags": [
+      "monogram-logo",
+      "brand-icon",
+      "minimalist-logo"
+    ],
+    "description": "Clean overlapping monogram logo mark crafted with golden ratio circles and crisp dual-tone color contrast.",
+    "hero_tag_desc": "Golden Ratio Monogram Mark",
+    "what_ui_is_saying": "Communicates elegance and structural alignment.",
+    "ai_image_prompt": "Monogram brand icon mockup, golden ratio geometric curves, dual tone contrast, premium luxury brand visual identity --ar 1:1",
+    "copy_brief": {
+      "persona": "Product Designers, Developers, and Digital Marketers.",
+      "tone": "Direct, functional, and authoritative.",
+      "key_message": "Optimal UI structure for brand identity.",
+      "value_prop": "Improves readability and streamlines user workflow.",
+      "cta_strategy": "Primary CTA: Explore Component."
+    },
+    "copy_prompt": "Write high-converting website copy for a Abstract Monogram Brand Icon:\n1. Clear headline hook.\n2. Supporting subheadline.\n3. Key feature highlights.\n4. Primary action CTA.",
+    "size_kb": 120
+  },
+  {
+    "id": "ui-23",
+    "filename": "23.webp",
+    "path": "UI/23.webp",
+    "title": "Design System Component Token Library",
+    "category": "brand-identity",
+    "is_hero": false,
+    "tags": [
+      "component-library",
+      "figma-tokens",
+      "design-system"
+    ],
+    "description": "Comprehensive UI component spec sheet displaying button variants, form input states, modal dialogs, and badge chips.",
+    "hero_tag_desc": "UI Button Variants & Form Input Token Matrix",
+    "what_ui_is_saying": "Standardizes UI components for rapid product design and engineering handoff.",
+    "ai_image_prompt": "Figma UI design system component kit, button states matrix, form controls, notification pills, clean organized grid --ar 16:9",
+    "copy_brief": {
+      "persona": "Product Designers, Developers, and Digital Marketers.",
+      "tone": "Direct, functional, and authoritative.",
+      "key_message": "Optimal UI structure for brand identity.",
+      "value_prop": "Improves readability and streamlines user workflow.",
+      "cta_strategy": "Primary CTA: Explore Component."
+    },
+    "copy_prompt": "Write high-converting website copy for a Design System Component Token Library:\n1. Clear headline hook.\n2. Supporting subheadline.\n3. Key feature highlights.\n4. Primary action CTA.",
+    "size_kb": 120
+  },
+  {
+    "id": "ui-24",
+    "filename": "24.webp",
+    "path": "UI/24.webp",
+    "title": "AI Image Generator Prompt Inspector Dashboard",
+    "category": "dashboard-ui",
+    "is_hero": false,
+    "tags": [
+      "ai-image-gen",
+      "prompt-inspector",
+      "diffusion-dashboard"
+    ],
+    "description": "Creative AI diffusion workspace featuring prompt input box, seed sampler parameters, aspect ratio selector, and generated gallery stream.",
+    "hero_tag_desc": "Diffusion Parameter Matrix & Live Generation Feed",
+    "what_ui_is_saying": "Gives AI artists full control over prompt weighting and generation seeds.",
+    "ai_image_prompt": "AI image generator web app UI, prompt text input bar, negative prompt field, slider controls for steps and CFG scale, gallery image stream --ar 16:9",
+    "copy_brief": {
+      "persona": "Product Designers, Developers, and Digital Marketers.",
+      "tone": "Direct, functional, and authoritative.",
+      "key_message": "Optimal UI structure for dashboard ui.",
+      "value_prop": "Improves readability and streamlines user workflow.",
+      "cta_strategy": "Primary CTA: Explore Component."
+    },
+    "copy_prompt": "Write high-converting website copy for a AI Image Generator Prompt Inspector Dashboard:\n1. Clear headline hook.\n2. Supporting subheadline.\n3. Key feature highlights.\n4. Primary action CTA.",
+    "size_kb": 120
+  },
+  {
+    "id": "ui-25",
+    "filename": "25.webp",
+    "path": "UI/25.webp",
+    "title": "SaaS Customer Analytics & Churn Predictor",
+    "category": "dashboard-ui",
+    "is_hero": false,
+    "tags": [
+      "customer-analytics",
+      "churn-prediction",
+      "retention-dashboard"
+    ],
+    "description": "Predictive SaaS retention dashboard tracking user engagement health scores, churn risk flags, and expansion opportunities.",
+    "hero_tag_desc": "User Health Score Grid & Churn Risk Telemetry",
+    "what_ui_is_saying": "Helps customer success teams proactively prevent churn and expand account revenue.",
+    "ai_image_prompt": "SaaS customer retention dashboard UI, user health score gauge, churn risk warning badges, activity line chart, clean modern UI --ar 16:9",
+    "copy_brief": {
+      "persona": "Product Designers, Developers, and Digital Marketers.",
+      "tone": "Direct, functional, and authoritative.",
+      "key_message": "Optimal UI structure for dashboard ui.",
+      "value_prop": "Improves readability and streamlines user workflow.",
+      "cta_strategy": "Primary CTA: Explore Component."
+    },
+    "copy_prompt": "Write high-converting website copy for a SaaS Customer Analytics & Churn Predictor:\n1. Clear headline hook.\n2. Supporting subheadline.\n3. Key feature highlights.\n4. Primary action CTA.",
+    "size_kb": 120
+  },
+  {
+    "id": "ui-26",
+    "filename": "26.webp",
+    "path": "UI/26.webp",
+    "title": "Web3 NFT Marketplace & Auction Showcase",
+    "category": "dashboard-ui",
+    "is_hero": false,
+    "tags": [
+      "nft-marketplace",
+      "crypto-art",
+      "digital-collectibles"
+    ],
+    "description": "Dark-mode NFT marketplace featuring live bid countdown timers, artist profiles, and floor price trends.",
+    "hero_tag_desc": "Live Bid Countdown & NFT Floor Price Trend",
+    "what_ui_is_saying": "Drives collector engagement with real-time bidding action.",
+    "ai_image_prompt": "NFT marketplace web app UI, dark mode digital art cards with countdown timer badges, floor price metrics, creator profiles --ar 16:9",
+    "copy_brief": {
+      "persona": "Product Designers, Developers, and Digital Marketers.",
+      "tone": "Direct, functional, and authoritative.",
+      "key_message": "Optimal UI structure for dashboard ui.",
+      "value_prop": "Improves readability and streamlines user workflow.",
+      "cta_strategy": "Primary CTA: Explore Component."
+    },
+    "copy_prompt": "Write high-converting website copy for a Web3 NFT Marketplace & Auction Showcase:\n1. Clear headline hook.\n2. Supporting subheadline.\n3. Key feature highlights.\n4. Primary action CTA.",
+    "size_kb": 120
+  },
+  {
+    "id": "ui-27",
+    "filename": "27.webp",
+    "path": "UI/27.webp",
+    "title": "Developer API Documentation & Endpoint Tester",
+    "category": "dashboard-ui",
+    "is_hero": false,
+    "tags": [
+      "api-docs",
+      "developer-portal",
+      "endpoint-tester"
+    ],
+    "description": "Interactive API documentation portal with cURL code snippet tabs, response payload inspector, and authentication key manager.",
+    "hero_tag_desc": "Interactive cURL Executor & Payload Inspector",
+    "what_ui_is_saying": "Enables developers to test API endpoints directly inside documentation.",
+    "ai_image_prompt": "Developer API documentation website UI, dark code snippet blocks, HTTP request method badges, interactive test console --ar 16:9",
+    "copy_brief": {
+      "persona": "Product Designers, Developers, and Digital Marketers.",
+      "tone": "Direct, functional, and authoritative.",
+      "key_message": "Optimal UI structure for dashboard ui.",
+      "value_prop": "Improves readability and streamlines user workflow.",
+      "cta_strategy": "Primary CTA: Explore Component."
+    },
+    "copy_prompt": "Write high-converting website copy for a Developer API Documentation & Endpoint Tester:\n1. Clear headline hook.\n2. Supporting subheadline.\n3. Key feature highlights.\n4. Primary action CTA.",
+    "size_kb": 120
+  },
+  {
+    "id": "ui-28",
+    "filename": "28.webp",
+    "path": "UI/28.webp",
+    "title": "HR & Talent Acquisition Recruitment Hub",
+    "category": "standard_web_component",
+    "is_hero": false,
+    "tags": [
+      "hr-dashboard",
+      "recruitment-hub",
+      "applicant-tracker"
+    ],
+    "description": "Talent acquisition dashboard tracking open job requisitions, candidate interview pipelines, and offer acceptance rates.",
+    "hero_tag_desc": "Candidate Interview Pipeline & Offer Tracker",
+    "what_ui_is_saying": "Streamlines hiring workflows and candidate communication for HR teams.",
+    "ai_image_prompt": "HR recruitment dashboard UI, applicant pipeline status columns, candidate resume cards, hiring metrics bar chart --ar 16:9",
+    "copy_brief": {
+      "persona": "Product Designers, Developers, and Digital Marketers.",
+      "tone": "Direct, functional, and authoritative.",
+      "key_message": "Optimal UI structure for standard_web_component.",
+      "value_prop": "Improves readability and streamlines user workflow.",
+      "cta_strategy": "Primary CTA: Explore Component."
+    },
+    "copy_prompt": "Write high-converting website copy for a HR & Talent Acquisition Recruitment Hub:\n1. Clear headline hook.\n2. Supporting subheadline.\n3. Key feature highlights.\n4. Primary action CTA.",
+    "size_kb": 120
+  },
+  {
+    "id": "ui-29",
+    "filename": "29.webp",
+    "path": "UI/29.webp",
+    "title": "Logistics & Fleet Telemetry Command Center",
+    "category": "standard_web_component",
+    "is_hero": false,
+    "tags": [
+      "logistics-dashboard",
+      "fleet-tracker",
+      "gps-telemetry"
+    ],
+    "description": "Real-time logistics control panel displaying GPS fleet locations, delivery route ETA progress, and fuel efficiency metrics.",
+    "hero_tag_desc": "Live GPS Fleet Tracker & Route ETA Progress Bar",
+    "what_ui_is_saying": "Optimizes fleet routing and delivers real-time shipment visibility.",
+    "ai_image_prompt": "Logistics fleet management dashboard UI, interactive GPS map tracking delivery trucks, route ETA progress indicators, clean dark UI --ar 16:9",
+    "copy_brief": {
+      "persona": "Product Designers, Developers, and Digital Marketers.",
+      "tone": "Direct, functional, and authoritative.",
+      "key_message": "Optimal UI structure for standard_web_component.",
+      "value_prop": "Improves readability and streamlines user workflow.",
+      "cta_strategy": "Primary CTA: Explore Component."
+    },
+    "copy_prompt": "Write high-converting website copy for a Logistics & Fleet Telemetry Command Center:\n1. Clear headline hook.\n2. Supporting subheadline.\n3. Key feature highlights.\n4. Primary action CTA.",
+    "size_kb": 120
+  }
+]

@@ -1,0 +1,650 @@
+[
+  {
+    "id": "ui-90",
+    "filename": "new_footer.png",
+    "path": "UI/new_footer.png",
+    "title": "Desert Sunset Horizon Wave Graphic",
+    "category": "generative-art",
+    "is_hero": false,
+    "tags": [
+      "Generative Art",
+      "Sunset Gradient",
+      "Desert Landscape",
+      "Vector Illustration",
+      "Warm Tones"
+    ],
+    "description": "An artistic vector illustration depicting rolling mountain ridges and sand dunes under a warm sunset sky. The design features a smooth warm orange to pale cream background gradient anchored by a bright circular white sun. Multi-layered silhouetted hills transition from deep brownish-gray in the foreground to soft dusty purple and orange in the distance.",
+    "hero_tag_desc": "Visual Anchor: Glowing white sun icon set against a warm gradient sky and layered mountain contours.",
+    "what_ui_is_saying": "This artwork creates a serene, natural atmosphere representing horizon, tranquility, and warm outdoor aesthetic.",
+    "ai_image_prompt": "Minimalist vector illustration of rolling desert sand dunes and mountain ridges at sunset, warm orange and golden gradient sky, glowing soft white sun, layered hills in dusty brown and blue-purple, smooth subtle grainy texture, modern art background --ar 16:9",
+    "copy_brief": {
+      "persona": "Outdoor Enthusiasts, Nature Brands, Creative Directors",
+      "tone": "Serene, inspiring, warm, atmospheric",
+      "key_message": "Discover tranquil horizons and natural warmth.",
+      "value_prop": "Evocative visual art evoking calmness and vast open spaces.",
+      "cta_strategy": "Primary CTA: \"Explore Horizons\". Secondary CTA: \"View Art\"."
+    },
+    "copy_prompt": "Write inspiring visual copy for a nature-inspired design showcase:\n1. An evocative 5-word headline about serene natural landscapes.\n2. A 2-sentence description of peaceful design aesthetics.\n3. 3 key visual benefits.\n4. CTA button microcopy."
+  },
+  {
+    "id": "ui-91",
+    "filename": "notes.png",
+    "path": "UI/notes.png",
+    "title": "Teal Radial Wave Gradient Graphic",
+    "category": "generative-art",
+    "is_hero": false,
+    "tags": [
+      "Generative Art",
+      "Radial Waves",
+      "Teal Gradient",
+      "Abstract Visual",
+      "Minimalist Pattern"
+    ],
+    "description": "A clean abstract background featuring concentric radial wave arcs in shades of teal, aqua, and slate blue. The soft gradient curves expand from the upper-left, producing a rhythmic wave effect with subtle noise texturing. The color palette smoothly transitions from dark steel blue to light pastel cyan across the canvas.",
+    "hero_tag_desc": "Visual Anchor: Rhythmic expanding wave arcs creating a fluid radial gradient pattern.",
+    "what_ui_is_saying": "Conveys fluid energy, modern calm, and structured abstract movement ideal for tech or wellness backdrops.",
+    "ai_image_prompt": "Abstract 3D radial wave pattern background, smooth teal cyan and slate blue gradient arcs, subtle grainy noise texture, clean modern digital visual, minimalist wallpaper style --ar 16:9",
+    "copy_brief": {
+      "persona": "Tech Founders, UI Designers, Digital Marketers",
+      "tone": "Modern, fluid, calm, sophisticated",
+      "key_message": "Rhythmic digital patterns that elevate visual background experiences.",
+      "value_prop": "High-quality abstract visuals engineered for modern digital interfaces.",
+      "cta_strategy": "Primary CTA: \"Download Pattern\". Secondary CTA: \"Explore Collection\"."
+    },
+    "copy_prompt": "Write modern marketing copy for a UI background texture asset:\n1. A 5-word headline capturing fluid digital design.\n2. A 2-sentence subheadline on versatile background aesthetics.\n3. 3 feature bullets.\n4. Primary CTA text."
+  },
+  {
+    "id": "ui-92",
+    "filename": "original-0266ea50ab207a369aeb06d7074562a5.webp",
+    "path": "UI/original-0266ea50ab207a369aeb06d7074562a5.webp",
+    "title": "Pixel Rise 3D Retro Tech Hero",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "Hero Section",
+      "3D Retro Tech",
+      "Pixel Typography",
+      "Bright Orange Accents",
+      "Growth Stat Callout"
+    ],
+    "description": "A high-impact landing page hero section featuring a 3D isometric orange retro computer artwork centered on a clean light gray background. Bold pixelated white typography reads \"PIXEL RISE\" across the center, paired with headline text \"BUILDING DIGITAL EXPERIENCES THAT STICK\". The right side includes a high-contrast \"132% GROWTH\" statistic badge and social media links.",
+    "hero_tag_desc": "Visual Anchor: Vibrant 3D orange vintage PC illustration surrounded by floating pixelated icons and giant display text.",
+    "what_ui_is_saying": "Pixel Rise builds memorable, high-growth digital brand experiences that combine playful 3D aesthetics with proven business outcomes.",
+    "ai_image_prompt": "Modern website hero landing page UI for digital agency \"Pixel Rise\", light gray background, 3D orange retro vintage computer model in center with floating pixel icons, bold pixelated display typography reading PIXEL RISE, top navigation bar, bright orange CTA button, 132% growth stat widget, sleek modern UI layout --ar 16:9",
+    "copy_brief": {
+      "persona": "Startup Founders, Brand Strategists, Marketing Executives",
+      "tone": "Playful, bold, creative, results-driven",
+      "key_message": "Building digital experiences that stick and drive measurable brand growth.",
+      "value_prop": "Strategic visual design combined with digital thinking for 132% client growth.",
+      "cta_strategy": "Primary CTA: \"Get Started\" (orange solid button). Secondary CTA: \"Contact Us\"."
+    },
+    "copy_prompt": "Write high-converting hero section copy for Pixel Rise digital agency:\n1. Bold 6-word H1 headline about building digital experiences that stick.\n2. 2-sentence subheadline highlighting measurable brand growth and strategic design.\n3. Key statistic proof point (132% growth).\n4. Primary and secondary CTA microcopy."
+  },
+  {
+    "id": "ui-93",
+    "filename": "original-1a23b940db1d23d38a88d948e1e07343.webp",
+    "path": "UI/original-1a23b940db1d23d38a88d948e1e07343.webp",
+    "title": "Shapes Geometric Typography Landing Hero",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "Hero Section",
+      "Geometric Abstraction",
+      "Bold Typography",
+      "Bauhaus Aesthetic",
+      "Vibrant Colors"
+    ],
+    "description": "A striking minimalist landing page hero design for \"Shapes.\" built on a warm cream background. Bold sans-serif typography on the left reads \"Typography Design & Pattern\" accompanied by a red square \"Learn more\" action button. The right half features an artistic grid composition of colorful geometric shapes including cobalt blue circles, crimson red triangles, and yellow dotted patterns.",
+    "hero_tag_desc": "Visual Anchor: Grid panel filled with high-contrast geometric shapes, quarter circles, and halftone dot patterns.",
+    "what_ui_is_saying": "Shapes showcases modern graphic typography and geometric pattern design for forward-thinking creative agency work.",
+    "ai_image_prompt": "Minimalist web hero UI layout for creative studio \"Shapes.\", cream background color, left aligned bold black typography reading \"Typography Design & Pattern\", vibrant red CTA button, right side filled with colorful Bauhaus geometric shapes, red circles, blue arcs, yellow accents, ultra clean modern design --ar 16:9",
+    "copy_brief": {
+      "persona": "Creative Directors, Graphic Designers, Brand Agencies",
+      "tone": "Artistic, bold, structured, creative",
+      "key_message": "Explore modern typography, graphic design, and pattern systems.",
+      "value_prop": "Artistic geometric visual systems tailored for expressive brand design.",
+      "cta_strategy": "Primary CTA: \"Learn more\" (solid red square button)."
+    },
+    "copy_prompt": "Write agency landing copy for \"Shapes.\":\n1. Headline \"Typography Design & Pattern\".\n2. 2-sentence overview of geometric design systems and visual storytelling.\n3. 3 creative service highlights.\n4. CTA button text."
+  },
+  {
+    "id": "ui-94",
+    "filename": "original-230d3fe4d63908517b488a722fb875ed.webp",
+    "path": "UI/original-230d3fe4d63908517b488a722fb875ed.webp",
+    "title": "Creative Brand Identity Logo Grid",
+    "category": "brand-identity",
+    "is_hero": false,
+    "tags": [
+      "Brand Identity",
+      "Logo Showcase",
+      "Vector Avatars",
+      "Minimalist Grid",
+      "Portfolio Design"
+    ],
+    "description": "A clean minimalist brand identity showcase layout on a stark white background with generous whitespace. A neat 4x3 grid displays twelve unique vector icons, mascot avatars, and logo marks in vibrant colors like cyan, magenta, black, and lime green. Top navigation features a simple circular black monogram logo alongside text links for Work, Contact, Dribbble, and Behance.",
+    "hero_tag_desc": "Visual Anchor: 12-item organized grid of colorful mascot icons and vector logo badges.",
+    "what_ui_is_saying": "Displays a diverse portfolio of playful, memorable brand identities and mascot characters designed for modern digital products.",
+    "ai_image_prompt": "Brand identity portfolio website showcase, pristine white background, 4x3 grid of colorful minimalist vector logo marks and mascot avatars, minimalist top navigation bar with circular black logo, modern typography, ultra clean portfolio layout --ar 16:9",
+    "copy_brief": {
+      "persona": "Startup Founders, Art Directors, Product Owners",
+      "tone": "Creative, sleek, minimalist, expert",
+      "key_message": "Crafting iconic mascot marks and brand identity systems.",
+      "value_prop": "Memorable visual identities that give digital brands a unique personality.",
+      "cta_strategy": "Primary CTA: \"Explore Portfolio\" / \"Contact Us\"."
+    },
+    "copy_prompt": "Write brand portfolio text for a design studio showcasing mascot design:\n1. 5-word headline about iconic brand identity design.\n2. 2 sentences on craft, character illustration, and visual branding.\n3. 3 key branding deliverables.\n4. Contact link microcopy."
+  },
+  {
+    "id": "ui-95",
+    "filename": "original-269143c82a0b4ad939925d67420737a0.webp",
+    "path": "UI/original-269143c82a0b4ad939925d67420737a0.webp",
+    "title": "PSG Dark Sports Hub Dashboard",
+    "category": "dashboard-ui",
+    "is_hero": true,
+    "tags": [
+      "Dashboard UI",
+      "Dark Theme",
+      "Sports News Portal",
+      "Match Countdown Widget",
+      "Red Accent"
+    ],
+    "description": "A premium dark-themed sports dashboard for Paris Saint-Germain Football Club. The upper section highlights a featured match article banner featuring player Marco Verratti on a dark navy background with bold typography and a red \"READ THE ARTICLE\" button. Below it sits a white live match timer widget (\"BUY TICKETS\" red CTA) and a grid of team news photos, videos, and social updates.",
+    "hero_tag_desc": "Visual Anchor: Full-width dark navy sports hero banner with player cutout image and red action callouts.",
+    "what_ui_is_saying": "Delivers an immersive, high-energy sports fan hub combining live match updates, ticket sales, and exclusive club coverage.",
+    "ai_image_prompt": "Dark navy sports club fan dashboard web UI for Paris Saint-Germain, player action photo feature article banner, bold white typography \"Marco Verratti will be the key\", red accent buttons, live match countdown bar with buy tickets button, grid of news cards and match statistics --ar 16:9",
+    "copy_brief": {
+      "persona": "Football Fans, PSG Club Supporters, Sports Enthusiasts",
+      "tone": "Energetic, dramatic, authoritative, thrilling",
+      "key_message": "Exclusive coverage, match previews, and ticketing for PSG supporters.",
+      "value_prop": "Real-time club updates, match analysis, and instant ticket purchasing.",
+      "cta_strategy": "Primary CTA: \"BUY TICKETS\" (solid red button). Secondary CTA: \"READ THE ARTICLE\"."
+    },
+    "copy_prompt": "Write high-energy copy for the official PSG club match hub:\n1. Headline \"Marco Verratti will be the key\".\n2. 2-sentence match preview summary for upcoming semi-final against Bayern Munich.\n3. 3 fan engagement callouts (Ticketing, Video, Stats).\n4. \"BUY TICKETS\" CTA microcopy."
+  },
+  {
+    "id": "ui-96",
+    "filename": "original-2704487576c41ac7ee5d4f08910ac00b.webp",
+    "path": "UI/original-2704487576c41ac7ee5d4f08910ac00b.webp",
+    "title": "Chess Club Classical Art Hero",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "Hero Section",
+      "Dark Aesthetic",
+      "Chess Quote",
+      "Classical Engraving",
+      "Grid Pattern"
+    ],
+    "description": "A striking dark minimalist hero layout for \"CHESS CLUB\" set against a dark graphite grid background with subtle white coordinate markers. Centered in bold serif quotation marks is the iconic Marcel Duchamp quote: \"while all artists are not chess players, all chess players are artists\". On either side, detailed vintage woodcut-style hand illustrations reach inward to display carved wooden chess pieces.",
+    "hero_tag_desc": "Visual Anchor: Renaissance-style engraved hands holding chess pieces framed by Marcel Duchamp's famous quote.",
+    "what_ui_is_saying": "Elevates chess from a simple strategy game to a sophisticated artistic discipline and intellectual community.",
+    "ai_image_prompt": "Minimalist dark website hero page UI for \"CHESS CLUB\", dark slate charcoal background with faint white grid lines, vintage woodcut engraving illustrations of two hands reaching inward holding chess pieces, bold central white typography quote by Marcel Duchamp, high-contrast artistic design --ar 16:9",
+    "copy_brief": {
+      "persona": "Chess Enthusiasts, Intellectuals, Art Collectors",
+      "tone": "Refined, philosophical, artistic, historic",
+      "key_message": "Where strategic mastery meets artistic expression.",
+      "value_prop": "Exclusive chess club community blending classical art and competitive strategy.",
+      "cta_strategy": "Primary CTA: \"Join the Club\" / \"Explore Gallery\"."
+    },
+    "copy_prompt": "Write refined web copy for Chess Club landing page:\n1. Marcel Duchamp quote as central hero text.\n2. 2-sentence subheadline on the intersection of chess and fine art.\n3. 3 club benefits (Masterclasses, Tournaments, Art Exhibits).\n4. CTA button text."
+  },
+  {
+    "id": "ui-97",
+    "filename": "original-27530eb194e282e67424c1894398b3e8.webp",
+    "path": "UI/original-27530eb194e282e67424c1894398b3e8.webp",
+    "title": "Chompy Cheeks Memecoin Crypto Landing",
+    "category": "landing-page",
+    "is_hero": true,
+    "tags": [
+      "Landing Page",
+      "Crypto Memecoin",
+      "Cartoon Mascot",
+      "Playful Illustration",
+      "Vibrant Red & Green"
+    ],
+    "description": "A vibrant, humorous crypto memecoin landing page for \"CHOMPY CHEEKS\". Built with bold brick-red and emerald-green wave sections, it features a funny red cartoon mascot character holding a smartphone with smoke effect. Big playful 3D extruded lettering reads \"CHOMPY CHEEKS\" with headline text \"The Only Cryptocurrency You Will HODL Till The Next Bear Run.\" and green CTA pills for Dexscreener, Telegram, and Buy Now.",
+    "hero_tag_desc": "Visual Anchor: Cheeky red cartoon mascot character illustration set against 3D extruded brand typography and jetpack mascot flying.",
+    "what_ui_is_saying": "Positions  as a fun, viral community memecoin on Solana built for long-term HODLers.",
+    "ai_image_prompt": "Vibrant Solana crypto memecoin landing page UI design,  CHEEKS logo in bold playful 3D typography, cartoon red mascot character vaping while holding a smartphone, rocket jetpack mascot floating, emerald green CTA buttons for Dexscreener and Telegram, dark red background with money bill pattern, meme culture web layout --ar 16:9",
+    "copy_brief": {
+      "persona": "Crypto Traders, Memecoin Investors, Solana Community",
+      "tone": "Humorous, energetic, viral, irreverent",
+      "key_message": "The only cryptocurrency you will HODL till the next bear run.",
+      "value_prop": "Community-driven Solana memecoin celebrating meme culture and fun trading.",
+      "cta_strategy": "Primary CTA: \"Buy Now\" / \"Dexscreener\". Secondary CTA: \"Join Telegram\"."
+    },
+    "copy_prompt": "Write fun, viral web copy for  CHEEKS memecoin:\n1. Headline \"CHOMPY CHEEKS\".\n2. Subheadline \"The Only Cryptocurrency You Will HODL Till The Next Bear Run.\"\n3. 3 bullet points on tokenomics, community hype, and liquidity security.\n4. Primary CTA button microcopy."
+  },
+  {
+    "id": "ui-98",
+    "filename": "original-28ee50692671529b081120fda924964a.webp",
+    "path": "UI/original-28ee50692671529b081120fda924964a.webp",
+    "title": "Ltech Isometric AI Innovation Hero",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "Hero Section",
+      "Isometric Graphic",
+      "Pistachio Green Theme",
+      "Tech Innovation",
+      "Line Art Architecture"
+    ],
+    "description": "A clean isometric tech hero section for \"Ltech\" on a light pistachio green background. Bold olive serif headline typography on the left reads \"Leading the Charge in Tech Innovation\" with subtext about AI urban connectivity and an outline \"Explore\" button. The right side features a intricate isometric 3D vector illustration of a cloud data center and connected smart buildings inside a dome container.",
+    "hero_tag_desc": "Visual Anchor: Detailed isometric green architectural diagram depicting cloud infrastructure, microchips, and smart city servers.",
+    "what_ui_is_saying": "Ltech drives next-generation AI and smart urban infrastructure through clean, efficient data engineering.",
+    "ai_image_prompt": "Minimalist pistachio green tech landing page UI for \"Ltech\", left side olive green serif headline text \"Leading the Charge in Tech Innovation\", rounded outline CTA button, right side intricate 3D isometric green vector graphic of smart city cloud servers and chip architecture, clean line art aesthetic --ar 16:9",
+    "copy_brief": {
+      "persona": "CTOs, Smart City Planners, Enterprise AI Leaders",
+      "tone": "Innovative, sustainable, smart, forward-looking",
+      "key_message": "Leading the charge in AI tech innovation and smart urban connectivity.",
+      "value_prop": "Cutting-edge AI urban connectivity for smarter, more efficient municipal systems.",
+      "cta_strategy": "Primary CTA: \"Explore\" (rounded pill outline button)."
+    },
+    "copy_prompt": "Write clean corporate landing copy for Ltech AI:\n1. Headline \"Leading the Charge in Tech Innovation\".\n2. 2-sentence subheadline on urban AI connectivity and smart infrastructure.\n3. 3 feature pillars (Cloud AI, Data Security, Smart Grid).\n4. \"Explore\" CTA button text."
+  },
+  {
+    "id": "ui-99",
+    "filename": "original-51e25c9ccfa0fe040505322f9ed3419a.webp",
+    "path": "UI/original-51e25c9ccfa0fe040505322f9ed3419a.webp",
+    "title": "Desiign Agency Fluid Art Showcase",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "Hero Section",
+      "Design Agency",
+      "Fluid Generative Art",
+      "Minimalist Typography",
+      "Sky Blue Frame"
+    ],
+    "description": "A minimalist design agency hero section for \"Desiign\" framed by a soft sky-blue margin. Crisp black sans-serif typography reads \"we create the visual design\" above a concise agency subheadline and a dark blue \"Conects\" CTA button. Arranged along a subtle convex arc at the bottom are three framed panoramic cards showcasing vivid fluid generative art in vibrant purple, crimson red, and ocean blue.",
+    "hero_tag_desc": "Visual Anchor: Trio of curved frame cards displaying high-density fluid generative fractal artwork.",
+    "what_ui_is_saying": "Desiign creates high-end visual systems and visual design solutions with an adaptive creative approach.",
+    "ai_image_prompt": "Minimalist design agency hero section web UI for \"Desiign\", light sky blue background frame, centered large bold black headline \"we create the visual design\", subheadline text, blue CTA button, lower half features three curved frame cards showing colorful abstract fluid generative art textures, ultra clean aesthetic --ar 16:9",
+    "copy_brief": {
+      "persona": "Brand Directors, Marketing Executives, Tech Startups",
+      "tone": "Modern, confident, creative, sleek",
+      "key_message": "We create high-impact visual design through an adaptive approach.",
+      "value_prop": "Bespoke digital design and visual branding tailored to complex problem solving.",
+      "cta_strategy": "Primary CTA: \"Conects\" / \"Work With Us\"."
+    },
+    "copy_prompt": "Write design agency landing copy for \"Desiign\":\n1. Headline \"we create the visual design\".\n2. 2 sentences on adaptive visual problem solving and brand transformations.\n3. 3 core creative services.\n4. CTA button text."
+  },
+  {
+    "id": "ui-100",
+    "filename": "original-54a5e2c2aa81d261cd63474fd730955d.webp",
+    "path": "UI/original-54a5e2c2aa81d261cd63474fd730955d.webp",
+    "title": "Postbrands Minimalist Monochrome Wordmark Logo",
+    "category": "brand-identity",
+    "is_hero": false,
+    "tags": [
+      "Brand Identity",
+      "Wordmark Logo",
+      "Minimalist Monogram",
+      "Monochrome",
+      "Typography Design"
+    ],
+    "description": "An ultra-clean minimalist brand logo presentation showcasing the \"postbrands™\" wordmark centered on a pure white backdrop. The typography is set in a bold, clean geometric sans-serif font in dark charcoal black, featuring a custom rounded loop accent on the leading letter 'p'.",
+    "hero_tag_desc": "Visual Anchor: Centered black \"postbrands™\" typographic wordmark with custom letterform detail.",
+    "what_ui_is_saying": "Communicates modern simplicity, brand clarity, and premium minimalist identity design.",
+    "ai_image_prompt": "Ultra minimalist brand logo graphic showcase, pure white background, centered geometric sans-serif logo text \"postbrands\" in dark black with trademark sign, modern typography logo mark presentation --ar 16:9",
+    "copy_brief": {
+      "persona": "Brand Strategists, Creative Directors, Founders",
+      "tone": "Minimalist, bold, authoritative, timeless",
+      "key_message": "Postbrands builds iconic, enduring brand identity systems.",
+      "value_prop": "Stripping away clutter to deliver powerful, memorable visual branding.",
+      "cta_strategy": "Primary CTA: \"View Identity System\"."
+    },
+    "copy_prompt": "Write brand strategy overview text for postbrands studio:\n1. 5-word headline about minimalist brand design.\n2. 2-sentence rationale on timeless typographic logos.\n3. 3 brand identity principles.\n4. Portfolio CTA microcopy."
+  },
+  {
+    "id": "ui-101",
+    "filename": "original-56ccd6b3f800b6285d02ffebec97e047.webp",
+    "path": "UI/original-56ccd6b3f800b6285d02ffebec97e047.webp",
+    "title": "GuideU Mental Health Therapy Hero",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "Hero Section",
+      "Therapy Platform",
+      "Cornflower Blue",
+      "Line Art Squiggles",
+      "Therapist Cards"
+    ],
+    "description": "A calming mental health platform hero page for \"GuideU. therapists\" designed with a soft cornflower blue and white color palette. The front card features clean serif headline typography reading \"Let us guide you towards understanding yourself better\", handwritten-style squiggly line art graphics, and a \"Make an appointment\" button. In the background layer, therapist team profiles and line-drawn mental health condition icons are displayed.",
+    "hero_tag_desc": "Visual Anchor: Dual-card stacked layout with expressive black squiggly line illustrations and therapist portrait cards.",
+    "what_ui_is_saying": "GuideU connects individuals with certified therapists to foster self-awareness, psychological harmony, and mental wellness.",
+    "ai_image_prompt": "Calming mental health therapy platform website hero UI, soft cornflower blue and white color scheme, left white card with headline \"Let us guide you towards understanding yourself better\", black line art wave squiggles, \"Make an appointment\" button, right background panel with therapist portrait photos and line icons, gentle trustworthy UI design --ar 16:9",
+    "copy_brief": {
+      "persona": "Individuals seeking therapy, Wellness Seekers, Couples",
+      "tone": "Empathetic, soothing, professional, reassuring",
+      "key_message": "Let us guide you towards understanding yourself better and achieving psychological harmony.",
+      "value_prop": "Carefully selected certified therapists offering personalized guidance and confidential sessions.",
+      "cta_strategy": "Primary CTA: \"Make an appointment ->\". Secondary CTA: \"Meet our specialists\"."
+    },
+    "copy_prompt": "Write empathetic web copy for GuideU therapy platform:\n1. Headline \"Let us guide you towards understanding yourself better\".\n2. 2-sentence description of finding personal balance and professional support.\n3. 3 core specialty areas (Self-Acceptance, Anxiety & Stress, Coaching).\n4. \"Make an appointment\" CTA microcopy."
+  },
+  {
+    "id": "ui-102",
+    "filename": "original-70bb429c4ef5f613a6d9e02f25b256d3.webp",
+    "path": "UI/original-70bb429c4ef5f613a6d9e02f25b256d3.webp",
+    "title": "Tonkean Automation Platform Hero",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "Hero Section",
+      "Enterprise SaaS",
+      "Illustration Design",
+      "Vibrant Pink Frame",
+      "Purple CTA"
+    ],
+    "description": "A lively enterprise SaaS landing page hero section for \"Tonkean\" framed by a high-saturation magenta-pink margin. On the right, bold dark typography headline reads \"No more Monkey Business\" with subtext explaining human-in-the-loop robotic automation and a rounded purple \"Get started\" CTA button. The left features a warm character illustration of a diverse team working on laptops, surrounded by floating purple monkey avatar icons.",
+    "hero_tag_desc": "Visual Anchor: Group character illustration encircled by floating purple monkey head icons and app badges.",
+    "what_ui_is_saying": "Tonkean eliminates tedious manual work by combining human-in-the-loop workflows with augmented robotic automation.",
+    "ai_image_prompt": "Modern enterprise SaaS landing page web UI for \"Tonkean\", bright magenta pink outer margin frame, white center card container, right side bold dark headline text \"No more Monkey Business\", rounded purple CTA button, left side colorful vector character illustration of three office workers with laptops surrounded by floating purple monkey mascot heads --ar 16:9",
+    "copy_brief": {
+      "persona": "Operations Leaders, Enterprise IT Managers, Process Architects",
+      "tone": "Playful, confident, efficient, modern",
+      "key_message": "No more monkey business — automate human-in-the-loop enterprise processes.",
+      "value_prop": "Augmented robotic automation that connects enterprise tools while keeping humans in control.",
+      "cta_strategy": "Primary CTA: \"Get started\" (rounded purple button). Secondary CTA: \"Login\"."
+    },
+    "copy_prompt": "Write enterprise SaaS landing page copy for Tonkean:\n1. Headline \"No more Monkey Business\".\n2. 2-sentence description of human-in-the-loop robotic process automation.\n3. 3 core operational benefits (Speed, Accuracy, Integration).\n4. \"Get started\" CTA button microcopy."
+  },
+  {
+    "id": "ui-103",
+    "filename": "original-7b755a737efb9b162007f2bb6c12e7cc.webp",
+    "path": "UI/original-7b755a737efb9b162007f2bb6c12e7cc.webp",
+    "title": "Nike Joyride Sneaker Product Card",
+    "category": "standard_web_component",
+    "is_hero": true,
+    "tags": [
+      "Product Showcase",
+      "Sneaker E-commerce",
+      "3D Shoe Rendering",
+      "Peach Gradient",
+      "Glassmorphic Container"
+    ],
+    "description": "A premium footwear e-commerce showcase UI for the \"NIKE JOYRIDE RUN FLYKNIT\" presented on a soft peach gradient backdrop. A detailed 3D red Flyknit running sneaker floats dynamically on the right, highlighting tiny foam bead cushioning in the translucent sole. The left panel contains bold product title text, cushioning descriptive copy, price tag (\"Rp 2,519,000\"), a red gradient \"GET IT NOW\" button, and a bottom gallery of four colorway thumbnails.",
+    "hero_tag_desc": "Visual Anchor: Dynamically angled 3D red Nike sneaker with translucent bead-cushioned heel sole.",
+    "what_ui_is_saying": "Nike Joyride delivers maximum running comfort through innovative foam bead cushioning technology and breathable Flyknit.",
+    "ai_image_prompt": "Sleek luxury sneaker e-commerce web UI product page, soft peach warm background, floating 3D render of red Nike Joyride Flyknit running shoe with translucent sole filled with colorful beads, bold left headline \"NIKE JOYRIDE RUN FLYKNIT\", red gradient button \"GET IT NOW\", colorway swatch thumbnails at bottom --ar 16:9",
+    "copy_brief": {
+      "persona": "Runners, Sneakerheads, Fitness Enthusiasts",
+      "tone": "Energetic, premium, tech-forward, persuasive",
+      "key_message": "Make running feel easier with tiny foam bead cushioning that stands up to your mileage.",
+      "value_prop": "Revolutionary underfoot foam bead technology for personalized impact absorption.",
+      "cta_strategy": "Primary CTA: \"GET IT NOW\" (red gradient pill button)."
+    },
+    "copy_prompt": "Write sneaker product detail page copy for Nike Joyride Run Flyknit:\n1. Headline \"NIKE JOYRIDE RUN FLYKNIT\".\n2. 2-sentence description of tiny foam bead underfoot cushioning.\n3. 3 performance features (Flyknit fit, bead absorption, lightweight sole).\n4. Price tag and CTA microcopy."
+  },
+  {
+    "id": "ui-104",
+    "filename": "original-93f09890ae3ba4bcef7bd36fe48929ec.webp",
+    "path": "UI/original-93f09890ae3ba4bcef7bd36fe48929ec.webp",
+    "title": "Deep Sea Ocean Marine Life Illustration",
+    "category": "generative-art",
+    "is_hero": false,
+    "tags": [
+      "Generative Art",
+      "Ocean Marine Life",
+      "Textured Vector",
+      "Deep Blue & Gold",
+      "Editorial Illustration"
+    ],
+    "description": "A rich, textured editorial illustration depicting a deep-sea marine ecosystem on a warm cream background. Stylized numeric digits are intricately rendered using sea kelp, coral structures, octopus tentacles, and ocean currents. Deep blue ocean tones are contrasted by golden-yellow sea creatures, swimming scuba divers, jellyfish, and starfish.",
+    "hero_tag_desc": "Visual Anchor: Complex numeric typography composed of marine flora, coral reefs, and sea creatures.",
+    "what_ui_is_saying": "Celebrates ocean biodiversity and marine conservation through detailed artistic storytelling.",
+    "ai_image_prompt": "Detailed editorial vector illustration of underwater ocean marine life, numbers formed by blue coral reefs sea kelp and octopus tentacles, scuba divers swimming, yellow sea turtles starfish and jellyfish, grainy textured art on cream paper background --ar 16:9",
+    "copy_brief": {
+      "persona": "Environmental NGOs, Marine Researchers, Documentary Producers",
+      "tone": "Inspiring, artistic, educational, majestic",
+      "key_message": "Explore the uncharted depths of marine life and ocean biodiversity.",
+      "value_prop": "Vivid artistic storytelling raising awareness for oceanic ecosystems.",
+      "cta_strategy": "Primary CTA: \"Explore Ocean Data\" / \"Support Conservation\"."
+    },
+    "copy_prompt": "Write inspiring copy for an ocean conservation exhibit:\n1. 5-word headline about ocean biodiversity.\n2. 2 sentences on marine ecosystem preservation.\n3. 3 impact stats/pillars.\n4. CTA button text."
+  },
+  {
+    "id": "ui-105",
+    "filename": "original-980e05299d52286dc6cd08a7f6e98a3c.webp",
+    "path": "UI/original-980e05299d52286dc6cd08a7f6e98a3c.webp",
+    "title": "Getintouch Team Collaboration Landing Hero",
+    "category": "landing-page",
+    "is_hero": true,
+    "tags": [
+      "Landing Page",
+      "Team Collaboration",
+      "Bright Yellow Accents",
+      "Hand-Drawn Illustration",
+      "Feature Cards"
+    ],
+    "description": "A high-visibility team collaboration platform landing page for \"Getintouch\". The hero area pairs a bold black headline \"Collaborate smarter / Team management at its best\" with a large hand-drawn line art illustration of joyful team members. Black (\"Get started today\") and bright yellow (\"Our plans\") CTA buttons anchor the top section, while a vibrant yellow footer banner highlights three core features: Free live support, Increased security, and Intuitive interface.",
+    "hero_tag_desc": "Visual Anchor: Stylized hand-drawn black & yellow character illustration of team members raising hands in success.",
+    "what_ui_is_saying": "Getintouch empowers remote and hybrid teams to collaborate smarter through intuitive management and secure communication.",
+    "ai_image_prompt": "Vibrant yellow and black SaaS collaboration website landing page UI for \"Getintouch\", right side bold typography headline \"Collaborate smarter\", black CTA button \"Get started today\", yellow button \"Our plans\", left side whimsical hand-drawn vector character illustration of three happy team members, bottom bright yellow feature banner --ar 16:9",
+    "copy_brief": {
+      "persona": "Team Leads, Project Managers, Remote Workforces",
+      "tone": "Friendly, energetic, clear, efficient",
+      "key_message": "Collaborate smarter — team management at its best.",
+      "value_prop": "All-in-one team management with free live support, end-to-end security, and an intuitive workflow interface.",
+      "cta_strategy": "Primary CTA: \"Get started today\" (solid black button). Secondary CTA: \"Our plans\" (yellow button)."
+    },
+    "copy_prompt": "Write vibrant team management SaaS copy for Getintouch:\n1. Headline \"Collaborate smarter\".\n2. Subheadline \"Team management at its best\".\n3. 3 feature descriptions (Live Support, Security, Intuitive UI).\n4. \"Get started today\" CTA microcopy."
+  },
+  {
+    "id": "ui-106",
+    "filename": "original-9b7e2437017ab24a121b7057b514c367.webp",
+    "path": "UI/original-9b7e2437017ab24a121b7057b514c367.webp",
+    "title": "Explore Patterned Geometric Typography Graphic",
+    "category": "generative-art",
+    "is_hero": false,
+    "tags": [
+      "Generative Art",
+      "Textured Typography",
+      "Geometric Letters",
+      "Navy Blue Theme",
+      "Outdoor Aesthetic"
+    ],
+    "description": "A vibrant graphic art display featuring the word \"EXPLORE\" rendered in customized geometric letterforms set against a deep navy blue background. Each letter is filled with distinct mid-century modern textures, diagonal stripes, and retro color blocks in mustard yellow, rust orange, and mint green, with a stylized pine tree embedded inside the letter 'O'.",
+    "hero_tag_desc": "Visual Anchor: Custom geometric typography word \"EXPLORE\" decorated with retro textures and a tree symbol.",
+    "what_ui_is_saying": "Encourages curiosity, outdoor discovery, and creative exploration through mid-century geometric graphic design.",
+    "ai_image_prompt": "Retro mid-century graphic poster art, bold decorative word \"EXPLORE\" in geometric patterned letters, textured yellow orange teal and white letter fills, tree icon inside letter O, dark navy blue background with tiny white stars, vintage travel aesthetic --ar 16:9",
+    "copy_brief": {
+      "persona": "Travelers, Outdoor Enthusiasts, Creative Designers",
+      "tone": "Adventurous, nostalgic, creative, bold",
+      "key_message": "Uncover new horizons through bold creative exploration.",
+      "value_prop": "Distinctive mid-century graphic visual style for travel and outdoor branding.",
+      "cta_strategy": "Primary CTA: \"Start Exploring\" / \"View Gallery\"."
+    },
+    "copy_prompt": "Write adventurous marketing copy for an outdoor brand:\n1. 5-word headline encouraging exploration.\n2. 2-sentence subheadline on discovering unseen journeys.\n3. 3 exploration pillars (Nature, Art, Heritage).\n4. CTA button text."
+  },
+  {
+    "id": "ui-107",
+    "filename": "original-9c74ec960fb4bcf173ee2f7904700cc2.webp",
+    "path": "UI/original-9c74ec960fb4bcf173ee2f7904700cc2.webp",
+    "title": "Fintech Cashflow & Invoice Modular UI",
+    "category": "standard_web_component",
+    "is_hero": false,
+    "tags": [
+      "Fintech UI",
+      "Isometric Cards",
+      "Pastel Mint & Lavender",
+      "Invoice Management",
+      "French Copy"
+    ],
+    "description": "A polished fintech workflow showcase composition presented on a dark slate background. Multiple angled isometric cards in pastel mint green, pale lavender, and white represent financial features including equipment financing (\"FINANCER VOS ÉQUIPEMENTS\"), 5-minute approval badges (\"5min\"), 48-hour transfer speed (\"48h\"), and installment billing options (\"PAYER MA FACTURE EN 3 fois\").",
+    "hero_tag_desc": "Visual Anchor: Floating isometric paper plane and invoice cards displaying French fintech transaction metrics.",
+    "what_ui_is_saying": "Provides small business owners with fast, flexible cash flow financing, equipment loans, and split payment options.",
+    "ai_image_prompt": "Modern French fintech web app UI presentation, dark background, angled floating isometric card UI widgets in pastel mint, lavender, and sage green, text in French reading \"FINANCER VOS EQUIPEMENTS\" and \"5min\", paper airplane invoice graphics, clean minimalist financial interface --ar 16:9",
+    "copy_brief": {
+      "persona": "French SME Owners, Finance Managers, Freelancers",
+      "tone": "Trustworthy, efficient, modern, reassuring",
+      "key_message": "Financer vos équipements et sécuriser votre trésorerie en quelques clics.",
+      "value_prop": "Instant equipment financing and 3-split invoice payments approved in 5 minutes.",
+      "cta_strategy": "Primary CTA: \"Financer mes équipements\". Secondary CTA: \"En savoir plus\"."
+    },
+    "copy_prompt": "Write conversion copy in French for a business cashflow financing platform:\n1. Headline \"Financer vos équipements et booster votre trésorerie\".\n2. 2-sentence explanation of 5-minute approval and 48-hour funds transfer.\n3. 3 key solutions (Equipement, Stock, Factures).\n4. Primary CTA microcopy."
+  },
+  {
+    "id": "ui-108",
+    "filename": "original-aaf0ba8e7bf5bda50e43ae7caf5f86ab.webp",
+    "path": "UI/original-aaf0ba8e7bf5bda50e43ae7caf5f86ab.webp",
+    "title": "Mobile Book & App Interaction Illustrations",
+    "category": "standard_web_component",
+    "is_hero": false,
+    "tags": [
+      "UX Illustrations",
+      "Mobile App Interaction",
+      "Isometric Cards",
+      "Red & Orange",
+      "Vector Icons"
+    ],
+    "description": "A clean 3D isometric grid showcasing digital interaction icons for mobile reading and e-learning apps. Rendered in a bold coral red, orange, and navy blue color palette, each framed card illustrates a hand performing a mobile action such as turning e-book pages, pressing play, sliding interface modules, or organizing digital content.",
+    "hero_tag_desc": "Visual Anchor: Multi-card perspective grid depicting hand gestures interacting with mobile screens.",
+    "what_ui_is_saying": "Visualizes seamless touch interactions, mobile reading gestures, and digital media control UX.",
+    "ai_image_prompt": "Set of isometric mobile app UX vector illustrations, coral red and orange color palette, hands holding smartphones and interacting with e-books and media controls, clean white grid cards on subtle gray background --ar 16:9",
+    "copy_brief": {
+      "persona": "UI/UX Designers, Mobile App Developers, Product Teams",
+      "tone": "Clean, functional, intuitive, modern",
+      "key_message": "Intuitive touch gestures and mobile interaction patterns.",
+      "value_prop": "Versatile vector icon set depicting user interactions for e-learning and media apps.",
+      "cta_strategy": "Primary CTA: \"Download Vector Kit\" / \"View UI Kit\"."
+    },
+    "copy_prompt": "Write promotional copy for a mobile app gesture icon library:\n1. 5-word headline about intuitive mobile UI interactions.\n2. 2 sentences detailing vector gesture icons for e-books and apps.\n3. 3 icon category highlights (Gestures, Media, Navigation).\n4. CTA button text."
+  },
+  {
+    "id": "ui-109",
+    "filename": "original-ba14c0308d08bafff9680893a7360ef7.webp",
+    "path": "UI/original-ba14c0308d08bafff9680893a7360ef7.webp",
+    "title": "WanderSphere Travel Hero Illustration",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "Hero Section",
+      "Travel Platform",
+      "Vector Landmark Art",
+      "Warm Off-White",
+      "Serif Typography"
+    ],
+    "description": "A captivating travel discovery platform hero page for \"WanderSphere\" built on a warm cream background. Elegant serif headline typography reads \"Journey to the Extraordinary.\" above subtext inviting users to explore hidden gems and iconic landmarks. The lower center displays a vibrant vector artwork composition combining an orange high-speed train, Paris's Eiffel Tower, Rome's Colosseum, and stylized travelers.",
+    "hero_tag_desc": "Visual Anchor: Dynamic vector composite of famous global monuments, a bullet train, and modern travelers.",
+    "what_ui_is_saying": "WanderSphere inspires global exploration by connecting travelers with extraordinary destinations, iconic landmarks, and unforgettable experiences.",
+    "ai_image_prompt": "Modern travel website hero page UI for \"WanderSphere\", warm off-white cream background, top bold serif headline \"Journey to the Extraordinary.\", subheadline text, vibrant vector collage of an orange high-speed bullet train, Eiffel tower, Roman Colosseum, and modern travelers, clean elegant layout --ar 16:9",
+    "copy_brief": {
+      "persona": "Travelers, Vacation Seekers, Digital Nomads",
+      "tone": "Inspiring, elegant, adventurous, inviting",
+      "key_message": "Journey to the extraordinary — explore hidden gems and iconic landmarks worldwide.",
+      "value_prop": "Seamless travel booking and curated destination guides for unforgettable global adventures.",
+      "cta_strategy": "Primary CTA: \"Explore Destinations\" / \"Register\"."
+    },
+    "copy_prompt": "Write inspiring travel platform hero copy for WanderSphere:\n1. Headline \"Journey to the Extraordinary.\".\n2. 2-sentence description of curated travel experiences and landmark discovery.\n3. 3 key platform features (Curated Trips, Express Transit, Local Guides).\n4. Primary CTA microcopy."
+  },
+  {
+    "id": "ui-110",
+    "filename": "original-c04ab36886c294a1f26ec6ec243807e6.webp",
+    "path": "UI/original-c04ab36886c294a1f26ec6ec243807e6.webp",
+    "title": "Connect Teams Global Talent Network Hero",
+    "category": "landing-page",
+    "is_hero": true,
+    "tags": [
+      "Landing Page",
+      "Global Talent Network",
+      "Black Line Art",
+      "Lime Green Accent",
+      "Dual Feature Cards"
+    ],
+    "description": "A bold, graphic landing page for \"Connect teams\" designed with strong black borders and vibrant lime-green and peach accent cards. High-contrast typography reads \"Collaborate across the world / A selective platform to connect great tallents around the globe\". The right section displays a group illustration of global team members waving, supported below by two distinct card modules for \"Community insights\" and \"Free live support\".",
+    "hero_tag_desc": "Visual Anchor: Black-and-white group character illustration paired with high-contrast lime green and peach feature containers.",
+    "what_ui_is_saying": "Connect teams makes it effortless to hire, manage, and collaborate with top global talent on a secure selective platform.",
+    "ai_image_prompt": "Modern remote work and global talent recruitment landing page UI for \"Connect teams\", cream background, bold black typography \"Collaborate across the world\", neon lime green button \"Our plans\", black outline button \"Get started today\", line art illustration of global remote team, two colored feature card widgets at bottom --ar 16:9",
+    "copy_brief": {
+      "persona": "HR Executives, Startup Founders, Global Hiring Managers",
+      "tone": "Direct, energetic, modern, inclusive",
+      "key_message": "Collaborate across the world — connect great talents around the globe.",
+      "value_prop": "A vetted global talent platform offering community insights, enterprise security, and 24/7 live support.",
+      "cta_strategy": "Primary CTA: \"Get started today\" (black outline button). Secondary CTA: \"Our plans\" (lime green button)."
+    },
+    "copy_prompt": "Write global recruitment platform landing copy for Connect teams:\n1. Headline \"Collaborate across the world\".\n2. 2-sentence value proposition about connecting vetted international talent.\n3. 3 core platform pillars (Vetted Talent, Community Insights, Live Support).\n4. CTA button microcopy."
+  },
+  {
+    "id": "ui-111",
+    "filename": "original-c6a72b1649c9ba7b49f8b363761c669f.webp",
+    "path": "UI/original-c6a72b1649c9ba7b49f8b363761c669f.webp",
+    "title": "ChronoTask Productivity SaaS Hero",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "Hero Section",
+      "Productivity SaaS",
+      "3D Floating Widgets",
+      "Clean White Theme",
+      "Blue Primary CTA"
+    ],
+    "description": "A clean, modern productivity app hero section for \"ChronoTask\" set against a white micro-dot grid canvas. Bold dark typography centered on screen reads \"Think, plan, and track all in one place\" above a bright blue \"Get free demo\" pill button. The layout is enriched by floating 3D glassmorphic card widgets, including a yellow sticky note, task progress trackers, reminder clock widgets, and integration app icons.",
+    "hero_tag_desc": "Visual Anchor: Centered 3D ChronoTask logo badge surrounded by floating realistic 3D UI cards and sticky notes.",
+    "what_ui_is_saying": "ChronoTask consolidates notes, tasks, reminders, and app integrations into a single workspace to boost team productivity.",
+    "ai_image_prompt": "Clean white productivity SaaS app hero landing page UI for \"ChronoTask\", subtle dot pattern background, centered headline \"Think, plan, and track all in one place\", bright blue pill CTA button \"Get free demo\", floating 3D glassmorphic UI widgets, yellow sticky note, task list card, integration icons --ar 16:9",
+    "copy_brief": {
+      "persona": "Knowledge Workers, Project Managers, Remote Teams",
+      "tone": "Organized, modern, clear, empowering",
+      "key_message": "Think, plan, and track all in one place.",
+      "value_prop": "All-in-one productivity platform combining task tracking, smart reminders, and 100+ app integrations.",
+      "cta_strategy": "Primary CTA: \"Get free demo\" (solid blue pill button). Secondary CTA: \"Sign in\"."
+    },
+    "copy_prompt": "Write productivity SaaS landing page copy for ChronoTask:\n1. Headline \"Think, plan, and track all in one place\".\n2. 2-sentence description of streamlined task management and workflow integration.\n3. 3 core productivity benefits (Smart Tasks, Reminders, 100+ Integrations).\n4. \"Get free demo\" CTA microcopy."
+  },
+  {
+    "id": "ui-112",
+    "filename": "original-d2e09bbc71db24cd4586ddca0210490b.webp",
+    "path": "UI/original-d2e09bbc71db24cd4586ddca0210490b.webp",
+    "title": "Desert Highway City Skyline Travel Vector",
+    "category": "generative-art",
+    "is_hero": false,
+    "tags": [
+      "Generative Art",
+      "Travel Illustration",
+      "Camper Van",
+      "Futuristic City Skyline",
+      "Warm Sunset Gradient"
+    ],
+    "description": "A serene vector travel illustration depicting a classic blue camper van driving on a curving desert road towards a modern city skyline at sunset. The soft warm sky is framed by deep blue tropical palm fronds on the left and silhouetted modern skyscrapers (including the Kingdom Centre tower) and traditional domes on the right horizon.",
+    "hero_tag_desc": "Visual Anchor: Rear view of a blue vintage camper van cruising along a warm desert road towards a majestic city skyline.",
+    "what_ui_is_saying": "Evokes the spirit of road trips, urban exploration, and travel adventures in scenic desert destinations.",
+    "ai_image_prompt": "Vector illustration of a blue vintage VW camper van driving on a desert highway towards Riyadh Saudi Arabia city skyline at golden sunset, palm trees on left, futuristic skyscrapers and mosque dome in background, warm orange and blue color gradient, clean modern artwork --ar 16:9",
+    "copy_brief": {
+      "persona": "Travelers, Road Trippers, Tourism Agencies",
+      "tone": "Scenic, adventurous, serene, inspiring",
+      "key_message": "Embark on scenic road trips and discover iconic urban horizons.",
+      "value_prop": "Curated travel routes and road trip experiences through breathtaking landscapes.",
+      "cta_strategy": "Primary CTA: \"Plan Your Route\" / \"Explore Destinations\"."
+    },
+    "copy_prompt": "Write promotional travel copy for a desert road trip itinerary:\n1. 5-word headline about iconic highway journeys.\n2. 2-sentence subheadline on scenic road trips and city discoveries.\n3. 3 itinerary highlights.\n4. CTA button text."
+  },
+  {
+    "id": "ui-113",
+    "filename": "original-f7cf0f9cb7e5f4798a851c3824b6ed8a.webp",
+    "path": "UI/original-f7cf0f9cb7e5f4798a851c3824b6ed8a.webp",
+    "title": "Progress Terra Software Agency Hero",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "Hero Section",
+      "Software Agency",
+      "Pixel Typography",
+      "Lime Green Accent",
+      "Laptop Mockup"
+    ],
+    "description": "A futuristic dark-mode tech agency hero landing page for \"PROGRESS TERRA\" presented within a sleek laptop screen mockup. Giant white pixel block display typography spells \"PROGRESS TERRA\" above text reading \"Building web projects and providing full-cycle software development\". A vibrant lime green pixel-art terrain bar with a growing pixel tree anchors the bottom of the interface.",
+    "hero_tag_desc": "Visual Anchor: Bold white pixelated typography paired with a lime-green pixel landscape and sprout illustration.",
+    "what_ui_is_saying": "PROGRESS TERRA delivers full-cycle software engineering and web development with retro-futuristic digital precision.",
+    "ai_image_prompt": "Dark futuristic software development agency website hero page UI for \"PROGRESS TERRA\", dark charcoal canvas displayed inside a silver laptop mockup, giant white retro pixel display font typography \"PROGRESS TERRA\", subheadline text, bottom lime green pixel art terrain block with a pixel sprout, clean tech design --ar 16:9",
+    "copy_brief": {
+      "persona": "Tech Founders, Enterprise Clients, Product Managers",
+      "tone": "Futuristic, precise, innovative, developer-focused",
+      "key_message": "Building web projects and providing full-cycle software development.",
+      "value_prop": "End-to-end web engineering and custom software architecture built for digital growth.",
+      "cta_strategy": "Primary CTA: \"Start Project\" / \"Explore Services\"."
+    },
+    "copy_prompt": "Write software engineering agency landing page copy for Progress Terra:\n1. Bold headline \"PROGRESS TERRA\".\n2. 2-sentence description of full-cycle software development and custom web projects.\n3. 3 service pillars (Web Engineering, Software Architecture, Full-Cycle Delivery).\n4. Primary CTA microcopy."
+  }
+]

@@ -1,0 +1,812 @@
+[
+  {
+    "id": "ui-60",
+    "filename": "60.webp",
+    "path": "UI/60.webp",
+    "title": "Surreal Organic Collage Hero Section",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "Organic Collage",
+      "Minimalist Layout",
+      "Serif Typography",
+      "Hero Section",
+      "Tactile Earthy Tones"
+    ],
+    "description": "A modern collage hero section set on a warm beige background with a soft light inner canvas. The central visual feature is an intricate floating collage composed of tactile organic elements including ammonites, sea shells, acorns, Ginkgo leaves, mudra hands, and tools. Below the visual collage sits centered elegant serif typography with maroon pill CTA buttons and clean subtext.",
+    "hero_tag_desc": "The central hero anchor is a floating surreal collage of botanical, geological, and tactile objects creating a poetic artistic composition.",
+    "what_ui_is_saying": "Digital connections can feel natural, organic, and deeply human rather than synthetic or sterile.",
+    "ai_image_prompt": "A high-end surreal website hero section design on warm off-white background, central artistic floating collage of ammonite shell, ginkgo leaf, sea star, acorn, hand gesture, and orange wrench, elegant serif typography below reading Redefining social interactions in digital spaces, maroon CTA button Get Started, UI design --ar 16:9",
+    "copy_brief": {
+      "persona": "Digital creators, community builders, and thoughtful social platform users.",
+      "tone": "Poetic, artistic, innovative, and warm.",
+      "key_message": "Reimagining online social interactions with organic human warmth.",
+      "value_prop": "Fostering genuine digital friendships through curated visual spaces.",
+      "cta_strategy": "Primary maroon CTA for instant onboarding and secondary outline button for details."
+    },
+    "copy_prompt": "Write hero section copy for an innovative organic social platform with headline, subheadline, and dual CTA microcopy."
+  },
+  {
+    "id": "ui-61",
+    "filename": "61.webp",
+    "path": "UI/61.webp",
+    "title": "Surreal Hand & Tech Feed Feature",
+    "category": "landing-page",
+    "is_hero": false,
+    "tags": [
+      "Surreal Graphic",
+      "Minimalist Feature",
+      "Serif Headlines",
+      "Warm Cream Theme",
+      "Editorial Layout"
+    ],
+    "description": "An editorial split-feature layout on a warm cream backdrop with top-centered serif headline typography. On the left side, a grayscale hand illustration holds a green IBM folder icon on its finger and an orange block containing red earphones in its palm. The right column presents three clean narrative paragraphs outlining adaptive news feed technology.",
+    "hero_tag_desc": "The visual anchor is a surreal black-and-white hand holding vibrant color-blocked vintage tech objects.",
+    "what_ui_is_saying": "Information technology should dynamically adapt to personal human needs rather than force algorithmic noise.",
+    "ai_image_prompt": "Editorial website feature section on cream background, top serif headline reading Personalized news feeds that adapt in real-time, left side surreal grayscale hand holding green retro IBM folder and orange box with red earbuds, right side clean editorial text blocks, high end design --ar 16:9",
+    "copy_brief": {
+      "persona": "Tech professionals, news readers, and information curators.",
+      "tone": "Intellectual, refined, calm, and trustworthy.",
+      "key_message": "Real-time personalized news curation aligned with authentic human interest.",
+      "value_prop": "Eliminating algorithmic noise through adaptive real-time learning.",
+      "cta_strategy": "Informational editorial reading flow leading into sub-feature exploration."
+    },
+    "copy_prompt": "Write editorial feature copy for a personalized news platform explaining real-time adaptation and authentic information ecosystems."
+  },
+  {
+    "id": "ui-62",
+    "filename": "62.webp",
+    "path": "UI/62.webp",
+    "title": "Retro Laptop Editorial Content Card",
+    "category": "landing-page",
+    "is_hero": false,
+    "tags": [
+      "Retro Tech",
+      "Split Card Layout",
+      "Inclusivity Messaging",
+      "Pastel Lavender",
+      "Editorial Design"
+    ],
+    "description": "A two-panel container layout combining off-white text cards on the left with a pastel lilac-gray image panel on the right. The right panel displays a retro cream Compaq laptop tilted at an angle with a bright orange paper slip featuring inverted code logs attached to its screen. The left panel structures headline copy alongside descriptive paragraph blocks on content curation.",
+    "hero_tag_desc": "The primary visual anchor is a 90s vintage Compaq laptop customized with bright orange inverted log graphics.",
+    "what_ui_is_saying": "We build inclusive digital platforms that nurture diverse creative communities while embracing technological heritage.",
+    "ai_image_prompt": "Split panel web card design, left panel cream with serif text Creating safe spaces for diverse voices, right panel muted lavender with retro white Compaq laptop and orange inverted code paper on screen, modern editorial web design --ar 16:9",
+    "copy_brief": {
+      "persona": "Content creators, community leaders, and digital innovators.",
+      "tone": "Inclusive, empowering, progressive, and thoughtful.",
+      "key_message": "Nurturing a safe, inclusive community for creative storytellers.",
+      "value_prop": "Amplifying underrepresented voices with dedicated curation tools.",
+      "cta_strategy": "Exploratory branch navigation links at the card base."
+    },
+    "copy_prompt": "Draft inclusive community platform feature copy highlighting content curation, story amplification, and safe spaces."
+  },
+  {
+    "id": "ui-63",
+    "filename": "63.webp",
+    "path": "UI/63.webp",
+    "title": "Geometric Sacred Symmetry Mountain Artwork",
+    "category": "generative-art",
+    "is_hero": false,
+    "tags": [
+      "Sacred Geometry",
+      "Vector Emblem",
+      "Mountain Landscape",
+      "Cool Blue Tone",
+      "Mathematical Art"
+    ],
+    "description": "A serene vector design featuring fine white sacred geometry lines superimposed over a hazy blue mountain background. The white line art creates radiating perspective axes connecting to a central five-petaled flower symbol surrounded by geometric circle intersections. The atmospheric background blends soft sky blue and misty indigo mountain ranges.",
+    "hero_tag_desc": "A centered geometric mandala star emblem constructed from precise vector lines and golden-ratio circles.",
+    "what_ui_is_saying": "Mathematical harmony and natural landscapes combine to create a sense of tranquil precision.",
+    "ai_image_prompt": "Fine white sacred geometry star diagram overlaid on misty blue mountain landscape, radiating mathematical grid lines and central flower emblem, serene blue gradient sky, modern vector wallpaper art --ar 16:9",
+    "copy_brief": {
+      "persona": "Designers, sacred geometry enthusiasts, and spiritual tech creators.",
+      "tone": "Serene, mathematical, sublime, and balanced.",
+      "key_message": "Finding perfect geometric alignment within nature.",
+      "value_prop": "Harmonizing digital precision with natural aesthetics.",
+      "cta_strategy": "Visual background asset intended for meditative or branding backdrops."
+    },
+    "copy_prompt": "Write descriptive artistic copy explaining sacred geometric harmony in blue mountain wallpaper art."
+  },
+  {
+    "id": "ui-64",
+    "filename": "64.webp",
+    "path": "UI/64.webp",
+    "title": "Glassmorphic Search & App Dock",
+    "category": "standard_web_component",
+    "is_hero": false,
+    "tags": [
+      "UI Component",
+      "Glassmorphism",
+      "Navigation Dock",
+      "App Icons",
+      "Pill Buttons"
+    ],
+    "description": "A floating horizontal glassmorphic search bar component set against a clean gray background. The dock features three rounded square dark icon tiles for Reddit, Framer, and a star symbol on the left, paired with a glossy sky-blue translucent pill button labeled Search More on the right.",
+    "hero_tag_desc": "The key component is a sleek glassmorphic pill container integrating dark app launcher icons with a glossy blue action button.",
+    "what_ui_is_saying": "Quickly search and launch integrated apps through a compact, tactile navigation bar.",
+    "ai_image_prompt": "Modern glassmorphic web UI component search bar floating on gray background, three dark square icon buttons for Reddit and Framer, glossy bright blue pill button reading Search More, UI design mockup --ar 16:9",
+    "copy_brief": {
+      "persona": "Web application users, power searchers, and UI component developers.",
+      "tone": "Efficient, modern, tactile, and responsive.",
+      "key_message": "Unified app search and shortcut docking in a modern glassmorphic bar.",
+      "value_prop": "Instant access to favorite apps and global search in one component.",
+      "cta_strategy": "Single primary pill button action for quick search triggering."
+    },
+    "copy_prompt": "Write microcopy for a floating glassmorphic search and app launcher bar component."
+  },
+  {
+    "id": "ui-65",
+    "filename": "65.webp",
+    "path": "UI/65.webp",
+    "title": "Misty Mountain Mobile Greeting UI",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "Mobile UI",
+      "Glassmorphism",
+      "Hero Screen",
+      "Blue Gradient",
+      "Personalized Dashboard"
+    ],
+    "description": "A mobile app onboarding card featuring frosted glassmorphism floating above a serene misty blue mountain background. At the top of the card sits a personalized user pill greeting reading Hi Nancy next to a logo emblem. Center aligned headline typography reads Built at the core directly above a translucent pill button labeled Tap For More.",
+    "hero_tag_desc": "A rounded frosted glass mobile container framing bold white typography over a peaceful mountain background.",
+    "what_ui_is_saying": "Experience personal, core-level digital tools crafted with elegant simplicity.",
+    "ai_image_prompt": "Mobile app hero screen UI mockup, translucent frosted glass card over soft blue hazy mountain landscape, top pill badge reading Hi Nancy, bold white title Built at the core, translucent button Tap For More --ar 16:9",
+    "copy_brief": {
+      "persona": "Mobile app users seeking personalized digital experiences.",
+      "tone": "Welcoming, serene, modern, and minimalist.",
+      "key_message": "Personalized core features presented with tranquil visual clarity.",
+      "value_prop": "Seamless mobile navigation wrapped in peaceful aesthetic design.",
+      "cta_strategy": "Interactive translucent CTA button encouraging user exploration."
+    },
+    "copy_prompt": "Write mobile app welcome screen copy including personal greeting, core value headline, and tap action microcopy."
+  },
+  {
+    "id": "ui-66",
+    "filename": "66.webp",
+    "path": "UI/66.webp",
+    "title": "TaskHub Comprehensive SaaS Landing Page",
+    "category": "landing-page",
+    "is_hero": true,
+    "tags": [
+      "SaaS Landing Page",
+      "Task Management",
+      "Pricing Grid",
+      "Light Theme",
+      "Purple Accent"
+    ],
+    "description": "A complete SaaS web application landing page layout shown across dual browser card mockups. The left side showcases a bright hero section titled Transform the way your team works with calendar/task widgets and customer proof logos. The right side displays a three-tier pricing card grid (Starter, Growth, Enterprise) with purple highlight styling, performance metrics (90% completion rate), and client testimonials.",
+    "hero_tag_desc": "Dual mockups featuring a hero landing page with productivity widgets on the left and a highlighted purple pricing grid on the right.",
+    "what_ui_is_saying": "TaskHub simplifies project planning and team collaboration with powerful intuitive workflow management tools.",
+    "ai_image_prompt": "Full SaaS landing page design presentation, light grid background, bold headline Transform the way your team works, interactive dashboard widgets, client logo ribbon, three tier pricing table with featured purple card, modern Figma UI --ar 16:9",
+    "copy_brief": {
+      "persona": "Project managers, team leads, and operations executives.",
+      "tone": "Professional, energetic, structured, and convincing.",
+      "key_message": "Transform team productivity with intuitive task management software.",
+      "value_prop": "Streamline workflows, manage timelines, and boost team collaboration.",
+      "cta_strategy": "Clear primary CTAs for demo bookings and direct plan selection buttons."
+    },
+    "copy_prompt": "Write full SaaS landing page copy including hero headline, subtext, value proposition cards, pricing tiers, and social proof metrics."
+  },
+  {
+    "id": "ui-67",
+    "filename": "67.webp",
+    "path": "UI/67.webp",
+    "title": "Zingage AI Automation Agency Hero",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "AI SaaS Hero",
+      "Orange Accent",
+      "Agency Automation",
+      "Phone Input Widget",
+      "Clean Modern UI"
+    ],
+    "description": "A clean light-mode AI SaaS landing page hero section with an top orange announcement banner highlighting official Anthropic partnership. The centered hero layout features massive serif and italic typography reading Grow Your Agency Without Growing Your Back Office, paired with a central telephone input box for instant AI demo calls and floating metrics badges.",
+    "hero_tag_desc": "A centered telephone number input box with an orange Get AI Call button for instant interactive voice agent testing.",
+    "what_ui_is_saying": "Scale home care agency operations seamlessly using intelligent AI agents for scheduling and back-office management.",
+    "ai_image_prompt": "Clean modern AI agency landing page hero section, top orange announcement banner, bold headline Grow Your Agency Without Growing Your Back Office in serif typography, phone number input bar with orange Get AI Call button, mobile UI preview --ar 16:9",
+    "copy_brief": {
+      "persona": "Home care agency owners, operational directors, and healthcare managers.",
+      "tone": "Authoritative, high-growth, modern, and trustworthy.",
+      "key_message": "Automate scheduling and back-office operations with AI agents.",
+      "value_prop": "Achieve 82% cost reduction while growing agency capacity.",
+      "cta_strategy": "Instant phone trial CTA paired with secondary demo booking link."
+    },
+    "copy_prompt": "Write landing page hero copy for an AI agency automation platform with partner banner, headline, subheadline, and call CTA."
+  },
+  {
+    "id": "ui-68",
+    "filename": "68.webp",
+    "path": "UI/68.webp",
+    "title": "Pluto AI Recruiting Orb Hero",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "Atmospheric Blue",
+      "Glowing Star Orb",
+      "Recruiting AI",
+      "Minimal Hero",
+      "Y Combinator SaaS"
+    ],
+    "description": "A striking atmospheric blue website hero section for an AI recruiting agent platform called Pluto. On the right, a glowing white and blue star-particle sphere acts as the visual centerpiece. The left column contains Y Combinator endorsement badges, bold white title typography Warm intros to candidates who already fit, crisp subtext, and a white pill CTA button.",
+    "hero_tag_desc": "A luminous 3D star orb formed from thousands of glowing white particles floating in a deep sky blue backdrop.",
+    "what_ui_is_saying": "Pluto AI intelligence automatically connects hiring managers with pre-vetted, ideal candidate matches.",
+    "ai_image_prompt": "Minimalist AI SaaS landing page hero section, atmospheric bright sky blue gradient background, right side glowing particle star sphere orb, left side bold white typography reading Warm intros to candidates who already fit, white CTA button Get a demo --ar 16:9",
+    "copy_brief": {
+      "persona": "Technical recruiters, hiring managers, and HR directors.",
+      "tone": "Futuristic, intelligent, warm, and elite.",
+      "key_message": "AI agent that finds and introduces pre-qualified candidates.",
+      "value_prop": "Save hiring time by receiving warm introductions to ideal fits.",
+      "cta_strategy": "High-contrast white pill CTA for scheduling platform demos."
+    },
+    "copy_prompt": "Write AI recruiting hero section copy highlighting intelligent candidate matching, YC backing, and demo request CTA."
+  },
+  {
+    "id": "ui-69",
+    "filename": "69.webp",
+    "path": "UI/69.webp",
+    "title": "Tracelight Financial AI Analysis Hero",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "Financial SaaS",
+      "AI Chat Overlay",
+      "Green Tone",
+      "Spreadsheet Interface",
+      "Dealmaker Tool"
+    ],
+    "description": "A dual-theme split landing page hero section for financial analysis tool Tracelight. The left container presents clean black serif text on white background reading A step change in analysis with CTA buttons. The right side features a dark textured green background hosting a financial model spreadsheet overlayed with an interactive white AI assistant chat window.",
+    "hero_tag_desc": "An interactive white AI chat modal asking Create an LBO model using the overlaying financial spreadsheet data.",
+    "what_ui_is_saying": "Transform financial analysis and deal modeling with real-time AI spreadsheet intelligence.",
+    "ai_image_prompt": "Modern financial AI tool landing page hero, left white section with large text A step change in analysis, right side textured dark green background with excel spreadsheet interface and floating white AI chat modal window, UI design --ar 16:9",
+    "copy_brief": {
+      "persona": "Financial advisors, dealmakers, investment bankers, and analysts.",
+      "tone": "Sophisticated, precise, powerful, and professional.",
+      "key_message": "A revolutionary step change in financial analysis powered by AI.",
+      "value_prop": "Automate complex LBO modeling and auditing directly in spreadsheets.",
+      "cta_strategy": "Dual CTAs for immediate demo requests and sandbox access."
+    },
+    "copy_prompt": "Write financial AI software hero copy focused on dealmakers, spreadsheet automation, and intelligent analysis."
+  },
+  {
+    "id": "ui-70",
+    "filename": "70.webp",
+    "path": "UI/70.webp",
+    "title": "MEGA Luxury Real Estate Web Platform",
+    "category": "landing-page",
+    "is_hero": true,
+    "tags": [
+      "Real Estate UI",
+      "Property Cards",
+      "Luxury Architectural",
+      "Light Minimalist",
+      "Multi-Card Layout"
+    ],
+    "description": "An expansive multi-card real estate platform layout showcasing MEGA Agency. The central hero container displays a luxury modern architectural villa photo behind bold headline text Find your spot in the haven you deserve. Surrounding cards present luxury property listings with price tags, customer reviews, trusted partner logos, and service category grids.",
+    "hero_tag_desc": "A sleek architectural hero card with high-end villa photography, pill navigation, and trust badges.",
+    "what_ui_is_saying": "Discover and acquire exclusive luxury residential properties through a premium curated real estate agency.",
+    "ai_image_prompt": "Luxury real estate agency website layout, central hero card with modern glass villa photo, headline Find your spot in the haven you deserve, surrounding cards with property photos and price tags ,837, clean beige background, UI design --ar 16:9",
+    "copy_brief": {
+      "persona": "Luxury home buyers, real estate investors, and property seekers.",
+      "tone": "Prestigious, elegant, welcoming, and high-end.",
+      "key_message": "Find your dream luxury home in carefully curated locations.",
+      "value_prop": "Tailored premium real estate services with transparent pricing.",
+      "cta_strategy": "View Listings primary CTA paired with direct property contact buttons."
+    },
+    "copy_prompt": "Write luxury real estate website copy with hero headline, property listing descriptions, client testimonials, and FAQ copy."
+  },
+  {
+    "id": "ui-71",
+    "filename": "71.webp",
+    "path": "UI/71.webp",
+    "title": "Living Signal Abstract Coral Gradient Emblem",
+    "category": "brand-identity",
+    "is_hero": false,
+    "tags": [
+      "Brand Identity",
+      "Minimalist Emblem",
+      "Coral Orange Gradient",
+      "Fluid Geometry",
+      "Soft Shadow"
+    ],
+    "description": "A minimalist brand identity mark featuring a smooth organic curved shape titled Living Signal. The fluid geometric emblem transitions seamlessly from vibrant coral pink to warm golden orange, set against an off-white canvas with a soft ambient drop shadow.",
+    "hero_tag_desc": "A vibrant fluid curved emblem icon in coral-to-orange gradient styling.",
+    "what_ui_is_saying": "Modern brand identity representing fluid vitality, organic growth, and warm connectivity.",
+    "ai_image_prompt": "Minimalist brand logo icon, fluid rounded B shape with smooth coral pink to warm orange gradient, soft ambient drop shadow, clean off-white background, vector branding design --ar 1:1",
+    "copy_brief": {
+      "persona": "Brand strategists, art directors, and startup founders.",
+      "tone": "Vibrant, organic, modern, and fluid.",
+      "key_message": "A dynamic visual signal for forward-thinking modern brands.",
+      "value_prop": "Memorable brand identity combining warmth and geometric elegance.",
+      "cta_strategy": "Brand asset presentation format."
+    },
+    "copy_prompt": "Write brand story copy for an abstract coral gradient emblem logo titled Living Signal."
+  },
+  {
+    "id": "ui-72",
+    "filename": "72.webp",
+    "path": "UI/72.webp",
+    "title": "Open Heart Soft Peach Logo Symbol",
+    "category": "brand-identity",
+    "is_hero": false,
+    "tags": [
+      "Brand Symbol",
+      "Heart Icon",
+      "Peach Pink Gradient",
+      "Minimalist Logo",
+      "Soft Pastel"
+    ],
+    "description": "A soft minimalist logo symbol titled Open Heart. The design features a smooth geometric heart silhouette filled with a warm peach-yellow to magenta-pink gradient on a clean off-white background, cropped dynamically along the left edge.",
+    "hero_tag_desc": "A soft rounded heart silhouette with gentle peach-to-pink gradient color transitions.",
+    "what_ui_is_saying": "Conveying empathy, warmth, and open-hearted care in modern brand communications.",
+    "ai_image_prompt": "Minimalist heart logo symbol on off-white backdrop, soft peach yellow to pink rose gradient fill, smooth vector curves, clean modern branding presentation --ar 1:1",
+    "copy_brief": {
+      "persona": "Wellness brands, care platforms, and empathetic service companies.",
+      "tone": "Warm, empathetic, gentle, and welcoming.",
+      "key_message": "Cultivating genuine care and emotional connection.",
+      "value_prop": "Empathetic branding that resonates with human emotion.",
+      "cta_strategy": "Visual brand identity mark preview."
+    },
+    "copy_prompt": "Write empathetic brand manifesto copy matching a soft gradient Open Heart logo symbol."
+  },
+  {
+    "id": "ui-73",
+    "filename": "73.webp",
+    "path": "UI/73.webp",
+    "title": "Milkies Plant-Based Dairy E-Commerce Hero",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "Electric Blue",
+      "Playful E-Commerce",
+      "3D Product Bottle",
+      "Bold Typography",
+      "Yellow Accent CTA"
+    ],
+    "description": "A bold electric-blue e-commerce hero page for plant-based dairy brand Milkies. Massive organic white typography reading Plant Milk's spans the backdrop behind a central 3D cashew milk bottle with a dark Vegan badge. A bright yellow pill CTA button Shop now floats below, above bottom category cards for yogurts, plant milks, and ice cream.",
+    "hero_tag_desc": "A central 3D organic cashew milk bottle rendered against bold hand-drawn white typography and electric blue background.",
+    "what_ui_is_saying": "Plant-based dairy products can be fun, delicious, vibrant, and perfectly made for everyone.",
+    "ai_image_prompt": "Vibrant playful e-commerce website hero page, bold electric blue backdrop, massive organic white typography reading Plant Milks, central 3D cashew milk bottle product mockup, bright yellow Shop now CTA button, product category cards at bottom --ar 16:9",
+    "copy_brief": {
+      "persona": "Vegan consumers, health-conscious shoppers, and dairy-free foodies.",
+      "tone": "Playful, energetic, delicious, and friendly.",
+      "key_message": "Plant-based, perfect dairy products for everyone.",
+      "value_prop": "100% organic, creamier plant milk alternatives delivered to your door.",
+      "cta_strategy": "Bright yellow Shop now pill button for quick impulse buying."
+    },
+    "copy_prompt": "Write vibrant e-commerce hero copy for a plant-based dairy brand including headline, category titles, and CTA microcopy."
+  },
+  {
+    "id": "ui-74",
+    "filename": "74.webp",
+    "path": "UI/74.webp",
+    "title": "Albert Blue Misty Mountain Landscape Art",
+    "category": "generative-art",
+    "is_hero": false,
+    "tags": [
+      "Misty Mountains",
+      "Serene Blue Gradient",
+      "Landscape Wallpaper",
+      "Serif Name Art",
+      "Minimal Art"
+    ],
+    "description": "A tranquil landscape wallpaper composition featuring layered misty blue mountain contours under a pale glowing circular sun sky. Elegant dark serif typography reading Albert is centered over the layered mountain horizon.",
+    "hero_tag_desc": "A glowing circular pale sun shining over peaceful indigo mountain silhouettes.",
+    "what_ui_is_saying": "Atmospheric natural solitude and peaceful calm expressed through soft blue mountain layers.",
+    "ai_image_prompt": "Minimalist landscape wallpaper art, layered misty blue mountain silhouettes, pale white glowing sun in sky, soft atmospheric gradient, centered dark serif text Albert --ar 1:1",
+    "copy_brief": {
+      "persona": "Minimalist art lovers, interior decorators, and background wallpaper collectors.",
+      "tone": "Calm, peaceful, contemplative, and timeless.",
+      "key_message": "Serene mountain landscape art evoking quiet strength.",
+      "value_prop": "Tranquil ambient artwork for digital displays and print.",
+      "cta_strategy": "Decorative artwork display asset."
+    },
+    "copy_prompt": "Write poetic artistic reflection copy inspired by blue misty mountain landscape artwork titled Albert."
+  },
+  {
+    "id": "ui-75",
+    "filename": "75.webp",
+    "path": "UI/75.webp",
+    "title": "Westirm Luxury Hotel Brand Identity Sheet",
+    "category": "brand-identity",
+    "is_hero": false,
+    "tags": [
+      "Brand Identity",
+      "Skyline Logo",
+      "Luxury Hospitality",
+      "Architectural Wireframe",
+      "Warm Pastel"
+    ],
+    "description": "A luxury hotel brand presentation sheet for Westirm set on a soft peach-to-white gradient background. The design pairs a bold black geometric skyline emblem with clean sans-serif typography, layered over a faint architectural building wireframe grid with metadata callouts.",
+    "hero_tag_desc": "A geometric black line-art logo emblem formed by vertical skyline bars arranged in a W shape.",
+    "what_ui_is_saying": "Westirm represents urban prestige, architectural growth, and modern luxury hospitality.",
+    "ai_image_prompt": "Luxury hotel brand identity presentation board, soft peach gradient backdrop, wireframe architectural building outline, bold black geometric W skyline logo and typography Westirm, studio metadata labels --ar 16:9",
+    "copy_brief": {
+      "persona": "Hotel owners, luxury real estate developers, and brand identity clients.",
+      "tone": "Prestigous, architectural, sophisticated, and urban.",
+      "key_message": "A modern W logo inspired by city skylines representing urban luxury.",
+      "value_prop": "Refined visual identity for elite luxury hospitality destinations.",
+      "cta_strategy": "Brand presentation metadata with coming soon indicator."
+    },
+    "copy_prompt": "Write brand strategy and design rationale copy for luxury hotel identity Westirm."
+  },
+  {
+    "id": "ui-76",
+    "filename": "76.webp",
+    "path": "UI/76.webp",
+    "title": "Retro Comic Cereal Bowl Illustration",
+    "category": "generative-art",
+    "is_hero": false,
+    "tags": [
+      "Comic Illustration",
+      "Sage Green",
+      "Bold Outlines",
+      "Retro Cereal",
+      "Pop Art"
+    ],
+    "description": "A retro pop-art comic illustration depicting a mint green bowl filled with milk and colorful star-shaped cereal pieces with a silver spoon. Rendered with heavy black outlines and a strong diagonal drop shadow on a solid muted sage green background.",
+    "hero_tag_desc": "A vintage cartoon ceramic cereal bowl brimming with rainbow star-shaped cereal pieces.",
+    "what_ui_is_saying": "Nostalgic breakfast imagery rendered with bold playful retro comic aesthetic.",
+    "ai_image_prompt": "Retro comic style illustration of a bowl of cereal filled with colorful star shaped cereal pieces in milk, silver spoon, bold black outlines, mint green ceramic bowl, dark drop shadow, solid sage green background --ar 4:3",
+    "copy_brief": {
+      "persona": "Pop art fans, cereal brands, and retro illustration enthusiasts.",
+      "tone": "Nostalgic, fun, retro, and playful.",
+      "key_message": "Nostalgic morning joy captured in bold pop-art cartoon style.",
+      "value_prop": "Eye-catching retro artwork for brand packaging and merch.",
+      "cta_strategy": "Artistic showcase presentation."
+    },
+    "copy_prompt": "Write playful product copy for a retro star-shaped cereal brand inspired by comic illustration art."
+  },
+  {
+    "id": "ui-77",
+    "filename": "77.webp",
+    "path": "UI/77.webp",
+    "title": "Recycling Glass Shards 404 Error Page",
+    "category": "landing-page",
+    "is_hero": false,
+    "tags": [
+      "404 Error Page",
+      "Recycling Theme",
+      "Glass Shards Illustration",
+      "Teal Cream Palette",
+      "Eco Design"
+    ],
+    "description": "An eco-themed 404 error page layout set within a cream card on a deep teal backdrop. The main visual is a large 404 number constructed from hand-drawn broken green and brown glass bottle shards. Below the graphic, clean dark serif headline copy reads Oops! The page you were looking for doesn't exist next to a terracotta brown pill CTA button.",
+    "hero_tag_desc": "A creative 404 numerical graphic composed entirely of illustrated broken glass bottles and recycled shards.",
+    "what_ui_is_saying": "Even when a page broken or missing, eco-friendly recycling principles bring purpose back to the journey.",
+    "ai_image_prompt": "Creative web 404 error page design, cream card on dark teal background, giant 404 typography drawn out of broken green glass bottle shards, headline Oops! The page you were looking for doesn't exist, terracotta button --ar 16:9",
+    "copy_brief": {
+      "persona": "Website visitors encountering broken links on environmental/recycling sites.",
+      "tone": "Apologetic, witty, eco-conscious, and helpful.",
+      "key_message": "Page not found, but we can help recycle your navigation path.",
+      "value_prop": "Smooth error recovery keeping users engaged with home redirection.",
+      "cta_strategy": "Terracotta brown Back to Home button with arrow icon."
+    },
+    "copy_prompt": "Write creative eco-friendly 404 error page copy with headline, subtext, and return home button text."
+  },
+  {
+    "id": "ui-78",
+    "filename": "78.webp",
+    "path": "UI/78.webp",
+    "title": "16th HOLE Private Golf Club Hero",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "Luxury Golf Club",
+      "Warm Beige Theme",
+      "Editorial Serif",
+      "Photo Gallery Grid",
+      "Exclusive Lifestyle"
+    ],
+    "description": "An exclusive private members club hero page for 16th HOLE on a soft cream backdrop. The top header houses brand navigation and a minimal logo. Center headline typography combines serif text with italic highlights reading Private, not distant. The calm side of belonging, paired with a light CTA button Approach the club and a bottom horizontal gallery of rounded lifestyle photography cards depicting golf course moments.",
+    "hero_tag_desc": "A horizontal row of rounded photography cards showcasing members playing golf in foggy morning landscapes.",
+    "what_ui_is_saying": "Experience exclusive yet unpretentious fellowship at a premier private golf members club.",
+    "ai_image_prompt": "Luxury private golf club website hero page, warm beige background, elegant serif headline reading Private, not distant. The calm side of belonging, pill button Approach the club, bottom row of rounded photo cards showing golf players in morning mist --ar 16:9",
+    "copy_brief": {
+      "persona": "High-net-worth individuals, golf enthusiasts, and country club prospective members.",
+      "tone": "Exclusive, tranquil, understated, and prestigious.",
+      "key_message": "A private members club providing serene belonging without pretense.",
+      "value_prop": "Pristine golf greens, curated fellowship, and peaceful retreat.",
+      "cta_strategy": "Low-friction Approach the club CTA button for membership inquiries."
+    },
+    "copy_prompt": "Write luxury private members golf club landing page copy including headline, membership messaging, and CTA button microcopy."
+  },
+  {
+    "id": "ui-79",
+    "filename": "79.webp",
+    "path": "UI/79.webp",
+    "title": "Pengu Airdrop Crypto Web Hero UI",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "Crypto Web3",
+      "Mascot Character",
+      "Vibrant Ice Blue",
+      "Playful Hero",
+      "Yellow Banner CTA"
+    ],
+    "description": "A vibrant Web3 crypto airdrop landing page hero for Pengu Airdrop presented inside a laptop frame over icy blue surroundings. The landing page features massive bold typography reading Welcome to Pengu Airdrop, cartoon penguin mascot avatars wearing beanies and shades, yellow marquee text banners, and a 3D mascot penguin in the foreground corner.",
+    "hero_tag_desc": "A row of cute stylized penguin mascot characters framed beneath big bold cyan headline text.",
+    "what_ui_is_saying": "Join the chillest zero-tax community-owned crypto airdrop event powered by penguin energy.",
+    "ai_image_prompt": "Playful Web3 crypto token landing page hero mockup on laptop, vibrant ice blue background, title Welcome to Pengu Airdrop, cute cartoon penguin mascots with beanies and sunglasses, yellow banner, 3D mascot penguin corner graphic --ar 16:9",
+    "copy_brief": {
+      "persona": "Meme coin traders, crypto community members, and Web3 enthusiasts.",
+      "tone": "Hyped, playful, community-driven, and fun.",
+      "key_message": "100% community-owned crypto airdrop with zero-tax vibes.",
+      "value_prop": "Burnt liquidity, pure meme energy, and instant community rewards.",
+      "cta_strategy": "Bright yellow Join the Fun header button for instant wallet connection."
+    },
+    "copy_prompt": "Write energetic crypto meme coin airdrop hero copy with community headline, marquee slogan, and wallet CTA button."
+  },
+  {
+    "id": "ui-80",
+    "filename": "80.webp",
+    "path": "UI/80.webp",
+    "title": "Blue Outline Security & Tech Icon Set",
+    "category": "standard_web_component",
+    "is_hero": false,
+    "tags": [
+      "Icon Set",
+      "Line Vector Icons",
+      "Blue Accent",
+      "Security System",
+      "Web Component"
+    ],
+    "description": "A clean grid of six blue outline vector icons presented on a soft light gray card background. Icons depict security and technology concepts: no-alcohol symbol, network server node, puzzle piece integration, wifi camera box, dome CCTV camera, and hammer impact.",
+    "hero_tag_desc": "A balanced 2x3 grid of blue line-art tech icons with uniform line weights and rounded terminals.",
+    "what_ui_is_saying": "Versatile line icons representing security, hardware, networking, and system integration.",
+    "ai_image_prompt": "Clean UI icon set design, 2x3 grid of vibrant blue outline vector icons on light gray background, icons for CCTV camera, server node, puzzle piece, wifi box, hammer impact, minimal modern design --ar 4:3",
+    "copy_brief": {
+      "persona": "UI designers, security system architects, and web developers.",
+      "tone": "Technical, precise, clean, and functional.",
+      "key_message": "Cohesive security and system integration vector icon library.",
+      "value_prop": "High-clarity line icons optimized for web and mobile dashboards.",
+      "cta_strategy": "Icon library display component."
+    },
+    "copy_prompt": "Write feature copy for a modern security and hardware vector icon set."
+  },
+  {
+    "id": "ui-81",
+    "filename": "81.webp",
+    "path": "UI/81.webp",
+    "title": "icloud Tech Brand & Feature Presentation",
+    "category": "brand-identity",
+    "is_hero": false,
+    "tags": [
+      "Cloud Computing",
+      "Brand Presentation",
+      "Radial Feature Wheel",
+      "Isometric 3D Illustration",
+      "Dark Blue Theme"
+    ],
+    "description": "A comprehensive dark blue brand identity and product feature layout for tech platform icloud. The left column displays a glowing gradient header banner and an isometric 3D illustration of IT engineers managing server stacks under a cloud. The right panel showcases a central logo surrounded by a radial wheel of glowing pastel feature icons.",
+    "hero_tag_desc": "A central logo orb surrounded by a radial circle of eight glowing app service icons.",
+    "what_ui_is_saying": "Complete cloud computing solutions delivering seamless hosting, app integration, and server power.",
+    "ai_image_prompt": "Dark blue cloud hosting tech brand presentation layout, top logo banner icloud, isometric 3D server room illustration with engineers, right side radial wheel of glowing blue and purple app icons around central logo, UI design --ar 16:9",
+    "copy_brief": {
+      "persona": "IT directors, cloud engineers, and SaaS platform managers.",
+      "tone": "High-tech, reliable, scalable, and authoritative.",
+      "key_message": "Cloud computing solutions without limits.",
+      "value_prop": "Unified cloud hosting, scalable infrastructure, and integrated microservices.",
+      "cta_strategy": "Let's Talk footer link and Cloud Computing Solutions pill button."
+    },
+    "copy_prompt": "Write cloud hosting platform marketing copy highlighting server scalability, radial feature suite, and contact CTA."
+  },
+  {
+    "id": "ui-82",
+    "filename": "82.webp",
+    "path": "UI/82.webp",
+    "title": "Hand-Drawn Black & White Sketch Icon Grid",
+    "category": "generative-art",
+    "is_hero": false,
+    "tags": [
+      "Hand-Drawn Sketches",
+      "Black & White Doodles",
+      "Web Icons",
+      "Minimalist Cream",
+      "Illustration Grid"
+    ],
+    "description": "A grid layout of 12 hand-drawn ink line sketch icons set on a warm cream background. Illustrations depict whimsical objects including a plant growing out of a boot, a boat at sea, an open doorway ladder to stars, Ethereum hand holding, retro computer, rocket orbiting planet, and coffee notebook.",
+    "hero_tag_desc": "A 4x3 grid of charming black ink line-art doodles showcasing creative concepts.",
+    "what_ui_is_saying": "Bringing human warmth, creativity, and organic artistic storytelling into digital icon illustration.",
+    "ai_image_prompt": "Grid of 12 hand-drawn black ink doodle illustrations on warm cream background, sketches of boot with plant, sunken boat, rocket orbiting planet, retro computer with sticky note, coffee mug on journal, minimal art --ar 4:3",
+    "copy_brief": {
+      "persona": "Creative agencies, illustrators, and editorial content creators.",
+      "tone": "Whimsical, creative, organic, and artistic.",
+      "key_message": "Handcrafted ink illustrations adding human touch to web design.",
+      "value_prop": "Unique hand-drawn icon set for storytelling and brand personality.",
+      "cta_strategy": "Illustration showcase grid."
+    },
+    "copy_prompt": "Write creative copy celebrating handcrafted ink illustrations and hand-drawn digital iconography."
+  },
+  {
+    "id": "ui-83",
+    "filename": "83.webp",
+    "path": "UI/83.webp",
+    "title": "Surreal Botanical Skull Illustration Art",
+    "category": "generative-art",
+    "is_hero": false,
+    "tags": [
+      "Surreal Botanical",
+      "Skull Plant Pot",
+      "Olive Green",
+      "Vintage Stipple Art",
+      "Japanese Typography"
+    ],
+    "description": "A surreal vintage stipple illustration centered on a textured olive green background. The artwork features a pale anatomical skull acting as a planter for lush green tropical houseplants with orange-veined leaves. Small Japanese typography and memento mori text accents frame the bottom.",
+    "hero_tag_desc": "A stippled human skull planter bursting with vibrant orange-veined tropical houseplant leaves.",
+    "what_ui_is_saying": "Exploring themes of mortality and rebirth through lush organic growth blossoming from decay.",
+    "ai_image_prompt": "Surreal vintage botanical illustration, pale skull used as a planter pot growing green tropical plants with orange veined leaves, stipple texture, solid olive green paper background, Japanese text at bottom --ar 4:3",
+    "copy_brief": {
+      "persona": "Alternative art collectors, botanical illustrators, and streetwear graphic designers.",
+      "tone": "Mysterious, artistic, edgy, and botanical.",
+      "key_message": "Life blossoms in unexpected places; a memento mori visual story.",
+      "value_prop": "Intricate stipple artwork combining anatomical and botanical elements.",
+      "cta_strategy": "Artistic poster presentation."
+    },
+    "copy_prompt": "Write poetic artistic copy describing a surreal botanical skull illustration with Japanese text."
+  },
+  {
+    "id": "ui-84",
+    "filename": "84.webp",
+    "path": "UI/84.webp",
+    "title": "Eli Purple Bokeh Water Gradient Art",
+    "category": "generative-art",
+    "is_hero": false,
+    "tags": [
+      "Lilac Bokeh",
+      "Purple Gradient",
+      "Sparkling Water",
+      "Serif Typography",
+      "Serene Background"
+    ],
+    "description": "An atmospheric serene wallpaper composition featuring sparkling purple and lilac bokeh light reflections dancing over a calm water horizon. Centered in the middle ground is clean serif typography reading Eli against a glowing lavender sky.",
+    "hero_tag_desc": "Shimmering bokeh light particles reflecting across a calm purple water surface.",
+    "what_ui_is_saying": "Quiet elegance and peaceful luminosity reflected in calm lavender waters.",
+    "ai_image_prompt": "Serene atmospheric digital art wallpaper, sparkling purple and lilac bokeh lights on calm water horizon, soft lavender sky gradient, centered dark serif text reading Eli --ar 1:1",
+    "copy_brief": {
+      "persona": "Ambient background seekers, poets, and digital art lovers.",
+      "tone": "Luminous, tranquil, dreamy, and elegant.",
+      "key_message": "Tranquil purple bokeh reflections bringing serene visual harmony.",
+      "value_prop": "Luminous ambient backdrop for digital displays.",
+      "cta_strategy": "Wallpaper art display."
+    },
+    "copy_prompt": "Write evocative artistic reflection copy matching a purple bokeh water landscape titled Eli."
+  },
+  {
+    "id": "ui-85",
+    "filename": "85.webp",
+    "path": "UI/85.webp",
+    "title": "Houston Museum of Natural Science Vintage Hero",
+    "category": "brand-identity",
+    "is_hero": true,
+    "tags": [
+      "Vintage Engraving",
+      "Botanical Butterfly",
+      "Classical Serif",
+      "Museum Branding",
+      "Earthy Off-White"
+    ],
+    "description": "A classical museum landing page hero design for Houston Museum of Natural Science set on a soft off-white textured backdrop. The central focus is a detailed black-and-white vintage butterfly engraving placed above elegant serif branding typography HOUSTON MUSEUM of NATURAL SCIENCE.",
+    "hero_tag_desc": "An intricate vintage copperplate engraving of a swallowtail butterfly centered on a ghosted greenhouse backdrop.",
+    "what_ui_is_saying": "Discover the wonder of natural history and science through authentic, classical museum exhibits.",
+    "ai_image_prompt": "Vintage museum landing page hero design, off-white textured background with subtle ghosted greenhouse grid, central detailed black and white butterfly engraving, classical serif typography HOUSTON MUSEUM of NATURAL SCIENCE --ar 16:9",
+    "copy_brief": {
+      "persona": "Museum visitors, science patrons, families, and educators.",
+      "tone": "Classical, educational, prestigious, and timeless.",
+      "key_message": "Exploring natural science and biological wonders through timeless exhibits.",
+      "value_prop": "Immersive educational experiences celebrating the natural world.",
+      "cta_strategy": "Museum branding splash header."
+    },
+    "copy_prompt": "Write classical museum landing page header copy including museum title, exhibition subheadline, and visit CTA."
+  },
+  {
+    "id": "ui-86",
+    "filename": "86.webp",
+    "path": "UI/86.webp",
+    "title": "Stylized Boy & Heron Character Art Breakdown",
+    "category": "generative-art",
+    "is_hero": false,
+    "tags": [
+      "Character Art",
+      "Pencil Sketch Breakdown",
+      "Blue Heron Bird",
+      "Stylized Illustration",
+      "Concept Design"
+    ],
+    "description": "A side-by-side character illustration breakdown sheet. The left panel shows a fully colored digital painting of a blue heron bird perching on a young man's head with falling feathers, while the right panel displays the underlying red and black pencil construction drawing.",
+    "hero_tag_desc": "Side-by-side comparison of a finished blue heron character illustration and its raw pencil sketch.",
+    "what_ui_is_saying": "Revealing the artistic process from raw pencil sketch to polished character illustration.",
+    "ai_image_prompt": "Character concept art breakdown sheet, side by side comparison, left side full color illustration of a boy with a blue heron bird perching on his head, right side red and pencil construction sketch, anime illustration style --ar 1:1",
+    "copy_brief": {
+      "persona": "Concept artists, animators, and digital illustration students.",
+      "tone": "Insightful, artistic, educational, and creative.",
+      "key_message": "From initial pencil sketch to final polished character painting.",
+      "value_prop": "Mastering character design through structured construction drawing.",
+      "cta_strategy": "Art portfolio case study presentation."
+    },
+    "copy_prompt": "Write concept design case study copy explaining character construction from pencil draft to final illustration."
+  },
+  {
+    "id": "ui-87",
+    "filename": "87.webp",
+    "path": "UI/87.webp",
+    "title": "Rust Terracotta Mountain Ridge Sunset",
+    "category": "generative-art",
+    "is_hero": false,
+    "tags": [
+      "Terracotta Sunset",
+      "Layered Mountains",
+      "Warm Rust Tone",
+      "Minimal Landscape",
+      "Gradient Art"
+    ],
+    "description": "A minimal atmospheric landscape artwork depicting layered mountain ridge silhouettes in warm terracotta rust and dark brown tones, beneath a glowing white sun set against a hazy sunset gradient.",
+    "hero_tag_desc": "Soft hazy white sun casting warm terracotta light over layered mountain contours.",
+    "what_ui_is_saying": "Warm desert sunset mountain vistas evoking quiet grounding and earth-toned warmth.",
+    "ai_image_prompt": "Minimalist landscape wallpaper art, layered mountain ridge silhouettes in deep rust orange and dark brown, glowing hazy white sun, warm terracotta gradient sky --ar 1:1",
+    "copy_brief": {
+      "persona": "Nature lovers, minimalist interior designers, and digital artwork collectors.",
+      "tone": "Warm, earthy, quiet, and serene.",
+      "key_message": "Warm terracotta sunset mountains creating peaceful ambient atmosphere.",
+      "value_prop": "Earth-toned landscape backdrop for web and mobile UI design.",
+      "cta_strategy": "Visual background wallpaper asset."
+    },
+    "copy_prompt": "Write descriptive artistic copy celebrating warm terracotta mountain sunset landscapes."
+  },
+  {
+    "id": "ui-88",
+    "filename": "88.webp",
+    "path": "UI/88.webp",
+    "title": "Golden Sunset Layered Mountains Landscape",
+    "category": "generative-art",
+    "is_hero": false,
+    "tags": [
+      "Golden Sunset",
+      "Mountain Silhouettes",
+      "Slate Blue Brown",
+      "Warm Atmospheric",
+      "Minimal Horizon"
+    ],
+    "description": "A wide format sunset landscape wallpaper artwork featuring rolling mountain ridge silhouettes in dark slate brown, illuminated by a brilliant golden orange gradient sky and glowing white sun on the left horizon.",
+    "hero_tag_desc": "A bright glowing sun setting over smooth rolling mountain contours on the left horizon.",
+    "what_ui_is_saying": "Basking in the golden warmth of a quiet mountain sunset horizon.",
+    "ai_image_prompt": "Wide landscape wallpaper art, glowing white sun setting over smooth layered mountain ridges on left, vibrant golden orange and amber gradient sky, slate brown mountain silhouettes --ar 16:9",
+    "copy_brief": {
+      "persona": "Web designers, background curators, and outdoor enthusiasts.",
+      "tone": "Warm, expansive, inspiring, and peaceful.",
+      "key_message": "Expansive golden mountain horizon evoking warmth and horizon potential.",
+      "value_prop": "High-resolution atmospheric sunset backdrop for modern UI headers.",
+      "cta_strategy": "Hero background visual asset."
+    },
+    "copy_prompt": "Write evocative description copy matching a golden mountain sunset landscape wallpaper."
+  },
+  {
+    "id": "ui-89",
+    "filename": "89.webp",
+    "path": "UI/89.webp",
+    "title": "Teal Arc Waves Abstract Gradient Art",
+    "category": "generative-art",
+    "is_hero": false,
+    "tags": [
+      "Abstract Waves",
+      "Teal Blue Gradient",
+      "Concentric Arcs",
+      "Soft Noise Texture",
+      "Minimal Backdrop"
+    ],
+    "description": "An abstract minimal wallpaper visual featuring soft concentric arc bands radiating across a cyan to deep teal gradient field, enhanced with subtle ambient noise texture.",
+    "hero_tag_desc": "Expanding concentric gradient arcs radiating in smooth cyan and teal wave bands.",
+    "what_ui_is_saying": "Rhythmic wave frequencies creating a clean, modern, and fluid digital backdrop.",
+    "ai_image_prompt": "Abstract minimal gradient background, expanding concentric arc bands in soft cyan blue and deep teal, subtle fine noise texture, smooth digital art wallpaper --ar 16:9",
+    "copy_brief": {
+      "persona": "UI/UX designers, abstract art fans, and digital background creators.",
+      "tone": "Fluid, modern, clean, and rhythmic.",
+      "key_message": "Rhythmic teal wave gradients providing subtle digital motion.",
+      "value_prop": "Clean minimalist texture for website sections and app backgrounds.",
+      "cta_strategy": "Abstract backdrop visual asset."
+    },
+    "copy_prompt": "Write artistic copy explaining rhythmic gradient arcs in an abstract teal wave visual."
+  }
+]

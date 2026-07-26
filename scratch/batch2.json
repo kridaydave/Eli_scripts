@@ -1,0 +1,812 @@
+[
+  {
+    "id": "ui-30",
+    "filename": "30.webp",
+    "path": "UI/30.webp",
+    "title": "Build Provable Games Players Trust",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "Provable Gaming",
+      "Cream Canvas",
+      "3D Glass Blocks",
+      "Retro Halftone",
+      "Web3 Gaming Hero"
+    ],
+    "description": "A refined Web3 gaming landing page hero set on a warm cream background. The headline reads 'Build provable games your players trust' paired with dual call-to-action buttons. The right side features a textured 3D landscape diagram with glass blocks, floating geometric tokens, and halftone architectural graphics.",
+    "hero_tag_desc": "Textured 3D gaming landscape diagram with floating glass blocks and halftone graphic panels.",
+    "what_ui_is_saying": "Our protocol provides transparent, provably fair infrastructure so developers can build Web3 games that players completely trust.",
+    "ai_image_prompt": "Refined Web3 gaming landing page hero, warm cream canvas background, dark bold headline 'Build provable games your players trust', green CTA button, 3D textured isometric landscape graphic with glass block nodes and halftone patterns --ar 16:9",
+    "copy_brief": {
+      "persona": "Web3 Game Developers, On-Chain Engineers & Game Studio Founders",
+      "tone": "Authoritative, trustworthy, technical, revolutionary",
+      "key_message": "Empower your players with transparent, provably fair on-chain game mechanics.",
+      "value_prop": "Turn cryptographic proof into seamless gameplay features that build unshakeable community trust.",
+      "cta_strategy": "Primary CTA: 'Start Building ↗'. Secondary CTA: 'Explore Docs'."
+    },
+    "copy_prompt": "Write landing page hero copy for a provable gaming protocol: Headline on building provable games players trust, subhead on cryptographic fair play, and developer CTA buttons."
+  },
+  {
+    "id": "ui-31",
+    "filename": "31.webp",
+    "path": "UI/31.webp",
+    "title": "Havernex Ambient Brand Showcase",
+    "category": "brand-identity",
+    "is_hero": false,
+    "tags": [
+      "Brand Identity",
+      "Ambient Lighting",
+      "Neon Glow",
+      "Logo Design",
+      "Dark Theme"
+    ],
+    "description": "A dramatic dark brand identity presentation for Havernex. A geometric yellow lettermark icon is positioned at the top left above clean uppercase brand name typography, illuminated by vivid ambient backlighting in electric yellow and cyan hues on a dark textured backdrop.",
+    "hero_tag_desc": "Geometric yellow brand emblem glowing against dark canvas with dual yellow and cyan ambient light.",
+    "what_ui_is_saying": "Havernex represents futuristic technology and bold, radiant innovation in digital identity design.",
+    "ai_image_prompt": "Dark luxury brand identity presentation for Havernex, geometric yellow logo mark top left, bold white typography 'HAVERNEX', vibrant yellow and cyan ambient neon lighting glow background --ar 16:9",
+    "copy_brief": {
+      "persona": "Creative Directors, Brand Managers & Technology Executives",
+      "tone": "Futuristic, vibrant, high-impact, sleek",
+      "key_message": "Illuminating digital experience through bold geometric identity.",
+      "value_prop": "Unforgettable brand presence crafted for next-generation digital products.",
+      "cta_strategy": "View Brand Guidelines / Request Press Kit."
+    },
+    "copy_prompt": "Write brand positioning copy for Havernex: Radiant tagline, brand core philosophy, and visual identity specification overview."
+  },
+  {
+    "id": "ui-32",
+    "filename": "32.webp",
+    "path": "UI/32.webp",
+    "title": "Greyline Minimal Serif Identity",
+    "category": "brand-identity",
+    "is_hero": false,
+    "tags": [
+      "Minimalist Branding",
+      "Serif Typography",
+      "Blush Pink",
+      "Abstract Logo",
+      "Elegant Identity"
+    ],
+    "description": "An elegant, understated brand identity showcase for Greyline set on a pale blush pink canvas. It features a minimal geometric black emblem next to sophisticated serif brand typography reading 'Greyline'.",
+    "hero_tag_desc": "Geometric black line emblem paired with elegant serif Greyline typography on soft blush pink.",
+    "what_ui_is_saying": "Greyline delivers quiet sophistication and timeless design clarity for modern luxury brands.",
+    "ai_image_prompt": "Minimalist luxury brand logo showcase for Greyline, soft pale blush pink background, black geometric abstract logo emblem, elegant serif text 'Greyline' --ar 16:9",
+    "copy_brief": {
+      "persona": "Boutique Agency Owners, Luxury Fashion & Architectural Brands",
+      "tone": "Sophisticated, serene, refined, minimal",
+      "key_message": "Quiet luxury expressed through precise typography and minimal form.",
+      "value_prop": "Elevate your visual identity with timeless aesthetic simplicity.",
+      "cta_strategy": "Explore Identity System / Contact Studio."
+    },
+    "copy_prompt": "Write brand introduction copy for Greyline: Minimalist serif brand headline, brand philosophy on quiet luxury, and identity overview."
+  },
+  {
+    "id": "ui-33",
+    "filename": "33.webp",
+    "path": "UI/33.webp",
+    "title": "Greyline Dual Feature Cards",
+    "category": "standard_web_component",
+    "is_hero": false,
+    "tags": [
+      "Feature Cards",
+      "Halftone Illustration",
+      "Sticky Notes",
+      "Pastel Background",
+      "Minimal Component"
+    ],
+    "description": "A pair of rectangular web feature cards for Greyline on a pale blush background. The left card features a dithered halftone desk illustration with sticky notes and laptop, while the right card displays concise typography explaining design services.",
+    "hero_tag_desc": "Side-by-side feature cards featuring retro dithered laptop halftone artwork and clean typography.",
+    "what_ui_is_saying": "Greyline combines thoughtful physical workspace creativity with clean digital execution.",
+    "ai_image_prompt": "Web design feature card section, pale blush background, dual side-by-side cards, retro halftone dithered illustration of desk with laptop and colorful sticky notes --ar 16:9",
+    "copy_brief": {
+      "persona": "Design Strategy Clients & Modern Tech Teams",
+      "tone": "Artisanal, organized, creative, tactile",
+      "key_message": "Bridging physical brainstorming with digital design perfection.",
+      "value_prop": "From sticky notes to polished digital systems, we streamline your creative workflow.",
+      "cta_strategy": "View Portfolio Cards / Read Process."
+    },
+    "copy_prompt": "Write web feature card copy for Greyline: Headline on creative workspace ideation, subtext on process, and card CTA."
+  },
+  {
+    "id": "ui-34",
+    "filename": "34.webp",
+    "path": "UI/34.webp",
+    "title": "Greyline Landing Page Hero",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "Serif Hero",
+      "Halftone Graphic",
+      "Pastel Pink Canvas",
+      "Minimalist Design",
+      "Agency Landing"
+    ],
+    "description": "A full landing page hero section for Greyline on a pale blush pink canvas. A bold serif headline 'Redefining Digital Experience' dominates the left, supported by subtext and a dark CTA button, while a large retro dithered halftone desk illustration sits on the right.",
+    "hero_tag_desc": "Bold serif headline paired with retro halftone desk illustration on pale blush pink background.",
+    "what_ui_is_saying": "Greyline crafts digital experiences that blend tactile artistic design with high-performance web engineering.",
+    "ai_image_prompt": "Agency landing page hero section, pale blush pink canvas, bold serif headline 'Redefining Digital Experience', black CTA pill button, large retro halftone illustration of creative workspace --ar 16:9",
+    "copy_brief": {
+      "persona": "Startup Founders, Brand Directors & Creative Leads",
+      "tone": "Refined, visionary, artistic, reliable",
+      "key_message": "Crafting digital experiences that stand out through editorial design elegance.",
+      "value_prop": "We build bespoke web products that combine editorial aesthetics with seamless functionality.",
+      "cta_strategy": "Primary CTA: 'Start a Project'. Secondary CTA: 'View Case Studies'."
+    },
+    "copy_prompt": "Write landing page hero copy for Greyline: Serif headline on digital experience, subhead on bespoke design craft, and project CTA."
+  },
+  {
+    "id": "ui-35",
+    "filename": "35.webp",
+    "path": "UI/35.webp",
+    "title": "Axiom AI Liberty Hero",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "Engraving Art",
+      "Statue of Liberty",
+      "Cream Paper",
+      "Institutional AI",
+      "Government Tech"
+    ],
+    "description": "An institutional AI landing hero for Axiom on a warm cream paper background. It features headline text 'AI Built for Sovereign Governance' alongside an intricate black woodcut engraving illustration of the Statue of Liberty surrounded by atomic orbital line art.",
+    "hero_tag_desc": "Intricate woodcut engraving of Statue of Liberty with atomic line art on warm cream paper.",
+    "what_ui_is_saying": "Axiom provides secure, sovereign AI models engineered specifically for public sector infrastructure and democratic institutions.",
+    "ai_image_prompt": "Institutional AI web hero section, warm cream vintage paper background, bold black typography 'AI Built for Sovereign Governance', detailed black line engraving of Statue of Liberty with atomic orbital circles --ar 16:9",
+    "copy_brief": {
+      "persona": "Government Officials, Public Sector CIOs & Defense Tech Procurement",
+      "tone": "Patriotic, institutional, uncompromisingly secure, prestigious",
+      "key_message": "Sovereign AI infrastructure built for democratic governance and national security.",
+      "value_prop": "Deploy air-gapped, zero-trust AI systems that defend national infrastructure and public policy integrity.",
+      "cta_strategy": "Primary CTA: 'Request Briefing'. Secondary CTA: 'Read Security Framework'."
+    },
+    "copy_prompt": "Write institutional AI hero copy for Axiom: H1 headline 'AI Built for Sovereign Governance', security compliance subhead, and government briefing CTA."
+  },
+  {
+    "id": "ui-36",
+    "filename": "36.webp",
+    "path": "UI/36.webp",
+    "title": "Axiom Government Blueprint UI",
+    "category": "dashboard-ui",
+    "is_hero": false,
+    "tags": [
+      "Technical Blueprint",
+      "Atomic Schematic",
+      "Government Relations",
+      "Grid Paper",
+      "Engraving Style"
+    ],
+    "description": "A technical schematic page layout for Axiom's government relations platform set on grid paper background. It displays fine-line engraving illustrations, atomic schematics, data nodes, and structured policy text columns.",
+    "hero_tag_desc": "Grid paper layout with fine-line engraving art, technical schematics, and structured policy data.",
+    "what_ui_is_saying": "Axiom combines rigorous technical architecture with government policy frameworks for sovereign compliance.",
+    "ai_image_prompt": "Technical blueprint dashboard layout, cream grid paper texture, black fine-line engraving illustrations, atomic orbital diagrams, structured policy data columns, minimal high-tech UI --ar 16:9",
+    "copy_brief": {
+      "persona": "Policy Analysts, Compliance Officers & Enterprise Security Architects",
+      "tone": "Rigorous, analytical, compliant, precise",
+      "key_message": "Audit-ready AI governance frameworks designed for strict regulatory compliance.",
+      "value_prop": "Full mathematical verifiability and audit trails for sovereign AI deployments.",
+      "cta_strategy": "Download Blueprint / View Compliance Matrix."
+    },
+    "copy_prompt": "Write technical compliance feature copy for Axiom: Headline on verifiable governance, technical subtext on audit trails, and documentation CTA."
+  },
+  {
+    "id": "ui-37",
+    "filename": "37.webp",
+    "path": "UI/37.webp",
+    "title": "Axiom Metallic Gold Security Node",
+    "category": "standard_web_component",
+    "is_hero": false,
+    "tags": [
+      "Metallic Gold 3D",
+      "Gold Knot Emblem",
+      "AWS Security",
+      "Cream Paper",
+      "Feature Card"
+    ],
+    "description": "A premium feature showcase card for Axiom set on warm cream paper. A 3D metallic gold twisted knot emblem is displayed at top left, paired with bold typography detailing isolated single-tenant AWS cloud security architecture.",
+    "hero_tag_desc": "Photorealistic 3D metallic gold knot emblem paired with single-tenant AWS enterprise security specs.",
+    "what_ui_is_saying": "Axiom guarantees single-tenant, hardware-isolated encryption for enterprise AI deployments.",
+    "ai_image_prompt": "Enterprise security feature card, warm cream paper background, photorealistic 3D metallic gold twisted knot emblem in top left, crisp black technical typography about AWS single-tenant isolation --ar 16:9",
+    "copy_brief": {
+      "persona": "Chief Security Officers, Cloud Architects & Enterprise Tech Directors",
+      "tone": "Prestige, bulletproof, enterprise, authoritative",
+      "key_message": "Gold-standard security with single-tenant cloud isolation.",
+      "value_prop": "Your data never leaves dedicated hardware environments protected by military-grade encryption.",
+      "cta_strategy": "Inspect AWS Security Specs / Schedule Architecture Audit."
+    },
+    "copy_prompt": "Write security card copy for Axiom: Gold emblem title on isolated cloud security, AWS architecture subhead, and audit CTA."
+  },
+  {
+    "id": "ui-38",
+    "filename": "38.webp",
+    "path": "UI/38.webp",
+    "title": "Axiom Navy Eagle Emblem Hero",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "Navy Blue Texture",
+      "Engraved Eagle",
+      "Herringbone Pattern",
+      "Gold Accent",
+      "Institutional Landing"
+    ],
+    "description": "A dark navy blue institutional hero section for Axiom featuring subtle herringbone texture. The center presents an oval gold frame enclosing a detailed black-and-white engraving of a bald eagle below bold white headline text 'Defending National Intelligence'.",
+    "hero_tag_desc": "Gold-framed bald eagle engraving emblem centered on navy blue herringbone textured backdrop.",
+    "what_ui_is_saying": "Axiom provides defense-grade AI defense systems designed to protect national security interests.",
+    "ai_image_prompt": "Dark navy blue institutional web hero, subtle herringbone texture background, gold oval frame enclosing engraved bald eagle artwork, white bold headline 'Defending National Intelligence' --ar 16:9",
+    "copy_brief": {
+      "persona": "Defense Contractors, Intelligence Agency Chiefs & High-Security Tech Leads",
+      "tone": "Commanding, patriotic, defense-grade, resolute",
+      "key_message": "Defense-grade intelligence processing powered by trusted sovereign AI.",
+      "value_prop": "Analyze multi-domain threat telemetry in real time with air-gapped security protocols.",
+      "cta_strategy": "Primary CTA: 'Classified Briefing'. Secondary CTA: 'Whitepaper'."
+    },
+    "copy_prompt": "Write national security hero copy for Axiom: H1 headline 'Defending National Intelligence', threat processing subtext, and security clearance CTA."
+  },
+  {
+    "id": "ui-39",
+    "filename": "39.webp",
+    "path": "UI/39.webp",
+    "title": "Meet BONZAI Pixel Blossom Hero",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "Pixel Art Blossom",
+      "Pixel Moon",
+      "Web3 Gaming",
+      "Dark Theme",
+      "Retro Gaming"
+    ],
+    "description": "A dark retro gaming landing page hero introducing 'Meet BONZAI'. The composition centers pixelated white headline text above a dark night scene featuring a pixelated pink cherry blossom branch extending toward a glowing pixel moon.",
+    "hero_tag_desc": "Pixel art cherry blossom branch under glowing pixel moon paired with bold 'Meet BONZAI' white headline.",
+    "what_ui_is_saying": "BONZAI combines retro aesthetic nostalgia with cutting-edge provable gaming infrastructure.",
+    "ai_image_prompt": "Retro Web3 gaming hero page, dark background, bold white pixel font headline 'Meet BONZAI', pixel art illustration of pink cherry blossom tree branch under glowing full moon --ar 16:9",
+    "copy_brief": {
+      "persona": "Retro Gamers, On-Chain Arcade Players & Web3 Gaming Enthusiasts",
+      "tone": "Playful, nostalgic, artistic, innovative",
+      "key_message": "Unleash retro gaming magic on transparent provable rails.",
+      "value_prop": "Immerse yourself in pixel-crafted worlds backed by instant cryptographic proofs.",
+      "cta_strategy": "Primary CTA: 'Play Bonzai ↗'. Secondary CTA: 'Join Discord'."
+    },
+    "copy_prompt": "Write Web3 gaming hero copy for BONZAI: Pixel-styled headline 'Meet BONZAI', gaming universe subhead, and play button CTA."
+  },
+  {
+    "id": "ui-40",
+    "filename": "40.webp",
+    "path": "UI/40.webp",
+    "title": "BONZAI Retro Pixel Tree Dashboard",
+    "category": "dashboard-ui",
+    "is_hero": false,
+    "tags": [
+      "Pixel Bonsai Tree",
+      "Protocol Index",
+      "Retro Dashboard",
+      "Dark Aesthetic",
+      "Web3 UI"
+    ],
+    "description": "A dark retro protocol dashboard for BONZAI featuring a centered 8-bit pixel art bonsai tree planted in a blue pot. Surrounding panels display protocol stack index menus, on-chain metrics, and technical parameter lists.",
+    "hero_tag_desc": "Centered 8-bit pixel art bonsai tree surrounded by protocol stack index cards and live node data.",
+    "what_ui_is_saying": "BONZAI's protocol stack nurtures modular, provable gaming ecosystems with organic digital precision.",
+    "ai_image_prompt": "Retro protocol dashboard interface, dark background, detailed 8-bit pixel art bonsai tree in blue pot in center, surrounding technical protocol index menus with green and white pixel text --ar 16:9",
+    "copy_brief": {
+      "persona": "Protocol Engineers, Node Operators & Web3 Game Designers",
+      "tone": "Zen, technical, modular, retro-futuristic",
+      "key_message": "Cultivate your provable gaming ecosystem on BONZAI core architecture.",
+      "value_prop": "Modular stack components designed for effortless scaling and cryptographic verification.",
+      "cta_strategy": "Launch Protocol Console / View Stack Docs."
+    },
+    "copy_prompt": "Write protocol dashboard copy for BONZAI: Headline on cultivating modular gaming, stack index overview, and console CTA."
+  },
+  {
+    "id": "ui-41",
+    "filename": "41.webp",
+    "path": "UI/41.webp",
+    "title": "Bonzai Protocol Technical Grid Blueprint",
+    "category": "standard_web_component",
+    "is_hero": false,
+    "tags": [
+      "Pixel Red Bouquet",
+      "Technical Grid",
+      "Architectural Paper",
+      "Protocol Blueprint",
+      "Pixel Graphics"
+    ],
+    "description": "A technical architectural blueprint component for Bonzai Protocol set on light grid paper. The center features a detailed pixel art red flower bouquet in a blue vase, surrounded by callout spec boxes, mathematical coordinates, and node links.",
+    "hero_tag_desc": "Pixel art red flower bouquet illustration on technical grid paper with architectural coordinate callouts.",
+    "what_ui_is_saying": "Bonzai Protocol bridges biological aesthetic beauty with structured architectural software engineering.",
+    "ai_image_prompt": "Technical architectural blueprint layout, cream grid paper texture, central 8-bit pixel art red flower bouquet in blue vase, surrounding mathematical coordinate boxes and protocol callout specs --ar 16:9",
+    "copy_brief": {
+      "persona": "Smart Contract Architects, Web3 Developers & System Designers",
+      "tone": "Architectural, precise, artistic, structural",
+      "key_message": "Precision architectural design meets vibrant pixel artistry.",
+      "value_prop": "Structured protocol blueprints engineered for reliable, high-throughput decentralized gaming.",
+      "cta_strategy": "Explore Architecture Diagram / Download Spec PDF."
+    },
+    "copy_prompt": "Write technical architecture copy for Bonzai Protocol: Blueprint headline, coordinate spec subhead, and documentation CTA."
+  },
+  {
+    "id": "ui-42",
+    "filename": "42.webp",
+    "path": "UI/42.webp",
+    "title": "Bonzai Vertical Pixel Pine Blueprint",
+    "category": "standard_web_component",
+    "is_hero": false,
+    "tags": [
+      "Pixel Pine Tree",
+      "Grid Paper UI",
+      "Technical Blueprint",
+      "Botanical Pixel",
+      "Protocol Specs"
+    ],
+    "description": "An architectural spec layout for Bonzai Protocol on light grid paper. A tall vertical 8-bit pixel art pine tree is featured on the left, flanked by detailed technical parameter cards and protocol verification data.",
+    "hero_tag_desc": "Tall vertical 8-bit pixel pine tree beside architectural parameter cards on grid paper background.",
+    "what_ui_is_saying": "Bonzai Protocol ensures deep-rooted stability and evergreen performance across decentralized networks.",
+    "ai_image_prompt": "Technical grid paper layout, off-white background, tall vertical 8-bit pixel art pine tree on left, right side features clean technical parameter cards and protocol verification data --ar 16:9",
+    "copy_brief": {
+      "persona": "Infrastructure Leads, Crypto Researchers & Systems Engineers",
+      "tone": "Stable, grounded, technical, natural",
+      "key_message": "Evergreen stability for decentralized protocol infrastructure.",
+      "value_prop": "Deep-rooted consensus algorithms that guarantee continuous uptime and cryptographic finality.",
+      "cta_strategy": "Verify Node Parameters / Read Whitepaper."
+    },
+    "copy_prompt": "Write infrastructure component copy for Bonzai Protocol: Headline on evergreen stability, node parameter subhead, and whitepaper CTA."
+  },
+  {
+    "id": "ui-43",
+    "filename": "43.webp",
+    "path": "UI/43.webp",
+    "title": "Nexus Electric Blue Four-Lobed Grid",
+    "category": "brand-identity",
+    "is_hero": false,
+    "tags": [
+      "Electric Blue Logo",
+      "Grid Specification",
+      "Four-Lobed Node",
+      "Brand Identity",
+      "Technical Specs"
+    ],
+    "description": "A technical brand specification layout for Nexus set on a grey graph paper grid. It showcases an electric blue four-lobed circular logo mark with dimension lines, vector construction paths, and typographic specifications.",
+    "hero_tag_desc": "Electric blue four-lobed logo mark shown with vector construction paths and grid specifications.",
+    "what_ui_is_saying": "Nexus represents interconnected intelligence designed with absolute mathematical and geometric precision.",
+    "ai_image_prompt": "Brand identity technical logo specification sheet for Nexus, grey grid paper, electric blue glowing four-lobed circular logo emblem, precise vector dimension lines and typographic guidelines --ar 16:9",
+    "copy_brief": {
+      "persona": "Brand Designers, Systems Architects & Enterprise Tech Clients",
+      "tone": "Precise, electric, technological, structured",
+      "key_message": "Mathematical precision shaping interconnected digital systems.",
+      "value_prop": "A unified visual identity built to signify seamless enterprise node connectivity.",
+      "cta_strategy": "Download Logo Package / Inspect Identity Guidelines."
+    },
+    "copy_prompt": "Write logo specification copy for Nexus: Precision tagline, vector construction philosophy, and asset download CTA."
+  },
+  {
+    "id": "ui-44",
+    "filename": "44.webp",
+    "path": "UI/44.webp",
+    "title": "Nexus Surreal Sky Cloud Logo Hero",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "Surreal Cloud Art",
+      "Azure Sky",
+      "Circuit Overlays",
+      "Cloud Infrastructure",
+      "Conceptual Hero"
+    ],
+    "description": "A conceptual cloud platform hero for Nexus featuring a realistic cumulus cloud sculpted into the four-lobed Nexus logo floating in a clear azure blue sky, highlighted with subtle white circuit vector line overlays.",
+    "hero_tag_desc": "Realistic white cloud sculpted into Nexus four-lobed logo floating in azure sky with white circuit overlays.",
+    "what_ui_is_saying": "Nexus seamlessly unifies cloud infrastructure with intelligent network connectivity.",
+    "ai_image_prompt": "Surreal cloud computing landing page hero for Nexus, bright azure blue sky, central white fluffy cumulus cloud perfectly sculpted into a four-lobed logo shape, delicate white circuit line overlays --ar 16:9",
+    "copy_brief": {
+      "persona": "Cloud Architects, Enterprise CTOs & Infrastructure Engineers",
+      "tone": "Surreal, airy, limitless, intelligent",
+      "key_message": "Intelligent cloud infrastructure woven into the sky.",
+      "value_prop": "Unify multi-cloud environments with self-healing AI network routing and zero latency.",
+      "cta_strategy": "Primary CTA: 'Deploy Nexus Cloud ↗'. Secondary CTA: 'View Architecture'."
+    },
+    "copy_prompt": "Write cloud infrastructure hero copy for Nexus: H1 headline on intelligent cloud networks, multi-cloud routing subhead, and deployment CTA."
+  },
+  {
+    "id": "ui-45",
+    "filename": "45.webp",
+    "path": "UI/45.webp",
+    "title": "AI Directories Clean SaaS Hero",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "Directory Grid",
+      "Italic Serif Accent",
+      "3D Isometric Grid",
+      "SaaS Landing",
+      "Clean Light Theme"
+    ],
+    "description": "A clean white SaaS landing hero for AI Directories. The headline features bold black sans-serif typography accented by an elegant italic serif phrase, flanked by subtext and a blue CTA button. Below, a floating 3D isometric directory grid card showcases AI tool listing tiles.",
+    "hero_tag_desc": "3D isometric directory grid card floating below headline with elegant italic serif accent typography.",
+    "what_ui_is_saying": "AI Directories organizes, indexes, and curates thousands of specialized AI tools in one accessible directory platform.",
+    "ai_image_prompt": "Clean SaaS directory landing page hero, white background, title 'Discover & Deploy Custom AI Agents' with elegant italic serif font accent, blue CTA button, floating 3D isometric directory grid card showing tool icons --ar 16:9",
+    "copy_brief": {
+      "persona": "AI Researchers, Software Engineers & Automation Specialists",
+      "tone": "Clean, organized, curated, accessible",
+      "key_message": "The definitive index for custom AI tools and autonomous agents.",
+      "value_prop": "Instantly search, compare, and integrate verified AI models for any enterprise workflow.",
+      "cta_strategy": "Primary CTA: 'Explore Directory ↗'. Secondary CTA: 'Submit Tool'."
+    },
+    "copy_prompt": "Write SaaS directory landing hero copy: Headline featuring italic serif accent, curated AI discovery subhead, and search CTA."
+  },
+  {
+    "id": "ui-46",
+    "filename": "46.webp",
+    "path": "UI/46.webp",
+    "title": "CHAINOVA Supply Chain Pixel Cube Hero",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "Isometric Pixel Cube",
+      "Supply Chain SaaS",
+      "Uppercase Typography",
+      "Blue Matrix",
+      "Industrial Hero"
+    ],
+    "description": "An industrial supply chain landing page hero for CHAINOVA set on an off-white canvas. Prominent uppercase black headline text 'INTELLIGENT SUPPLY CHAIN TRACKING' sits above a large 3D isometric blue dot-matrix pixel cube graphic alongside trust badges.",
+    "hero_tag_desc": "Large 3D isometric blue dot-matrix pixel cube graphic paired with bold uppercase black headline text.",
+    "what_ui_is_saying": "CHAINOVA brings real-time visibility, predictive analytics, and blockchain traceability to global supply chain logistics.",
+    "ai_image_prompt": "Industrial supply chain SaaS landing hero for CHAINOVA, off-white background, bold uppercase title 'INTELLIGENT SUPPLY CHAIN TRACKING', dark green primary button, 3D isometric blue dot-matrix pixel cube glowing graphic --ar 16:9",
+    "copy_brief": {
+      "persona": "Supply Chain Directors, Logistics VPs & Operations Executives",
+      "tone": "Industrial, authoritative, data-driven, robust",
+      "key_message": "End-to-end global supply chain visibility powered by real-time telemetry.",
+      "value_prop": "Eliminate inventory bottlenecks and track shipments with 99.9% predictive accuracy.",
+      "cta_strategy": "Primary CTA: 'Start Free Trial'. Secondary CTA: 'Watch Platform Demo'."
+    },
+    "copy_prompt": "Write supply chain landing hero copy for CHAINOVA: Uppercase headline on intelligent tracking, real-time logistics subhead, and demo CTA."
+  },
+  {
+    "id": "ui-47",
+    "filename": "47.webp",
+    "path": "UI/47.webp",
+    "title": "Visionix Real-Time Decision Engine",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "Decision Engine",
+      "Pixel Gradient Font",
+      "Isometric Nodes",
+      "Purple Palette",
+      "SaaS Landing"
+    ],
+    "description": "A clean white SaaS landing hero for Visionix featuring grid lines and purple gradient accents. The headline pairs bold black text with pixelated gradient lettering reading 'Your Real-Time Decision Engine.', supported by dual CTAs. Below, an isometric 3D node network connects floating user avatar cards onto glowing purple tiles above a press logo trust bar.",
+    "hero_tag_desc": "Isometric 3D purple node network connecting user avatar cards paired with a pixelated purple gradient 'Decision Engine' headline.",
+    "what_ui_is_saying": "Visionix converts live user behavior data into automated product growth and conversion decisions in real time.",
+    "ai_image_prompt": "Modern SaaS landing page hero for Visionix, white background with light grid lines, title 'Your Real-Time Decision Engine.' with purple pixelated gradient typography, purple primary CTA button, isometric 3D node network diagram with floating purple user cards --ar 16:9",
+    "copy_brief": {
+      "persona": "Growth Product Managers, Data Leads & Conversion Optimization Directors",
+      "tone": "Analytical, empowering, real-time, high-tech",
+      "key_message": "Automate real-time product decisions for maximum conversion.",
+      "value_prop": "Turn complex user event streams into instant automated growth experiments.",
+      "cta_strategy": "Primary CTA: 'Get Started ↗'. Secondary CTA: 'Book a Demo'."
+    },
+    "copy_prompt": "Write landing hero copy for Visionix: Headline featuring pixelated 'Decision Engine' styling, subhead on automated growth, and press social proof line."
+  },
+  {
+    "id": "ui-48",
+    "filename": "48.webp",
+    "path": "UI/48.webp",
+    "title": "ElevenLabs Voice AI Particle Sphere",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "AI Voice",
+      "3D Particle Sphere",
+      "Pixel Typography",
+      "Light Theme",
+      "ElevenLabs UI"
+    ],
+    "description": "A sleek high-tech AI voice platform hero for ElevenLabs on a bright white studio backdrop. The center features a detailed 3D blue particle mesh sphere with glowing wave textures, flanked by a side product category menu. The bottom section pairs pixelated black headline typography reading 'Your Voice. Any Language. Infinite Scale.' with a descriptive subhead and pill CTA buttons.",
+    "hero_tag_desc": "3D blue particle mesh wave sphere floating in center paired with dark pixelated headline typography reading 'Your Voice. Any Language. Infinite Scale.'",
+    "what_ui_is_saying": "ElevenLabs provides studio-grade AI voice cloning, speech generation, and voice agents across any language at infinite scale.",
+    "ai_image_prompt": "ElevenLabs AI voice platform website hero, clean white studio background, floating 3D blue particle wave sphere in center, bottom left pixelated text headline 'Your Voice. Any Language. Infinite Scale.', dark pill CTA button 'Start creating for free' --ar 16:9",
+    "copy_brief": {
+      "persona": "AI Developers, Content Creators, Enterprise Audio Directors & Podcast Producers",
+      "tone": "Pioneering, studio-grade, precise, limitless",
+      "key_message": "Human-quality AI voice generation in any language.",
+      "value_prop": "Instant voice cloning and ultra-realistic speech synthesis deployed at enterprise scale.",
+      "cta_strategy": "Primary CTA: 'Start creating for free ↗'. Secondary CTA: 'Contact Sales'."
+    },
+    "copy_prompt": "Write landing hero copy for ElevenLabs: Pixelated H1 headline on multilingual voice scale, studio-grade quality subhead, and free tier CTA."
+  },
+  {
+    "id": "ui-49",
+    "filename": "49.webp",
+    "path": "UI/49.webp",
+    "title": "Shaape Proposal Builder Peach Hero",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "Proposal Generator",
+      "Warm Peach Gradient",
+      "Prompt Input",
+      "Serif Typography",
+      "Minimalist SaaS"
+    ],
+    "description": "An inviting, elegant proposal creation SaaS hero for Shaape set on a warm peach-to-pink gradient backdrop with soft clouds. The layout presents centered dark serif headline typography 'Sell premium with premium proposal pages.' and descriptive subtext above a central frosted prompt input card featuring an orange 'create your first proposal page' CTA button.",
+    "hero_tag_desc": "Frosted glass prompt bar with prompt example text and vibrant orange proposal creation button over a warm peach cloud background.",
+    "what_ui_is_saying": "Shaape automatically converts your client proposals into high-converting, branded web pages in seconds.",
+    "ai_image_prompt": "Elegant SaaS landing page hero for shaape, soft peach pink warm gradient sky with fluffy white clouds, centered dark serif headline 'Sell premium with premium proposal pages.', frosted glass prompt input box with orange CTA button --ar 16:9",
+    "copy_brief": {
+      "persona": "Agency Owners, Creative Freelancers & Sales Directors",
+      "tone": "Warm, premium, effortless, high-converting",
+      "key_message": "Turn boring proposal PDFs into interactive branded proposal pages.",
+      "value_prop": "Instant brand importing and real-time proposal tracking that wins premium client deals.",
+      "cta_strategy": "Primary CTA: 'create your first proposal page'."
+    },
+    "copy_prompt": "Write proposal SaaS hero copy for Shaape: Elegant serif H1 on selling premium deals, automated website import subhead, and prompt placeholder text."
+  },
+  {
+    "id": "ui-50",
+    "filename": "50.webp",
+    "path": "UI/50.webp",
+    "title": "Lockbox Password Manager Brand Grid",
+    "category": "brand-identity",
+    "is_hero": false,
+    "tags": [
+      "Brand Identity",
+      "Design System",
+      "Color Swatches",
+      "Typography Guidelines",
+      "Lavender & Charcoal"
+    ],
+    "description": "A comprehensive brand identity design grid for Lockbox structured into a 6-panel overview. The tiles display halftone isometric key graphics, mobile app preview cards, desktop landing hero banners, font specimen typography ('Season Mix'), and hex color palette swatches ranging from Off White and Charcoal to Lavender Blush and Orchid.",
+    "hero_tag_desc": "6-panel brand guidelines grid combining hardware key illustrations, app mockups, typography specimens, and hex color swatches.",
+    "what_ui_is_saying": "Lockbox provides a cohesive, secure password management identity blending retro tech nostalgia with modern pastel elegance.",
+    "ai_image_prompt": "Brand identity design moodboard for Lockbox, 6-card grid layout, lavender and charcoal color scheme, halftone retro key graphics, app store screenshot cards, serif font specimen, color swatch cards --ar 16:9",
+    "copy_brief": {
+      "persona": "Design Directors, Brand Strategists & Product Designers",
+      "tone": "Cohesive, playful, secure, systematic",
+      "key_message": "Complete password security wrapped in approachable modern branding.",
+      "value_prop": "Unified cross-platform password management with seamless cloud synchronization.",
+      "cta_strategy": "View Brand Manual / Download Design System."
+    },
+    "copy_prompt": "Write brand system copy for Lockbox: Tagline 'Save it here. Unlock it everywhere.', subhead on single password access, and palette descriptions."
+  },
+  {
+    "id": "ui-51",
+    "filename": "51.webp",
+    "path": "UI/51.webp",
+    "title": "Design Agency Full-Scope Service Grid",
+    "category": "standard_web_component",
+    "is_hero": false,
+    "tags": [
+      "Agency Feature Grid",
+      "Design Subscription",
+      "Lime Green Accents",
+      "4-Card Grid",
+      "Dark & Light Cards"
+    ],
+    "description": "A 4-card feature layout for a boutique design agency showcasing service capabilities with contrasting light and dark cards. Highlights include conversion landing page optimization, full-scope design subscription tags around a central green logo, senior designer profile nodes, and rapid project retainer flexibility with a 3D green lightning badge.",
+    "hero_tag_desc": "2x2 grid pairing dark and light service cards accented by bright lime green graphics and senior designer profile avatars.",
+    "what_ui_is_saying": "Get senior-level design execution, full-scope creative support, and high-converting pages without junior handoffs.",
+    "ai_image_prompt": "Design agency feature section, 2x2 grid layout of alternating dark grey and white cards, neon green accent badges, graphics for conversion charts, senior designer avatars, and a 3D lightning bolt icon --ar 16:9",
+    "copy_brief": {
+      "persona": "Startup Founders, Marketing VPs & Product Leads",
+      "tone": "Direct, confident, elite, transparent",
+      "key_message": "Senior design execution without agency bloat.",
+      "value_prop": "Dedicated senior design partners delivering full-scope branding and high-converting landing pages.",
+      "cta_strategy": "Book a Discovery Call / View Pricing."
+    },
+    "copy_prompt": "Write 4-card feature copy for a design agency: Headlines for Conversion Optimization, Full-Scope Design, Senior Execution, and Speed & Flexibility."
+  },
+  {
+    "id": "ui-52",
+    "filename": "52.webp",
+    "path": "UI/52.webp",
+    "title": "Prismor Control Plane AI Agents Hero",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "AI Security",
+      "Control Plane",
+      "Minimalist SaaS",
+      "Terminal Code View",
+      "Gradient Canvas"
+    ],
+    "description": "A clean light SaaS hero section for Prismor set against a soft warm gradient backdrop. The centered headline reads 'Control plane for AI agents', followed by a security subhead and a GitHub repo URL scanner input bar ('Check AI Posture'). The bottom half showcases an interactive terminal overlay highlighting blocked rogue AI agent executions alongside enterprise trust logos.",
+    "hero_tag_desc": "GitHub repository posture scanner bar paired with an active security log window detecting blocked rogue AI tool calls.",
+    "what_ui_is_saying": "Prismor gives enterprise security teams complete visibility, control, and runtime guardrails over autonomous AI agents.",
+    "ai_image_prompt": "AI agent security platform landing page hero, clean light background with subtle pink tint, large bold headline 'Control plane for AI agents', URL input search bar 'Check AI Posture', bottom half shows floating macOS terminal window with green red code text --ar 16:9",
+    "copy_brief": {
+      "persona": "Chief Information Security Officers, AI Engineers & Enterprise DevSecOps Leads",
+      "tone": "Vigilant, authoritative, modern, developer-friendly",
+      "key_message": "Complete runtime security and traceability for enterprise AI agents.",
+      "value_prop": "Prevent rogue agent execution with real-time tool call interception and posture scanning.",
+      "cta_strategy": "Primary CTA: 'Check AI Posture'. Secondary CTA: 'Setup CLI locally'."
+    },
+    "copy_prompt": "Write landing hero copy for Prismor: H1 headline 'Control plane for AI agents', subhead on security guardrails, posture check input placeholder, and CLI CTA."
+  },
+  {
+    "id": "ui-53",
+    "filename": "53.webp",
+    "path": "UI/53.webp",
+    "title": "BULK HUB Minimal Star Splash Hero",
+    "category": "landing-page",
+    "is_hero": true,
+    "tags": [
+      "Dark Splash Page",
+      "Minimalist",
+      "Serif Typography",
+      "Star Sparkles",
+      "Black & White"
+    ],
+    "description": "A stark, minimalist dark splash hero page for BULK HUB featuring a pure black canvas illuminated by subtle twinkling white four-point star sparkles. The center composition displays a sparkling star icon beside the serif headline 'BULK HUB' above a translucent oval 'ENTER' button.",
+    "hero_tag_desc": "Centered serif BULK HUB logo and sparkling star emblem resting above a sleek translucent 'ENTER' CTA button on a starry black backdrop.",
+    "what_ui_is_saying": "BULK HUB offers an exclusive, mysterious digital experience designed for high-volume commerce or curated access.",
+    "ai_image_prompt": "Minimal luxury splash page, pure black background with subtle glowing white four-point stars scattered around, centered white serif text logo '* BULK HUB', dark frosted pill button labeled 'ENTER' --ar 16:9",
+    "copy_brief": {
+      "persona": "Luxury Buyers, High-Volume Traders & Exclusive Community Members",
+      "tone": "Exclusive, mysterious, minimalist, refined",
+      "key_message": "Exclusive portal access to premium bulk operations.",
+      "value_prop": "Curated high-volume access with zero noise and maximum discretion.",
+      "cta_strategy": "Primary CTA: 'ENTER'."
+    },
+    "copy_prompt": "Write splash page copy for BULK HUB: Minimalist brand name display and an inviting 'ENTER' button prompt."
+  },
+  {
+    "id": "ui-54",
+    "filename": "54.webp",
+    "path": "UI/54.webp",
+    "title": "Sapick Financial Control Landing Hero",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "Fintech Hero",
+      "Finance Analytics",
+      "Donut Chart",
+      "Clean Light Theme",
+      "SaaS Landing"
+    ],
+    "description": "A bright, approachable fintech landing hero for Sapick set on a white grid paper background with soft pastel glow. The left column features prominent black headline text reading 'Take control of your finances with ease.', subtext, and dual CTA buttons. The right column displays floating white glassmorphism cards showcasing circular expense donut charts, wallet activity popups, and green income analytics line graphs.",
+    "hero_tag_desc": "Floating financial analytics widget stack including a 58% green expense donut chart and income line graph paired with bold left-aligned headline typography.",
+    "what_ui_is_saying": "Sapick makes personal and business financial management effortless through clear visual analytics and real-time wallet tracking.",
+    "ai_image_prompt": "Fintech web landing page hero for Sapick, clean light grid background, bold left headline 'Take control of your finances with ease.', black primary CTA button, right side features floating white analytics cards with green donut chart and income line graph --ar 16:9",
+    "copy_brief": {
+      "persona": "Individual Investors, Freelancers & Small Business Owners",
+      "tone": "Clear, reassuring, empowering, modern",
+      "key_message": "Effortless wealth tracking and financial planning.",
+      "value_prop": "Real-time expense categorization and income analytics that keep you in total control.",
+      "cta_strategy": "Primary CTA: 'Get Started for Free'. Secondary CTA: 'See Our Pricing'."
+    },
+    "copy_prompt": "Write fintech landing hero copy for Sapick: H1 headline 'Take control of your finances with ease.', subhead on wealth analytics, and CTA button microcopy."
+  },
+  {
+    "id": "ui-55",
+    "filename": "55.webp",
+    "path": "UI/55.webp",
+    "title": "Salesflow Pipeline Automation SaaS Landing",
+    "category": "landing-page",
+    "is_hero": true,
+    "tags": [
+      "Sales Pipeline SaaS",
+      "Dual Theme Landing",
+      "Green KPI Charts",
+      "App Integrations",
+      "Sales Automation"
+    ],
+    "description": "A comprehensive sales pipeline SaaS landing page layout for Salesflow showcased in two complementary light and warm yellow themes. The design features bold headlines ('Boost Your Sales Team's Performance' and 'Close more deals with Salesflow'), green stacked bar KPI charts, email demo input forms, automated bill payment tables, and a 15-icon third-party app integration grid.",
+    "hero_tag_desc": "Dual-view sales SaaS landing page combining green KPI bar charts, yellow productivity highlights, and a multi-app integration grid.",
+    "what_ui_is_saying": "Salesflow automates deal tracking, speeds up deal closures, and unifies sales pipeline metrics for high-growth sales teams.",
+    "ai_image_prompt": "Sales CRM SaaS landing page dual presentation, off-white and bright yellow background, headline 'Boost Your Sales Team's Performance', green stacked bar charts for key performance indicators, email input demo form, bottom integration icon grid --ar 16:9",
+    "copy_brief": {
+      "persona": "VPs of Sales, Revenue Operations Managers & B2B Account Executives",
+      "tone": "High-energy, performance-driven, analytical, automated",
+      "key_message": "Accelerate sales velocity and close 40% more deals with automated pipeline insights.",
+      "value_prop": "Smart sales automation and real-time deal tracking that boosts team productivity by 75%.",
+      "cta_strategy": "Primary CTA: 'Create Free Account'. Secondary CTA: 'Book a Demo'."
+    },
+    "copy_prompt": "Write sales SaaS landing hero copy for Salesflow: H1 on boosting sales performance, productivity percentage stats, and email demo CTA."
+  },
+  {
+    "id": "ui-56",
+    "filename": "56.webp",
+    "path": "UI/56.webp",
+    "title": "Dental HUB Modern Clinic Hero",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "Dental Clinic Hero",
+      "3D Tooth Icon",
+      "Uppercase Headline",
+      "Dentist Photo",
+      "Modern Healthcare"
+    ],
+    "description": "A striking modern dental clinic landing hero for Dental HUB set on a clean off-white background with large uppercase headline typography reading 'WE TAKE CARE ABOUT YOUR TEETH' with an embedded 3D tooth graphic. The layout centers a framed portrait of a smiling dentist, flanked by a 'Free Dental Check up' appointment card with an implant diagram and yellow interactive chat prompts.",
+    "hero_tag_desc": "Uppercase headline with embedded 3D tooth graphic wrapping around a centered portrait of a dentist holding clinical tools.",
+    "what_ui_is_saying": "Dental HUB delivers expert, painless dental care and implant consultations for a beautiful, healthy smile.",
+    "ai_image_prompt": "Modern dental clinic website hero section, white background, bold uppercase black title 'WE TAKE CARE ABOUT YOUR TEETH' with 3D tooth model in headline, center photo of smiling female dentist in white coat, left card for Free Dental Checkup with tooth implant render --ar 16:9",
+    "copy_brief": {
+      "persona": "Patients Seeking Cosmetic & Implant Dentistry",
+      "tone": "Warm, professional, reassuring, high-end",
+      "key_message": "Transform your smile with expert, gentle dental specialists.",
+      "value_prop": "Free initial consultations and state-of-the-art dental implant procedures handled by top professionals.",
+      "cta_strategy": "Primary CTA: 'Book Consultation'. Secondary CTA: 'Let's chat with us!'."
+    },
+    "copy_prompt": "Write dental clinic landing page copy for Dental HUB: Uppercase headline featuring 'WE TAKE CARE ABOUT YOUR TEETH', checkup offer subhead, and consultation CTA."
+  },
+  {
+    "id": "ui-57",
+    "filename": "57.webp",
+    "path": "UI/57.webp",
+    "title": "CAIVX Pixel Game Studio Brand Sheet",
+    "category": "brand-identity",
+    "is_hero": false,
+    "tags": [
+      "Pixel Art Branding",
+      "Game Studio Grid",
+      "ASCII & Dither Aesthetics",
+      "Retro Gaming",
+      "Cream & Black"
+    ],
+    "description": "A 6-panel retro game design studio brand showcase for CAIVX rendered in a high-contrast cream and dark charcoal aesthetic. Features include heavy block pixel typography reading 'CAIVX', dithered halftone photography frames, tactical studio clearance ID badges, ASCII tool lists, and the core studio motto 'Every pixel tells a story.'",
+    "hero_tag_desc": "6-panel retro gaming identity showcase featuring dithered halftone image cards, pixelated block typography, and tactical game studio ID specs.",
+    "what_ui_is_saying": "CAIVX creates immersive, pixel-crafted game worlds and retro-futuristic digital experiences.",
+    "ai_image_prompt": "Retro game studio brand identity sheet for CAIVX, 6-card grid, cream beige and dark black color palette, pixelated block font, dithered ASCII halftone photo cards, tactical HUD studio badge --ar 16:9",
+    "copy_brief": {
+      "persona": "Indie Game Players, Retro Gaming Enthusiasts & Creative Directors",
+      "tone": "Nostalgic, tactical, immersive, craft-obsessed",
+      "key_message": "Crafting immersive retro-futuristic gaming worlds one pixel at a time.",
+      "value_prop": "Merging creative gameplay, custom ASCII technology, and dithered aesthetics into playable digital realms.",
+      "cta_strategy": "Explore Studio Projects / Join Development Queue."
+    },
+    "copy_prompt": "Write brand system copy for CAIVX game studio: Motto 'Every pixel tells a story', studio profile description, tool stack list, and 'Create. Play. Repeat.' tagline."
+  },
+  {
+    "id": "ui-58",
+    "filename": "58.webp",
+    "path": "UI/58.webp",
+    "title": "Artis Pixel Classical Angels Painting",
+    "category": "generative-art",
+    "is_hero": false,
+    "tags": [
+      "Pixel Art Painting",
+      "Classical Angels",
+      "Dithered Garden",
+      "Retro Fine Art",
+      "Artis Logo"
+    ],
+    "description": "A breathtaking pixel art fine art artwork featuring classical winged angels in a lush botanical garden rendered in detailed dithered 16-bit pixels. Rich blue hydrangeas and fiery red floral bushes frame the angels beneath tall cypress trees and a cloudy sky, with the centered white pixelated title 'Artis' superimposed over the garden.",
+    "hero_tag_desc": "Classical winged angel oil painting reinterpreted in dithered pixel art with white 8-bit 'Artis' centered typography.",
+    "what_ui_is_saying": "Artis bridges classical fine art masterpiece aesthetics with digital pixel art nostalgia.",
+    "ai_image_prompt": "Detailed 16-bit pixel art painting of two classical winged angels in draped white robes inside a lush flower garden with blue hydrangeas and orange bushes, dark cypress trees, centered bold white pixel typography title 'Artis' --ar 16:9",
+    "copy_brief": {
+      "persona": "Digital Art Collectors, Pixel Artists & NFT Enthusiasts",
+      "tone": "Artistic, majestic, nostalgic, timeless",
+      "key_message": "Where classical fine art meets digital pixel craftsmanship.",
+      "value_prop": "High-resolution dithered pixel art transformations of timeless renaissance masterpieces.",
+      "cta_strategy": "Explore Gallery / Mint Digital Artwork."
+    },
+    "copy_prompt": "Write creative showcase copy for Artis: Title 'Artis', narrative brief on classical pixel art gardens, and gallery CTA."
+  },
+  {
+    "id": "ui-59",
+    "filename": "59.webp",
+    "path": "UI/59.webp",
+    "title": "Surreal Evolution Collage Landing Hero",
+    "category": "hero-section",
+    "is_hero": true,
+    "tags": [
+      "Surreal Collage Hero",
+      "Evolution Collage",
+      "Vintage Engraving",
+      "Serif Headline",
+      "Interactive Experience"
+    ],
+    "description": "A captivating surreal editorial hero section set on a minimalist pale cream canvas. The center visual features a modified 'Evolution of Man' vintage engraving diagram where skeletal and human figures are merged with colorful pop-art animal cutouts (green bee head, red fish torso, blue chicken head). Below, an elegant serif headline reads 'Connecting communities through immersive experiences.' supported by three concise narrative text columns.",
+    "hero_tag_desc": "Vintage human evolution diagram enhanced with colorful surreal pop-art animal head cutouts above elegant serif centered headline typography.",
+    "what_ui_is_saying": "We combine AI technology and surreal interactive storytelling to create deeply engaging community experiences.",
+    "ai_image_prompt": "Editorial surreal SaaS landing hero page, pale cream background, central collage of vintage human evolution skeleton drawings with colorful pop art animal cutouts (green bee, red fish, blue chicken head), centered serif title 'Connecting communities through immersive experiences.', 3 text columns at bottom --ar 16:9",
+    "copy_brief": {
+      "persona": "Creative Directors, Media Strategists & Experiential Event Producers",
+      "tone": "Editorial, surreal, visionary, provocative",
+      "key_message": "Next-generation AI-driven storytelling and immersive digital experiences.",
+      "value_prop": "Merging human evolution with algorithmic content personalization to build deeply connected communities.",
+      "cta_strategy": "Explore Experience Platform / Schedule Vision Call."
+    },
+    "copy_prompt": "Write surreal landing hero copy for an immersive experience platform: H1 'Connecting communities through immersive experiences.', and 3 narrative columns on technology, algorithms, and AI storytelling."
+  }
+]
