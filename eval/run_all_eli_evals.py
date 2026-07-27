@@ -268,9 +268,10 @@ def batch_generate(model, tokenizer, prompts: list[str], temperature: float = 0.
                 eos_token_id=tokenizer.eos_token_id,
             )
 
-        input_lengths = [inputs.input_ids.shape[1]] * len(batch_prompts)
+        # Per-sequence input lengths (attention_mask sums give real non-padded length)
+        input_lengths = inputs.attention_mask.sum(dim=1).tolist()
         for j, out in enumerate(outputs):
-            seq = out[input_lengths[j]:]
+            seq = out[int(input_lengths[j]):]
             decoded = tokenizer.decode(seq, skip_special_tokens=True).strip()
             responses.append(decoded)
 
