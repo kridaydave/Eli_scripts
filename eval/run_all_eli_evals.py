@@ -146,26 +146,34 @@ except Exception as e:
         temp_path = f.name
 
     start_time = time.time()
+    proc = None
     try:
-        result = subprocess.run(
-            [sys.executable, temp_path],
-            capture_output=True,
+        proc = subprocess.Popen(
+            [sys.executable, "-u", temp_path],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
             text=True,
-            timeout=timeout + 2,
             env={**os.environ, "PYTHONDONTWRITEBYTECODE": "1"},
         )
-        runtime_ms = (time.time() - start_time) * 1000
+        try:
+            stdout, stderr = proc.communicate(timeout=timeout + 2)
+        except subprocess.TimeoutExpired:
+            proc.kill()
+            proc.wait()
+            runtime_ms = (time.time() - start_time) * 1000
+            return {"passed": False, "error": "Process timed out (SIGKILL)", "runtime_ms": runtime_ms}
 
-        if result.returncode == 0 and "ALL_TESTS_PASSED" in result.stdout:
+        runtime_ms = (time.time() - start_time) * 1000
+        if proc.returncode == 0 and "ALL_TESTS_PASSED" in stdout:
             return {"passed": True, "error": None, "runtime_ms": runtime_ms}
         else:
-            error_msg = result.stderr.strip() or result.stdout.strip() or "Unknown error"
+            error_msg = stderr.strip() or stdout.strip() or "Unknown error"
             return {"passed": False, "error": error_msg[:500], "runtime_ms": runtime_ms}
 
-    except subprocess.TimeoutExpired:
-        runtime_ms = (time.time() - start_time) * 1000
-        return {"passed": False, "error": "Process timed out", "runtime_ms": runtime_ms}
     except Exception as e:
+        if proc is not None:
+            try: proc.kill()
+            except Exception: pass
         runtime_ms = (time.time() - start_time) * 1000
         return {"passed": False, "error": f"Execution error: {e}", "runtime_ms": runtime_ms}
     finally:
@@ -324,7 +332,7 @@ def main():
         gen_start = time.time()
         raw_responses = batch_generate(model, tokenizer, prompts, temperature=args.temperature, batch_size=args.batch_size)
         gen_time = time.time() - gen_start
-        print(f"  ✓ Generated {len(raw_responses)} responses in {gen_time:.2f}s ({gen_time/len(items):.2f}s/item)")
+        print(f"  ✓ Generated {len(raw_responses)} responses in {gen_time:.2f}s ({gen_time/len(items):.2f}s/item)", flush=True)
 
         # Evaluation Pass
         set_results = []
@@ -367,7 +375,7 @@ def main():
             if passed: cat_stats[category]["passed"] += 1
 
             status_icon = "✓" if passed else "✗"
-            print(f"  [{i+1}/{len(items)}] {problem_id} ({difficulty}) {status_icon}")
+            print(f"  [{i+1}/{len(items)}] {problem_id} ({difficulty}) {status_icon} | {runtime_ms:.0f}ms", flush=True)
 
             set_results.append({
                 "id": problem_id,
