@@ -182,6 +182,8 @@ except Exception as e:
 def load_model(base_model: str, lora_path: str | None = None):
     """Loads base model + optional LoRA via Unsloth or PEFT/Transformers."""
     import torch
+    from peft import PeftModel
+
     try:
         from unsloth import FastLanguageModel
         has_unsloth = True
@@ -190,20 +192,20 @@ def load_model(base_model: str, lora_path: str | None = None):
 
     lora_loaded = False
     if has_unsloth:
-        model_to_load = lora_path if lora_path else base_model
-        if lora_path:
-            lora_loaded = True
-        print(f"🚀 Loading {'LoRA adapter' if lora_loaded else 'Base model'} via Unsloth: {model_to_load}")
+        print(f"🚀 Loading Base model via Unsloth: {base_model}")
         model, tokenizer = FastLanguageModel.from_pretrained(
-            model_name=model_to_load,
+            model_name=base_model,
             max_seq_length=4096,
             dtype=None,
             load_in_4bit=True,
         )
+        if lora_path:
+            print(f"📌 Attaching LoRA adapter: {lora_path}")
+            model = PeftModel.from_pretrained(model, lora_path)
+            lora_loaded = True
         FastLanguageModel.for_inference(model)
     else:
         from transformers import AutoTokenizer, AutoModelForCausalLM
-        from peft import PeftModel
         print(f"🚀 Loading Base model: {base_model}")
         tokenizer = AutoTokenizer.from_pretrained(base_model)
         model = AutoModelForCausalLM.from_pretrained(
@@ -212,7 +214,7 @@ def load_model(base_model: str, lora_path: str | None = None):
             device_map="auto",
         )
         if lora_path:
-            print(f"📌 Loading LoRA adapter: {lora_path}")
+            print(f"📌 Attaching LoRA adapter: {lora_path}")
             model = PeftModel.from_pretrained(model, lora_path)
             lora_loaded = True
 
