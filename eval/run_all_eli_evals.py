@@ -179,7 +179,7 @@ except Exception as e:
 # Model Loading & Batched Inference
 # ──────────────────────────────────────────────────────────────────────
 
-def load_model(base_model: str, lora_path: str | None = None):
+def load_model(base_model: str, lora_path: str | None = None, subfolder: str | None = None):
     """Loads base model + optional LoRA via Unsloth or PEFT/Transformers."""
     import torch
     from peft import PeftModel
@@ -189,6 +189,11 @@ def load_model(base_model: str, lora_path: str | None = None):
         has_unsloth = True
     except ImportError:
         has_unsloth = False
+
+    peft_kwargs = {}
+    if subfolder:
+        peft_kwargs["subfolder"] = subfolder
+        print(f"   ↳ subfolder: {subfolder}")
 
     lora_loaded = False
     if has_unsloth:
@@ -201,7 +206,7 @@ def load_model(base_model: str, lora_path: str | None = None):
         )
         if lora_path:
             print(f"📌 Attaching LoRA adapter: {lora_path}")
-            model = PeftModel.from_pretrained(model, lora_path)
+            model = PeftModel.from_pretrained(model, lora_path, **peft_kwargs)
             lora_loaded = True
         FastLanguageModel.for_inference(model)
     else:
@@ -215,7 +220,7 @@ def load_model(base_model: str, lora_path: str | None = None):
         )
         if lora_path:
             print(f"📌 Attaching LoRA adapter: {lora_path}")
-            model = PeftModel.from_pretrained(model, lora_path)
+            model = PeftModel.from_pretrained(model, lora_path, **peft_kwargs)
             lora_loaded = True
 
     if tokenizer.pad_token is None:
@@ -281,6 +286,7 @@ def main():
     parser = argparse.ArgumentParser(description="All-in-One Eli Evaluation Harness")
     parser.add_argument("--BASE", type=str, default="unsloth/Qwen3-4B-Instruct-2507", help="Base model HF repo or path")
     parser.add_argument("--ELI", type=str, default=None, help="Eli LoRA adapter HF repo or path (optional)")
+    parser.add_argument("--subfolder", type=str, default=None, help="Subfolder inside the HF repo where adapter_config.json lives")
     parser.add_argument("--batch-size", type=int, default=8, help="Batch size for model generation")
     parser.add_argument("--temperature", type=float, default=0.2, help="Sampling temperature")
     parser.add_argument("--timeout", type=int, default=10, help="Per-problem timeout (seconds)")
@@ -289,7 +295,7 @@ def main():
     args = parser.parse_args()
 
     # Load Model
-    model, tokenizer, lora_loaded = load_model(args.BASE, args.ELI)
+    model, tokenizer, lora_loaded = load_model(args.BASE, args.ELI, subfolder=args.subfolder)
 
     overall_results = {}
     master_summary = {}
