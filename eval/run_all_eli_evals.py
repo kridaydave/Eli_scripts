@@ -238,8 +238,8 @@ def load_model(base_model: str, lora_path: str | None = None, subfolder: str | N
     return model, tokenizer, lora_loaded
 
 
-def batch_generate(model, tokenizer, prompts: list[str], temperature: float = 0.2, batch_size: int = 8) -> list[str]:
-    """Runs batched generation over prompts."""
+def batch_generate(model, tokenizer, prompts: list[str], temperature: float = 0.2, batch_size: int = 1) -> list[str]:
+    """Runs generation over prompts. Uses batch_size=1 by default for correct decoding."""
     import torch
     responses = []
 
@@ -256,11 +256,12 @@ def batch_generate(model, tokenizer, prompts: list[str], temperature: float = 0.
             batch_inputs.append(formatted)
 
         inputs = tokenizer(batch_inputs, return_tensors="pt", padding=True).to(model.device)
+        input_len = inputs.input_ids.shape[1]
 
         with torch.no_grad():
             outputs = model.generate(
                 **inputs,
-                max_new_tokens=1024,
+                max_new_tokens=1500,
                 temperature=temperature,
                 top_p=0.95,
                 do_sample=temperature > 0,
@@ -268,11 +269,12 @@ def batch_generate(model, tokenizer, prompts: list[str], temperature: float = 0.
                 eos_token_id=tokenizer.eos_token_id,
             )
 
-        # Per-sequence input lengths (attention_mask sums give real non-padded length)
-        input_lengths = inputs.attention_mask.sum(dim=1).tolist()
-        for j, out in enumerate(outputs):
-            seq = out[int(input_lengths[j]):]
-            decoded = tokenizer.decode(seq, skip_special_tokens=True).strip()
+        # No padding when batch_size=1, so input_len is the exact prompt length.
+        # Slice off prompt tokens to get only generated tokens.
+        for j in range(len(batch_prompts)):
+            input_ids_j = inputs.input_ids[j]
+            new_tokens = outputs[j][len(input_ids_j):]
+            decoded = tokenizer.decode(new_tokens, skip_special_tokens=True).strip()
             responses.append(decoded)
 
     return responses
