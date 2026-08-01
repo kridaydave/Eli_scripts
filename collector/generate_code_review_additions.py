@@ -5,6 +5,7 @@ Follows the exact schema of data/train_code_review.jsonl.
 """
 import json
 import random
+from pathlib import Path
 
 rng = random.Random(2026)
 
@@ -103,23 +104,505 @@ ADDITIONAL_PAIRS = [
      "response": "Some prefer type Status = 'active' | 'inactive' | 'pending' since it's simpler and doesn't generate runtime code. Enums give you reverse mapping though. Depends on whether you need that.", "notes": ""},
 ]
 
-# Write the additional pairs
-output_path = "data/train_code_review.jsonl"
+# ------------------------------------------------------------------ #
+# Security Audit Sub-Lane  (P0)
+# PR-diff + review-comment pairs: input is a diff carrying a security
+# vulnerability, output is a severity-tagged review comment with a fix.
+# Written to processed/training-data-code-review-security.jsonl.
+# ------------------------------------------------------------------ #
+SECURITY_SAMPLES = [
+    {
+        "id": "SEC_AUDIT_001", "language": "python", "framework": "FastAPI",
+        "severity": "🔴 BLOCKER",
+        "instruction": (
+            "Review this diff:\n\n"
+            "```diff\n"
+            "@@ -1,7 +1,7 @@\n"
+            " import os\n"
+            " from fastapi import FastAPI\n"
+            " \n"
+            " app = FastAPI()\n"
+            "-SECRET_KEY = os.environ.get('APP_SECRET')\n"
+            "+SECRET_KEY = 'sup3r-s3cret-please-dont-leak'\n"
+            "```"
+        ),
+        "output": (
+            "🔴 BLOCKER: Hardcoded `SECRET_KEY` in `settings.py` (line 4). Anyone with repo "
+            "access can mint forged session/JWT tokens. Rotate immediately and move the value "
+            "to an env var / secret manager. See fix:\n\n"
+            "```python\n"
+            "SECRET_KEY = os.environ['APP_SECRET']\n"
+            "```"
+        ),
+    },
+    {
+        "id": "SEC_AUDIT_002", "language": "python", "framework": "FastAPI",
+        "severity": "🔴 BLOCKER",
+        "instruction": (
+            "Review this diff:\n\n"
+            "```diff\n"
+            "@@ -1,6 +1,6 @@\n"
+            " from fastapi.middleware.cors import CORSMiddleware\n"
+            " \n"
+            " app.add_middleware(\n"
+            "     CORSMiddleware,\n"
+            "-    allow_origins=ALLOWED_ORIGINS,\n"
+            "+    allow_origins=[\"*\"],\n"
+            "     allow_credentials=True,\n"
+            " )\n"
+            "```"
+        ),
+        "output": (
+            "🔴 BLOCKER: `allow_origins=[\"*\"]` combined with `allow_credentials=True` is "
+            "invalid and dangerous - any origin can send credentialed (cookie) requests, i.e. "
+            "CSRF. Use an explicit allowlist of your own origins (never `*` with credentials)."
+        ),
+    },
+    {
+        "id": "SEC_AUDIT_003", "language": "python", "framework": "FastAPI",
+        "severity": "🟠 MAJOR",
+        "instruction": (
+            "Review this diff:\n\n"
+            "```diff\n"
+            "@@ -1,5 +1,5 @@\n"
+            " import requests\n"
+            " response = requests.get(\n"
+            "     'https://payment-gw.internal/charge',\n"
+            "-    verify=CA_BUNDLE,\n"
+            "+    verify=False,\n"
+            "     timeout=5,\n"
+            " )\n"
+            "```"
+        ),
+        "output": (
+            "🟠 MAJOR: `verify=False` disables TLS certificate validation on the payment call "
+            "(line 3) - enables MITM and credential/PAN theft. Remove it and always verify "
+            "against a real CA bundle."
+        ),
+    },
+    {
+        "id": "SEC_AUDIT_004", "language": "python", "framework": "FastAPI",
+        "severity": "🔴 BLOCKER",
+        "instruction": (
+            "Review this diff:\n\n"
+            "```diff\n"
+            "@@ -1,4 +1,4 @@\n"
+            " def search(user_input):\n"
+            "-    query = \"SELECT * FROM items WHERE name = %s\"\n"
+            "-    cursor.execute(query, (user_input,))\n"
+            "+    query = \"SELECT * FROM items WHERE name = '\" + user_input + \"'\"\n"
+            "+    cursor.execute(query)\n"
+            "```"
+        ),
+        "output": (
+            "🔴 BLOCKER: SQL string concatenation with raw `user_input` (lines 3-4) reintroduces "
+            "SQL injection. Restore parameterized queries - never interpolate user data: "
+            "`cursor.execute(\"SELECT * FROM items WHERE name = %s\", (user_input,))`."
+        ),
+    },
+    {
+        "id": "SEC_AUDIT_005", "language": "python", "framework": "FastAPI",
+        "severity": "🔴 BLOCKER",
+        "instruction": (
+            "Review this diff:\n\n"
+            "```diff\n"
+            "@@ -1,4 +1,4 @@\n"
+            " def calculate(expr):\n"
+            "-    return eval(expr)\n"
+            "+    return eval(sanitize(expr))\n"
+            "```"
+        ),
+        "output": (
+            "🔴 BLOCKER: wrapping `eval()` in a `sanitize()` helper does not fix arbitrary code "
+            "execution - `eval`/`exec` on any user-influenced string is RCE. Replace with "
+            "`ast.literal_eval()` or a real expression parser and allowlist of operators."
+        ),
+    },
 
-# Read existing
-with open(output_path) as f:
-    existing = [line.strip() for line in f if line.strip()]
 
-# Append new
-with open(output_path, "a") as f:
+
+    {
+        "id": "SEC_AUDIT_006", "language": "javascript", "framework": "Express",
+        "severity": "🔴 BLOCKER",
+        "instruction": (
+            "Review this diff:\n\n"
+            "```diff\n"
+            "@@ -1,4 +1,4 @@\n"
+            " const jwt = require('jsonwebtoken');\n"
+            " const token = jwt.sign(payload, secret, {\n"
+            "-  algorithm: 'HS256',\n"
+            "+  algorithm: 'none',\n"
+            " });\n"
+            "```"
+        ),
+        "output": (
+            "🔴 BLOCKER: JWT `algorithm: 'none'` means tokens carry no signature at all - "
+            "anyone can forge arbitrary identities. Remove it (default to HS256/RS256) and "
+            "deny `alg: none` on the verify path."
+        ),
+    },
+    {
+        "id": "SEC_AUDIT_007", "language": "javascript", "framework": "Express",
+        "severity": "🟠 MAJOR",
+        "instruction": (
+            "Review this diff:\n\n"
+            "```diff\n"
+            "@@ -1,5 +1,5 @@\n"
+            " const express = require('express');\n"
+            " const helmet = require('helmet');\n"
+            " const app = express();\n"
+            "-app.use(helmet());\n"
+            "+// app.use(helmet());  // disabled while debugging\n"
+            " app.use(express.json());\n"
+            "```"
+        ),
+        "output": (
+            "🟠 MAJOR: `helmet()` (SecurityHeaders, XSS filter, HSTS, etc.) is commented out - "
+            "every default security header is now off in prod. Re-enable it (or the specific "
+            "headers you need) and remove the debug comment."
+        ),
+    },
+    {
+        "id": "SEC_AUDIT_008", "language": "javascript", "framework": "Express",
+        "severity": "🔴 BLOCKER",
+        "instruction": (
+            "Review this diff:\n\n"
+            "```diff\n"
+            "@@ -1,4 +1,4 @@\n"
+            " app.post('/api/user', (req, res) => {\n"
+            "-  const user = clean(req.body);\n"
+            "+  const user = Object.assign({}, req.body);\n"
+            "   db.save(user);\n"
+            " });\n"
+            "```"
+        ),
+        "output": (
+            "🔴 BLOCKER: `Object.assign({}, req.body)` copies attacker-controlled keys onto the "
+            "object - prototype pollution when `req.body` contains `__proto__`/`constructor`, "
+            "plus mass-assignment of internal fields. Whitelist the exact keys you save and "
+            "guard against `__proto__`."
+        ),
+    },
+    {
+        "id": "SEC_AUDIT_009", "language": "javascript", "framework": "Express",
+        "severity": "🟠 MAJOR",
+        "instruction": (
+            "Review this diff:\n\n"
+            "```diff\n"
+            "@@ -1,5 +1,5 @@\n"
+            " // POST /login\n"
+            " async function login(req, res) {\n"
+            "   const ok = await checkCreds(req.body);\n"
+            "   if (ok) {\n"
+            "-    console.log('login ok');\n"
+            "+    // rate limiter TODO\n"
+            "     res.json({ token: sign({ user: req.body.user }) });\n"
+            "   }\n"
+            " }\n"
+            "```"
+        ),
+        "output": (
+            "🔴 BLOCKER (auth): no rate limiter on the login endpoint - attackers can brute "
+            "force / credential-stuff indefinitely, and the placeholder comment shows it was "
+            "deferred. Add `express-rate-limit` (or an API gateway limit) and lockout on the "
+            "auth route before merging."
+        ),
+    },
+    {
+        "id": "SEC_AUDIT_010", "language": "go", "framework": "net/http",
+        "severity": "🔴 BLOCKER",
+        "instruction": (
+            "Review this diff:\n\n"
+            "```diff\n"
+            "@@ -1,4 +1,4 @@\n"
+            "-import \"html/template\"\n"
+            "+import \"text/template\"\n"
+            " \n"
+            " t, err := template.ParseFiles(\"user.html\")\n"
+            " t.Execute(w, userInput)\n"
+            "```"
+        ),
+        "output": (
+            "🔴 BLOCKER: switching to `text/template` for an HTML response disables all "
+            "auto-escaping - reflected `userInput` is rendered raw, opening stored/reflected "
+            "XSS. Revert to `html/template` which escapes context-appropriately."
+        ),
+    },
+    {
+        "id": "SEC_AUDIT_011", "language": "go", "framework": "database/sql",
+        "severity": "🟠 MAJOR",
+        "instruction": (
+            "Review this diff:\n\n"
+            "```diff\n"
+            "@@ -1,5 +1,5 @@\n"
+            " func listUsers() ([]User, error) {\n"
+            "     rows, err := db.Query(\"SELECT * FROM users\")\n"
+            "     if err != nil { return nil, err }\n"
+            "-    defer rows.Close()\n"
+            "     var us []User\n"
+            "     for rows.Next() { ... }\n"
+            "     return us, rows.Err()\n"
+            " }\n"
+            "```"
+        ),
+        "output": (
+            "🟠 MAJOR: the `defer rows.Close()` was dropped - the connection stays in the pool "
+            "until GC, leaking sockets under load and eventually exhausting the DB pool. "
+            "Restore `defer rows.Close()` immediately after the error check."
+        ),
+    },
+    {
+        "id": "SEC_AUDIT_012", "language": "go", "framework": "database/sql",
+        "severity": "🔴 BLOCKER",
+        "instruction": (
+            "Review this diff:\n\n"
+            "```diff\n"
+            "@@ -1,5 +1,5 @@\n"
+            " func openDB() *sql.DB {\n"
+            "-    dsn := os.Getenv(\"DB_DSN\")\n"
+            "+    dsn := \"postgres://admin:S3cretPass@10.10.0.5/prod\"\n"
+            "     db, _ := sql.Open(\"postgres\", dsn)\n"
+            "     return db\n"
+            " }\n"
+            "```"
+        ),
+        "output": (
+            "🔴 BLOCKER: hardcoded DB connection string with credentials at line 3 - leaks prod "
+            "DB password to anyone with repo access. Read from env/secret store and rotate the "
+            "password immediately."
+        ),
+    },
+    {
+        "id": "SEC_AUDIT_013", "language": "go", "framework": "net/http",
+        "severity": "🟠 MAJOR",
+        "instruction": (
+            "Review this diff:\n\n"
+            "```diff\n"
+            "@@ -1,4 +1,4 @@\n"
+            " func fetch(req Request) ([]byte, error) {\n"
+            "-    ctx, cancel := context.WithTimeout(req.Context(), 5*time.Second)\n"
+            "-    defer cancel()\n"
+            "     httpReq, _ := http.NewRequest(\"GET\", url, nil)\n"
+            "     resp, err := http.DefaultClient.Do(httpReq)\n"
+            "```"
+        ),
+        "output": (
+            "🟠 MAJOR: the `context.WithTimeout` wrapper was removed - the outbound HTTP call "
+            "now has no deadline, so a hung upstream can stall the goroutine/connection forever. "
+            "Re-add the timeout context and pass it to `NewRequestWithContext`."
+        ),
+    },
+
+
+    {
+        "id": "SEC_AUDIT_014", "language": "python", "framework": "general",
+        "severity": "🔴 BLOCKER",
+        "instruction": (
+            "Review this diff:\n\n"
+            "```diff\n"
+            "@@ -1,4 +1,4 @@\n"
+            " def restore(state):\n"
+            "-    state = json.loads(state)\n"
+            "+    state = pickle.loads(state)\n"
+            "     return state\n"
+            "```"
+        ),
+        "output": (
+            "🔴 BLOCKER: `pickle.loads` on any data that could be attacker-controlled is "
+            "arbitrary code execution - pickles run `__reduce__` during unpickling. Never "
+            "unpickle untrusted input; use JSON or a signed serialization format."
+        ),
+    },
+    {
+        "id": "SEC_AUDIT_015", "language": "python", "framework": "FastAPI",
+        "severity": "🔴 BLOCKER",
+        "instruction": (
+            "Review this diff:\n\n"
+            "```diff\n"
+            "@@ -1,5 +1,5 @@\n"
+            " import subprocess\n"
+            " def run(cmd):\n"
+            "-    parts = shlex.split(cmd)\n"
+            "-    return subprocess.run(parts, check=True)\n"
+            "+    parts = shlex.split(cmd)\n"
+            "+    return subprocess.run(cmd, shell=True, check=True)\n"
+            "```"
+        ),
+        "output": (
+            "🔴 BLOCKER: `shell=True` on a string that originates from user input is command "
+            "injection even after `shlex.split` (the raw string reaches the shell). Use the "
+            "argument-list form without `shell=True`, or validate against an allowlist first."
+        ),
+    },
+    {
+        "id": "SEC_AUDIT_016", "language": "javascript", "framework": "Express",
+        "severity": "🟠 MAJOR",
+        "instruction": (
+            "Review this diff:\n\n"
+            "```diff\n"
+            "@@ -1,4 +1,4 @@\n"
+            " async function verifyPassword(user, supplied) {\n"
+            "-  const ok = await bcrypt.compare(supplied, user.hash);\n"
+            "+  const ok = bcrypt.compare(supplied, user.hash);\n"
+            "   return ok;\n"
+            " }\n"
+            "```"
+        ),
+        "output": (
+            "🟠 MAJOR: dropping `await` on `bcrypt.compare(...)` returns a pending Promise - "
+            "auth will always evaluate truthy and let anyone log in, and it defeats the "
+            "comparison's timing safety. Keep `await` and handle the rejection path."
+        ),
+    },
+    {
+        "id": "SEC_AUDIT_017", "language": "go", "framework": "database/sql",
+        "severity": "🔴 BLOCKER",
+        "instruction": (
+            "Review this diff:\n\n"
+            "```diff\n"
+            "@@ -1,4 +1,4 @@\n"
+            " func find(id string) (Item, error) {\n"
+            "-    row := db.QueryRow(\"SELECT * FROM items WHERE id = ?\", id)\n"
+            "+    row := db.QueryRow(\"SELECT * FROM items WHERE id = '\" + id + \"'\")\n"
+            "     return scan(row)\n"
+            " }\n"
+            "```"
+        ),
+        "output": (
+            "🔴 BLOCKER: concatenating `id` into the SQL string reopens SQL injection. One "
+            "parameterized query is the fix - `db.QueryRow(\"SELECT * FROM items WHERE id = ?\", id)`."
+        ),
+    },
+
+    {
+        "id": "SEC_AUDIT_018", "language": "python", "framework": "FastAPI",
+        "severity": "🟠 MAJOR",
+        "instruction": (
+            "Review this diff:\n\n"
+            "```diff\n"
+            "@@ -1,5 +1,5 @@\n"
+            " @app.post(\"/render\")\n"
+            " def render(tpl: str):\n"
+            "-    out = template_env.from_string(tpl).render(user=current_user)\n"
+            "+    out = open(f\"/templates/{tpl}.html\").read()\n"
+            "     return HTMLResponse(out)\n"
+            "```"
+        ),
+        "output": (
+            "🟠 MAJOR: path joining with `tpl` unchecked enables directory traversal "
+            "(`../../etc/passwd.html`) and loses template sandboxing. Use a Jinja loader with "
+            "an allowlist and never raw `open()` on a user-controlled filename."
+        ),
+    },
+    {
+        "id": "SEC_AUDIT_019", "language": "javascript", "framework": "Express",
+        "severity": "🟠 MAJOR",
+        "instruction": (
+            "Review this diff:\n\n"
+            "```diff\n"
+            "@@ -1,4 +1,4 @@\n"
+            " app.get('/search', (req, res) => {\n"
+            "-  const q = escapeHtml(req.query.q);\n"
+            "+  const q = req.query.q.replace(/[<>]/g, '');\n"
+            "   res.send(`<div>${q}</div>`);\n"
+            " });\n"
+            "```"
+        ),
+        "output": (
+            "🟠 MAJOR: stripping only `<`/`>` is a fragile XSS defense - encodings and attribute "
+            "contexts still escape. Use a proper output-encoding helper (`escapeHtml` or the "
+            "template engine's escaping) so `q` can't break out of context."
+        ),
+    },
+    {
+        "id": "SEC_AUDIT_020", "language": "python", "framework": "general",
+        "severity": "🟠 MAJOR",
+        "instruction": (
+            "Review this diff:\n\n"
+            "```diff\n"
+            "@@ -1,4 +1,4 @@\n"
+            " def fetch_avatar(url):\n"
+            "-    parsed = urlparse(url)\n"
+            "-    if parsed.scheme not in ('http', 'https'): raise ValueError()\n"
+            "+    res = requests.get(url, timeout=5)\n"
+            "     return res.content\n"
+            "```"
+        ),
+        "output": (
+            "🟠 MAJOR: the scheme/domain validation was removed - `url` now reaches "
+            "`requests.get` unchecked, re-enabling SSRF against internal metadata/loopback. "
+            "Re-add the scheme + hostname allowlist and reject private ranges."
+        ),
+    },
+]
+
+def generate_security_audit_samples() -> list:
+    """Return the security-audit PR-diff + review-comment pairs as plain dicts.
+
+    Each entry has an `instruction` (the vulnerable diff) and an `output`
+    (a severity-tagged review comment with a concrete fix), so callers can
+    write it straight to a training JSONL without mutation.
+    """
+    return [dict(s) for s in SECURITY_SAMPLES]
+
+
+def append_additional_pairs(output_path: str) -> int:
+    """Append ADDITIONAL_PAIRS to the existing code-review set, skipping any
+    id already present so the script stays idempotent on re-runs."""
+    # Load existing ids (if the file exists)
+    existing_ids = set()
+    _existing_lines = []
+    if Path(output_path).exists():
+        with open(output_path, encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                _existing_lines.append(line)
+                try:
+                    item = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                if isinstance(item, dict) and item.get("id"):
+                    existing_ids.add(item["id"])
+
+    added = 0
     for pair in ADDITIONAL_PAIRS:
-        f.write(json.dumps(pair) + "\n")
+        if pair["id"] in existing_ids:
+            continue
+        with open(output_path, "a", encoding="utf-8") as f:
+            f.write(json.dumps(pair) + "\n")
+        existing_ids.add(pair["id"])
+        added += 1
 
-total = len(existing) + len(ADDITIONAL_PAIRS)
-print(f"Added {len(ADDITIONAL_PAIRS)} code review pairs. Total: {total}")
+    new_total = len(_existing_lines) + added
+    print(f"Code-review additions: appended {added} new (skipped duplicates). "
+          f"Total now: {new_total}")
+    return added
 
-# Count cells
-cells = {}
-for pair in ADDITIONAL_PAIRS:
-    cells[pair["cell"]] = cells.get(pair["cell"], 0) + 1
-print(f"New pairs by cell: {json.dumps(cells, indent=2)}")
+
+def main() -> None:
+    # 1) Preserve existing behavior: append the classic 4-cell pairs.
+    append_additional_pairs("data/train_code_review.jsonl")
+
+    # 2) New: write the security-audit sub-lane (PR-diff + review-comment pairs).
+    out_dir = Path(__file__).resolve().parent.parent / "processed"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    out_path = out_dir / "training-data-code-review-security.jsonl"
+
+    samples = generate_security_audit_samples()
+    with open(out_path, "w", encoding="utf-8") as f:
+        for s in samples:
+            f.write(json.dumps(s, ensure_ascii=False) + "\n")
+
+    print(f"Security-audit sub-lane: {len(samples)} samples -> {out_path}")
+    by_sev = {}
+    for s in samples:
+        by_sev[s["severity"]] = by_sev.get(s["severity"], 0) + 1
+    print(f"By severity: {by_sev}")
+
+
+if __name__ == "__main__":
+    main()
+
+

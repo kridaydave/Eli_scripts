@@ -75,3 +75,12 @@ This runs inference against the **45 zero-leakage held-out prompts** in `data/he
 2. `score_hedging_matches_certainty`: Does low/medium certainty output offer diagnostic steps / candidate causes rather than single confident fixes?
 3. `score_no_register_bleed`: Is snark/wit restricted to low-stakes scenarios?
 4. `score_distinguishes_grid_cell`: Does the response accurately reflect the specific $2 \times 2$ grid cell context?
+
+---
+
+### Step 7: Phase 3 Unified White-Box RL Environment (Kimi K3 Integration)
+
+Following SFT and DPO, execute Phase 3 post-training using the modular white-box RL harness engine:
+- Specification: [docs/phase-3-unified-rl-harness-spec.md](file:///home/kriday/Desktop/epoch-1/docs/phase-3-unified-rl-harness-spec.md)
+- Rotate tool interfaces, system prompts, protocol schemas (Claude Code, Codex, Kimi Code, OpenClaw, Hermes, Eli Native) dynamically during GRPO/PPO RL training to eliminate harness overfitting.
+
